@@ -1,38 +1,65 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
+use App\Http\Controllers\Investments\DashboardController;
+use App\Http\Controllers\Investments\InvestmentController;
+use App\Http\Controllers\Investments\InvestorController;
+use App\Http\Controllers\Investments\ProfileController;
+use App\Http\Controllers\Investments\SettingsController;
+use App\Http\Controllers\Investments\SubmissionController;
+use App\Http\Controllers\Investments\UserController;
+use App\Http\Controllers\Investments\WithdrawalController;
+use App\Http\Controllers\Site\AboutController;
+use App\Http\Controllers\Site\FranchiseController;
+use App\Http\Controllers\Site\HomeController;
+use App\Http\Controllers\Site\InvestController;
+use App\Http\Controllers\Site\ProductsController;
+use App\Http\Controllers\Site\StoresController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+# WEBSITE ROUTES
+Route::name('site.')->group(function () {
+    Route::get('/', HomeController::class)->name('home');
+    Route::get('about', AboutController::class)->name('about');
+    Route::get('products', ProductsController::class)->name('products');
+    Route::get('stores', StoresController::class)->name('stores');
+    Route::get('franchise', FranchiseController::class)->name('franchise');
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    Route::prefix('invest')
+        ->name('invest.')
+        ->group(function () {
+            Route::get('/', [InvestController::class, 'index'])->name('index');
+            Route::get('form', [InvestController::class, 'create'])->name(
+                'form'
+            );
+        });
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+# INVESTMENT SYSTEM ROUTES
+Route::middleware(['auth'])
+    ->name('invest.')
+    ->prefix('invest')
+    ->group(function () {
+        Route::get('dashboard', DashboardController::class)->name('dashboard');
+        Route::get('profile', ProfileController::class)->name('profile');
+        Route::get('settings', SettingsController::class)->name('settings');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+        Route::resource('investments', InvestmentController::class)->except([
+            'create, edit',
+        ]);
+        Route::resource('withdrawals', WithdrawalController::class)->except([
+            'create, edit',
+        ]);
 
-require __DIR__.'/auth.php';
+        # ADMIN ONLY
+        Route::middleware('role:admin')->group(function () {
+            Route::resource('submissions', SubmissionController::class);
+            Route::resource('users', UserController::class)->except([
+                'create, edit',
+            ]);
+            Route::resource('investors', InvestorController::class)->except([
+                'create, edit',
+            ]);
+        });
+    });
+
+require __DIR__ . '/auth.php';

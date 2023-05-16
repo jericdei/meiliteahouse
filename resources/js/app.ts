@@ -1,23 +1,62 @@
-import './bootstrap';
-import '../css/app.css';
+import './bootstrap'
+import '../css/app.css'
+import '/public/css/themes/light.css'
+import 'primeicons/primeicons.css'
+import 'primevue/resources/primevue.min.css'
 
-import { createApp, h, DefineComponent } from 'vue';
-import { createInertiaApp } from '@inertiajs/vue3';
-import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
-import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
+import type { DefineComponent } from 'vue'
 
-const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
+import { createSSRApp, h } from 'vue'
+import { Head, Link, createInertiaApp } from '@inertiajs/vue3'
+import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m'
+
+import PrimeVue from 'primevue/config'
+import Button from 'primevue/button'
+
+import Site from './Layouts/Site.vue'
+import Invest from './Layouts/Invest.vue'
+
+const appName =
+    window.document.getElementsByTagName('title')[0]?.innerText ||
+    'Mei Li Tea House'
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
-    resolve: (name) => resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob<DefineComponent>('./Pages/**/*.vue')),
+    resolve: async (name: string) => {
+        const pages = import.meta.glob<DefineComponent>('./Pages/**/*.vue', {
+            eager: true,
+        })
+
+        let page = pages[`./Pages/${name}.vue`]
+
+        if (name.startsWith('Investments/')) {
+            page.default.layout = Invest
+        } else if (name.startsWith('Site/')) {
+            page.default.layout = Site
+        } else {
+            page.default.layout = undefined
+        }
+
+        return page
+    },
     setup({ el, App, props, plugin }) {
-        createApp({ render: () => h(App, props) })
+        createSSRApp({ render: () => h(App, props) })
             .use(plugin)
-            .use(ZiggyVue, Ziggy)
-            .mount(el);
+            .component('Head', Head)
+            .component('Link', Link)
+            .component('router-link', {
+                props: ['to', 'custom'],
+                template: `
+                    <Link :href="to">
+                    <slot />
+                    </Link>`,
+            })
+            .component('Button', Button)
+            .use(ZiggyVue, (window as any).Ziggy)
+            .use(PrimeVue, { ripple: true })
+            .mount(el)
     },
     progress: {
-        color: '#4B5563',
+        color: '#890202',
     },
-});
+})
