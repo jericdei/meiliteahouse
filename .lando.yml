@@ -9,7 +9,7 @@ proxy:
 services:
   appserver:
     build_as_root:
-      - curl -sL https://deb.nodesource.com/setup_19.x | bash -
+      - curl -sL https://deb.nodesource.com/setup_18.x | bash -
       - apt-get install -y nodejs
   database:
     type: mysql
@@ -19,10 +19,11 @@ services:
       password: password
       database: meiliteahouse
   node:
-    type: node
+    type: node:18
     scanner: false
     ports:
       - "5176:5176"
+      - "13711:13711"
     build:
       - yarn install && yarn build
 tooling:
@@ -36,3 +37,6 @@ tooling:
   build:
     service: node
     cmd: yarn build
+  ssr:
+    service: appserver
+    cmd: php artisan inertia:start-ssr
