@@ -47,6 +47,10 @@ body {
     font-family: var(--font-family);
 }
 
+#app {
+    @apply h-screen;
+}
+
 h1,
 h2,
 h3,
@@ -57,7 +61,7 @@ h6 {
 }
 
 main {
-    @apply flex flex-col;
+    @apply flex flex-col h-full;
 }
 
 #main {

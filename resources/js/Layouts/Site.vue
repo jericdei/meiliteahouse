@@ -3,6 +3,14 @@ import { router } from '@inertiajs/vue3'
 import Image from 'primevue/image'
 import Menu from 'primevue/menu'
 import { ref } from 'vue'
+import { useWindowScroll } from '@vueuse/core'
+import { computed } from 'vue'
+
+const { y } = useWindowScroll()
+
+const activeBorderColor = computed(() => {
+    return y.value > 0 ? 'var(--tw-slate-50)' : 'var(--primary-color)'
+})
 
 const menu = ref()
 
@@ -51,7 +59,8 @@ const items = ref([
         class="bg-[url('/images/bg-body.svg')] bg-fixed bg-cover bg-no-repeat"
     >
         <header
-            class="flex items-center justify-between bg-primary lg:bg-transparent text-slate-50 p-3 lg:p-5 lg:px-10"
+            class="flex items-center justify-between bg-primary lg:bg-transparent text-slate-50 p-3 lg:p-5 lg:px-10 sticky top-0 transition-all z-10"
+            :class="{ 'lg:bg-primary lg:py-3': y > 0 }"
         >
             <div class="flex items-center gap-3">
                 <Image
@@ -77,6 +86,7 @@ const items = ref([
 
                 <nav
                     class="hidden lg:flex items-center gap-10 text-primary font-heading"
+                    :class="{ 'text-slate-50': y > 0 }"
                 >
                     <ul class="flex gap-8 font-bold">
                         <li :class="{ active: $page.url === '/' }">
@@ -118,6 +128,7 @@ const items = ref([
                     <Link :href="route('auth.login')">
                         <Button
                             :label="$page.props.user ? 'Dashboard' : 'Login'"
+                            :severity="y > 0 ? 'secondary' : 'primary'"
                         />
                     </Link>
                 </nav>
@@ -144,6 +155,7 @@ nav ul li {
 }
 
 .active {
-    @apply pb-2 border-b-primary border-b-4 border-spacing-y-10;
+    @apply pb-2 border-b-4 border-spacing-y-10;
+    border-color: v-bind('activeBorderColor');
 }
 </style>

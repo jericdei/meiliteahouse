@@ -17,7 +17,7 @@ const props = defineProps<{
 
 const page = usePage()
 
-const activeSidebarLink = ref<String>()
+const activeSidebarLink = ref<String>('')
 
 const menu = ref()
 const items = ref([
@@ -135,7 +135,6 @@ onUpdated(() => (activeSidebarLink.value = page.url))
                                 <Avatar
                                     class="cursor-pointer bg-warning text-slate-50"
                                     :label="props.user.initials"
-                                    size="small"
                                     shape="circle"
                                 />
                             </div>
