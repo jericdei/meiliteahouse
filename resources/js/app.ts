@@ -7,6 +7,7 @@ import 'primevue/resources/primevue.min.css'
 import type { DefineComponent } from 'vue'
 
 import { createSSRApp, h } from 'vue'
+import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers'
 import { Head, Link, createInertiaApp } from '@inertiajs/vue3'
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m'
 
@@ -22,12 +23,11 @@ const appName =
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
-    resolve: async (name: string) => {
-        const pages = import.meta.glob<DefineComponent>('./Pages/**/*.vue', {
-            eager: true,
-        })
-
-        let page = pages[`./Pages/${name}.vue`]
+    resolve: async (name) => {
+        const page = await resolvePageComponent(
+            `./Pages/${name}.vue`,
+            import.meta.glob<DefineComponent>('./Pages/**/*.vue')
+        )
 
         if (name.startsWith('Investments/')) {
             page.default.layout = Invest
