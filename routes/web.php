@@ -24,14 +24,8 @@ Route::name('site.')->group(function () {
     Route::get('stores', StoresController::class)->name('stores');
     Route::get('franchise', FranchiseController::class)->name('franchise');
 
-    Route::prefix('invest')
-        ->name('invest.')
-        ->group(function () {
-            Route::get('/', [InvestController::class, 'index'])->name('index');
-            Route::get('form', [InvestController::class, 'create'])->name(
-                'form'
-            );
-        });
+    Route::get('investments/form', [InvestController::class, 'form'])->name('investments.form');
+    Route::resource('investments', InvestController::class)->except(['create', 'show', 'destroy']);
 });
 
 # INVESTMENT SYSTEM ROUTES

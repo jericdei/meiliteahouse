@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('contact_no');
             $table->string('email');
-            $table->string('profile_picture');
             $table->unsignedInteger('age');
             $table->foreignId('referred_by')
                 ->nullable()
@@ -30,8 +29,6 @@ return new class extends Migration
             $table->double('investment_amount', 9, 2);
             $table->string('reference_no');
             $table->string('payment_method');
-            $table->string('valid_id');
-            $table->string('proof_of_payment');
             $table->softDeletes();
             $table->timestamps();
         });

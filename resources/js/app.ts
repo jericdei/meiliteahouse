@@ -13,6 +13,9 @@ import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m'
 
 import PrimeVue from 'primevue/config'
 import Button from 'primevue/button'
+import ConfirmationService from 'primevue/confirmationservice'
+import DialogService from 'primevue/dialogservice'
+import ToastService from 'primevue/toastservice'
 
 import Site from './Layouts/Site.vue'
 import Invest from './Layouts/Invest.vue'
@@ -52,7 +55,10 @@ createInertiaApp({
                     </Link>`,
             })
             .component('Button', Button)
-            .use(ZiggyVue, (window as any).Ziggy)
+            .use(ToastService)
+            .use(ConfirmationService)
+            .use(DialogService)
+            .use(ZiggyVue, Ziggy)
             .use(PrimeVue, { ripple: true })
             .mount(el)
     },

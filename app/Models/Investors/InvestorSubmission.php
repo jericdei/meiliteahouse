@@ -3,11 +3,11 @@
 namespace App\Models\Investors;
 
 use App\Enums\Common\StatusEnum;
-use App\Enums\OccupationTypeEnum;
-use App\Enums\PaymentMethodEnum;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Enums\Investors\OccupationTypeEnum;
+use App\Enums\Transactions\PaymentMethodEnum;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class InvestorSubmission extends Model
 {

@@ -59,7 +59,9 @@ const occupation = computed(() => {
     return form.occupationType === 'student' ? 'School' : 'Company'
 })
 
-const submit = () => console.log(form.data())
+const submit = () => {
+    form.post(route('site.investments.store'))
+}
 </script>
 
 <template>
@@ -68,7 +70,7 @@ const submit = () => console.log(form.data())
 
         <h1 class="form-heading text-center my-10">Investment Form</h1>
 
-        <form @submit.prevent="submit()">
+        <form @submit.prevent="submit()" enctype="multipart/form-data">
             <div
                 class="bg-slate-200 p-3 md:p-10 rounded-xl mx-5 md:mx-10 lg:mx-20"
             >
@@ -183,6 +185,9 @@ const submit = () => console.log(form.data())
                                 accept="image/*"
                                 chooseLabel="Upload"
                                 v-model="form.profilePicture"
+                                @input="
+                                    form.profilePicture = $event.target.files[0]
+                                "
                             />
                         </span>
                     </div>
@@ -395,6 +400,7 @@ const submit = () => console.log(form.data())
                                 accept="image/*"
                                 chooseLabel="Upload"
                                 v-model="form.validId"
+                                @input="form.validId = $event.target.files[0]"
                             />
                         </span>
 
@@ -411,6 +417,9 @@ const submit = () => console.log(form.data())
                                 accept="image/*"
                                 chooseLabel="Upload"
                                 v-model="form.proofOfPayment"
+                                @input="
+                                    form.proofOfPayment = $event.target.files[0]
+                                "
                             />
                         </span>
                     </div>

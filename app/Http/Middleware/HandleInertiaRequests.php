@@ -44,6 +44,18 @@ class HandleInertiaRequests extends Middleware
                     'location' => $request->url(),
                 ]);
             },
+            "flash" => function () use ($request) {
+                $flashTypes = ["success", "error", "warning"];
+                foreach ($request->session()->all() as $key => $value) {
+                    if (in_array($key, $flashTypes)) {
+                        return [
+                            "severity" => $key === "warning" ? "warn" : $key,
+                            "summary" => ucfirst($key) . "!",
+                            "detail" => $value,
+                        ];
+                    }
+                }
+            },
         ]);
     }
 }

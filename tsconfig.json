@@ -1,19 +1,24 @@
 {
     "compilerOptions": {
         "allowJs": true,
-        "module": "ESNext",
+        "module": "esnext",
         "moduleResolution": "bundler",
         "jsx": "preserve",
         "strict": true,
         "isolatedModules": true,
-        "target": "ESNext",
+        "target": "esnext",
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
         "noEmit": true,
         "skipLibCheck": true,
         "paths": {
             "@/*": ["./resources/js/*"]
-        }
+        },
+        "types": ["node"]
     },
-    "include": ["resources/js/**/*.ts", "resources/js/**/*.d.ts", "resources/js/**/*.vue"]
+    "include": [
+        "resources/js/**/*.ts",
+        "resources/js/**/*.d.ts",
+        "resources/js/**/*.vue"
+    ]
 }

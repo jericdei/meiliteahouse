@@ -1,12 +1,18 @@
 <script setup lang="ts">
-import { router } from '@inertiajs/vue3'
+import { router, usePage } from '@inertiajs/vue3'
 import Image from 'primevue/image'
 import Menu from 'primevue/menu'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { useWindowScroll } from '@vueuse/core'
 import { computed } from 'vue'
+import { useToast } from 'primevue/usetoast'
+import { ToastMessageOptions } from 'primevue/toast'
+import Toast from 'primevue/toast'
+import DynamicDialog from 'primevue/dynamicdialog'
+import ConfirmDialog from 'primevue/confirmdialog'
 
 const { y } = useWindowScroll()
+const toast = useToast()
 
 const activeBorderColor = computed(() => {
     return y.value > 0 ? 'var(--tw-slate-50)' : 'var(--primary-color)'
@@ -52,15 +58,51 @@ const items = ref([
         command: () => router.get(route('site.invest')),
     },
 ])
+
+watch(
+    () => usePage().props.flash,
+    (flash: ToastMessageOptions) => {
+        if (flash) {
+            toast.add({
+                severity: flash.severity,
+                life: flash.life ?? 3000,
+                summary: flash.summary,
+                detail: flash.detail,
+                group: 'br',
+                closable: true,
+            })
+        }
+    },
+    { deep: true }
+)
+
+watch(
+    () => usePage().props.errors,
+    (errors) => {
+        Object.values(errors).forEach((item: any) => {
+            toast.add({
+                severity: 'error',
+                life: 3000,
+                summary: 'Error!',
+                detail: item,
+                group: 'br',
+                closable: true,
+            })
+        })
+    }
+)
 </script>
 
 <template>
     <main
         class="bg-[url('/images/bg-body.svg')] bg-fixed bg-cover bg-no-repeat"
     >
+        <Toast position="bottom-right" group="br" />
+        <DynamicDialog />
+        <ConfirmDialog />
         <header
-            class="flex items-center justify-between bg-primary lg:bg-transparent text-slate-50 p-3 lg:p-5 lg:px-10 sticky top-0 transition-all z-10"
-            :class="{ 'lg:bg-primary lg:py-3': y > 0 }"
+            class="flex items-center justify-between bg-primary lg:bg-opacity-0 text-slate-50 p-3 lg:p-5 lg:px-10 sticky top-0 transition-all z-10"
+            :class="y > 0 && 'lg:bg-opacity-100 lg:py-3'"
         >
             <div class="flex items-center gap-3">
                 <Image
@@ -119,7 +161,7 @@ const items = ref([
                         <li
                             :class="{ active: $page.url.startsWith('/invest') }"
                         >
-                            <Link :href="route('site.invest.index')"
+                            <Link :href="route('site.investments.index')"
                                 >Invest</Link
                             >
                         </li>
