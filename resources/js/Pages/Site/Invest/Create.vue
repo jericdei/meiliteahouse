@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { Dropdown as DropdownObj } from '@/Types/common'
-import type { SchoolDetails, CompanyDetails } from '@/Types/submission'
+import type { Dropdown as DropdownObj } from '@/types/common'
+import type { SchoolDetails, CompanyDetails } from '@/types/submission'
 
 import { useForm } from '@inertiajs/vue3'
 import InputText from 'primevue/inputtext'
@@ -22,35 +22,35 @@ const form = useForm<{
     email: string
     age: number
     referralCode: string
-    profilePicture: File
+    profilePicture: File | null
     occupationType: string
     occupationData: SchoolDetails & CompanyDetails
     paymentMethod: string
     initialInvestment: number
     referenceNumber: string
-    validId: File
-    proofOfPayment: File
+    validId: File | null
+    proofOfPayment: File | null
 }>({
-    firstName: null,
-    middleName: null,
-    lastName: null,
-    contactNo: null,
-    email: null,
-    age: null,
-    referralCode: null,
+    firstName: '',
+    middleName: '',
+    lastName: '',
+    contactNo: '',
+    email: '',
+    age: 18,
+    referralCode: '',
     profilePicture: null,
-    occupationType: null,
+    occupationType: '',
     occupationData: {
-        name: null,
-        address: null,
-        contactNo: null,
-        courseYear: null,
-        position: null,
-        workYears: null,
+        name: '',
+        address: '',
+        contactNo: '',
+        courseYear: '',
+        position: '',
+        workYears: 0,
     },
-    paymentMethod: null,
-    initialInvestment: null,
-    referenceNumber: null,
+    paymentMethod: '',
+    initialInvestment: 0,
+    referenceNumber: '',
     validId: null,
     proofOfPayment: null,
 })
