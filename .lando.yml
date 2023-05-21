@@ -1,42 +1,44 @@
 name: meiliteahouse-website
 recipe: laravel
 config:
-  webroot: ./public
-  php: "8.2"
+    webroot: ./public
+    php: '8.2'
 proxy:
-  appserver:
-    - meiliteahouse-website.localhost
+    appserver:
+        - meiliteahouse-website.localhost
 services:
-  appserver:
-    build_as_root:
-      - curl -sL https://deb.nodesource.com/setup_18.x | bash -
-      - apt-get install -y nodejs
-  database:
-    type: mysql
-    portforward: 33066
-    creds:
-      user: username
-      password: password
-      database: meiliteahouse
-  node:
-    type: node:18
-    scanner: false
-    ports:
-      - "5176:5176"
-      - "13711:13711"
-    build:
-      - yarn install && yarn build
+    appserver:
+        scanner: false
+        xdebug: debug
+        build_as_root:
+            - curl -sL https://deb.nodesource.com/setup_18.x | bash -
+            - apt-get install -y nodejs
+    database:
+        type: mysql
+        portforward: 33066
+        creds:
+            user: username
+            password: password
+            database: meiliteahouse
+    node:
+        type: node:18
+        scanner: false
+        ports:
+            - '5176:5176'
+            - '13711:13711'
+        build:
+            - yarn install && yarn build
 tooling:
-  node:
-    service: appserver
-  yarn:
-    service: node
-  dev:
-    service: node
-    cmd: yarn dev
-  build:
-    service: node
-    cmd: yarn build
-  ssr:
-    service: appserver
-    cmd: php artisan inertia:start-ssr
+    node:
+        service: appserver
+    yarn:
+        service: node
+    dev:
+        service: node
+        cmd: yarn dev
+    build:
+        service: node
+        cmd: yarn build
+    ssr:
+        service: appserver
+        cmd: php artisan inertia:start-ssr

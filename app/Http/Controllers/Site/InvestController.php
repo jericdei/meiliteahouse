@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Site;
 
 use Inertia\Response;
-use App\Enums\Transactions\PaymentMethodEnum;
-use App\Enums\Investors\OccupationTypeEnum;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Investments\SubmissionStoreRequest;
+use App\Enums\Investors\OccupationTypeEnum;
+use App\Enums\Transactions\PaymentMethodEnum;
 use App\Services\Investments\SubmissionService;
+use App\Http\Requests\Investments\SubmissionStoreRequest;
+use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 
 class InvestController extends Controller
 {

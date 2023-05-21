@@ -6,7 +6,6 @@ import { ref, watch } from 'vue'
 import { useWindowScroll } from '@vueuse/core'
 import { computed } from 'vue'
 import { useToast } from 'primevue/usetoast'
-import { ToastMessageOptions } from 'primevue/toast'
 import Toast from 'primevue/toast'
 import DynamicDialog from 'primevue/dynamicdialog'
 import ConfirmDialog from 'primevue/confirmdialog'
@@ -61,7 +60,7 @@ const items = ref([
 
 watch(
     () => usePage().props.flash,
-    (flash: ToastMessageOptions) => {
+    (flash: any) => {
         if (flash) {
             toast.add({
                 severity: flash.severity,
