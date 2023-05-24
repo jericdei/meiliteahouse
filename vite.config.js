@@ -25,7 +25,7 @@ export default defineConfig({
         https: false,
         host: true,
         strictPort: true,
-        port: 5176,
+        port: 5181,
         hmr: {
             host: 'localhost',
             protocol: 'ws',

@@ -15,7 +15,7 @@ services:
             - apt-get install -y nodejs
     database:
         type: mysql
-        portforward: 33066
+        portforward: 33071
         creds:
             user: username
             password: password
@@ -24,7 +24,7 @@ services:
         type: node:18
         scanner: false
         ports:
-            - '5176:5176'
+            - '5181:5181'
             - '13711:13711'
         build:
             - yarn install && yarn build
