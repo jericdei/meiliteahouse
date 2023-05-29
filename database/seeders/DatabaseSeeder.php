@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use Database\Seeders\Auth\RolesAndPermissionsSeeder;
 use Database\Seeders\Investor\ClassificationSeeder;
+use Database\Seeders\Products\CategorySeeder;
+use Database\Seeders\Products\ProductSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,7 +17,9 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             RolesAndPermissionsSeeder::class,
-            ClassificationSeeder::class
+            ClassificationSeeder::class,
+            CategorySeeder::class,
+            ProductSeeder::class
         ]);
     }
 }

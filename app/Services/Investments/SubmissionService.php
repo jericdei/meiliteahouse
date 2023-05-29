@@ -15,16 +15,21 @@ class SubmissionService
 
     public function store(mixed $input)
     {
+        // Generate UUID
         $id = Str::orderedUuid();
 
-        foreach ([
+        // Upload files
+        $files = [
             "profile" => $input['profilePicture'],
             "id" => $input['validId'],
             "proof" => $input['proofOfPayment']
-        ] as $name => $file) {
+        ];
+
+        foreach ($files as $name => $file) {
             $this->fileService->upload("submissions/$id", $file, $name);
         }
 
+        // Create a new submission
         InvestorSubmission::create([
             'id' => $id,
             'first_name' => $input['firstName'],

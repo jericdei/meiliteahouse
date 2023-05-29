@@ -45,10 +45,7 @@
 
 body {
     font-family: var(--font-family);
-}
-
-#app {
-    @apply h-screen;
+    @apply text-slate-950;
 }
 
 h1,
@@ -60,14 +57,6 @@ h6 {
     font-family: 'Poppins', sans-serif;
 }
 
-main {
-    @apply flex flex-col h-full;
-}
-
-#main {
-    @apply flex flex-grow;
-}
-
-#content {
-    @apply flex-grow;
+#app {
+    @apply h-screen;
 }

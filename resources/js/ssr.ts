@@ -46,7 +46,7 @@ createServer(
                         props: ['to', 'custom'],
                         template: `
                     <Link :href="to">
-                    <slot />
+                        <slot />
                     </Link>`,
                     })
                     .component('Button', Button)
