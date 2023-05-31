@@ -10,8 +10,16 @@ interface Product {
     photo: string
 }
 
+interface Location {
+    id: number
+    name: string
+    type: string
+    address: string
+}
+
 const props = defineProps<{
     featuredProducts: Product[]
+    locations: Location[]
 }>()
 </script>
 
@@ -41,7 +49,7 @@ const props = defineProps<{
                 </h1>
 
                 <Button
-                    label="See our products"
+                    label="Learn more"
                     severity="secondary"
                     icon="pi pi-angle-down"
                     iconPos="right"
@@ -55,22 +63,37 @@ const props = defineProps<{
             />
         </div>
 
+        <!-- About -->
+        <div class="py-16 px-8 text-center bg-slate-100">
+            <h2 class="font-bold text-4xl italic">
+                "THE FIRST SIZZLING ASIAN-CHINESE CUISINE IN THE WORLD."
+            </h2>
+
+            <p class="mt-5 text-2xl mx-16">
+                Ignite your palate with the scintillating essence of Asia as we
+                present the world's first sizzling Asian-Chinese cuisine. A
+                fusion of tradition and innovation that will leave you craving
+                for more.
+            </p>
+        </div>
+
         <!-- Featured Products -->
         <div
-            class="grid grid-cols-1 lg:grid-cols-2 text-slate-100 bg-secondary py-16 px-8"
+            class="grid grid-cols-1 lg:grid-cols-2 items-center text-slate-50 bg-secondary py-16 px-8"
         >
             <div>
-                <h2 class="text-8xl font-bold text-center">Our Products</h2>
+                <h2 class="text-6xl font-bold text-center">Our Products</h2>
 
-                <p class="text-3xl mt-8 text-justify">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Voluptatibus animi tempora nesciunt, repellendus praesentium
-                    ratione accusantium, ullam pariatur suscipit consectetur
-                    similique beatae excepturi. Commodi voluptatum totam
-                    incidunt, eum iusto similique.
+                <p class="text-2xl mt-8 text-justify">
+                    Indulge in our meticulously crafted products, skillfully
+                    prepared with authentic ingredients that cater to every
+                    discerning palate. Discover flavors that transcend
+                    boundaries and delight even the most selective tastes.
                 </p>
 
-                <Button class="mt-16" size="large" label="View our menu" />
+                <div class="grid place-items-center">
+                    <Button class="mt-16" size="large" label="View our menu" />
+                </div>
             </div>
 
             <div>
@@ -92,6 +115,34 @@ const props = defineProps<{
                             </p>
 
                             <p class="mt-2">{{ data.description }}</p>
+                        </div>
+                    </template>
+                </Carousel>
+            </div>
+        </div>
+
+        <!-- Location -->
+        <div class="py-16 px-8 text-center bg-slate-100">
+            <h2 class="font-bold text-6xl">WHERE ARE WE LOCATED?</h2>
+
+            <p class="mt-5">
+                You can visit us on SM, Robinson's, or Ayala Malls Food Court.
+                We are also available in selected schools and universities.
+            </p>
+
+            <div class="w-3/4 mx-auto mt-5">
+                <Carousel
+                    id="locations"
+                    :value="props.locations"
+                    :numVisible="3"
+                >
+                    <template #item="{ data }">
+                        <div
+                            class="flex flex-col items-center p-5 text-slate-900 text-center"
+                        >
+                            <Image :src="data.logo" width="100" />
+
+                            <p class="font-bold mt-5">{{ data.name }}</p>
                         </div>
                     </template>
                 </Carousel>

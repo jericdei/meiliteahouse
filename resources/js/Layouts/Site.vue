@@ -1,14 +1,13 @@
 <script setup lang="ts">
 import { router, usePage } from '@inertiajs/vue3'
+import { useWindowScroll } from '@vueuse/core'
+import ConfirmDialog from 'primevue/confirmdialog'
+import DynamicDialog from 'primevue/dynamicdialog'
 import Image from 'primevue/image'
 import Menu from 'primevue/menu'
-import { ref, watch } from 'vue'
-import { useWindowScroll } from '@vueuse/core'
-import { computed } from 'vue'
-import { useToast } from 'primevue/usetoast'
 import Toast from 'primevue/toast'
-import DynamicDialog from 'primevue/dynamicdialog'
-import ConfirmDialog from 'primevue/confirmdialog'
+import { useToast } from 'primevue/usetoast'
+import { computed, ref, watch } from 'vue'
 
 const { y } = useWindowScroll()
 const toast = useToast()
@@ -118,14 +117,15 @@ const handleMenuToggle = (event: Event) => {
 
                 <div class="mx-auto flex justify-center items-center gap-3">
                     <p
-                        class="hidden lg:block text-2xl lg:text-3xl text-secondary"
+                        class="hidden lg:block text-2xl lg:text-3xl text-secondary font-chinese"
                     >
                         梅丽茶馆
                     </p>
 
                     <Image
                         class="shadow-2xl shadow-neutral-900 rounded-full"
-                        src="/images/logos/logo.png"
+                        imageClass="rounded-full"
+                        src="/images/logos/logo-2023.jpg"
                         alt="Mei Li Tea House Logo"
                         width="50"
                     />

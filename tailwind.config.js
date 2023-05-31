@@ -15,6 +15,7 @@ module.exports = {
         extend: {
             fontFamily: {
                 heading: ['Poppins', 'sans-serif'],
+                chinese: ['Long Cang'],
             },
             colors: {
                 primary: '#890202',
