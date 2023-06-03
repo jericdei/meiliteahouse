@@ -14,7 +14,6 @@ interface Location {
     id: number
     name: string
     type: string
-    address: string
 }
 
 const props = defineProps<{
@@ -29,7 +28,7 @@ const props = defineProps<{
     <section>
         <!-- Hero -->
         <div
-            class="grid grid-cols-1 lg:grid-cols-2 bg-[url('images/backgrounds/bg-pattern-sm.png')]"
+            class="grid grid-cols-1 lg:grid-cols-2 bg-[url('images/backgrounds/bg-pattern-sm.png')] bg-contain"
         >
             <div
                 class="flex flex-col gap-8 items-center lg:items-end text-slate-100 py-16"
@@ -64,12 +63,12 @@ const props = defineProps<{
         </div>
 
         <!-- About -->
-        <div class="py-16 px-8 text-center bg-slate-100">
-            <h2 class="font-bold text-4xl italic">
+        <div class="py-16 lg:px-8 text-center bg-slate-100">
+            <h2 class="font-bold text-xl lg:text-4xl italic">
                 "THE FIRST SIZZLING ASIAN-CHINESE CUISINE IN THE WORLD."
             </h2>
 
-            <p class="mt-5 text-2xl mx-16">
+            <p class="mt-5 lg:text-2xl mx-16">
                 Ignite your palate with the scintillating essence of Asia as we
                 present the world's first sizzling Asian-Chinese cuisine. A
                 fusion of tradition and innovation that will leave you craving
@@ -79,12 +78,14 @@ const props = defineProps<{
 
         <!-- Featured Products -->
         <div
-            class="grid grid-cols-1 lg:grid-cols-2 items-center text-slate-50 bg-secondary py-16 px-8"
+            class="grid grid-cols-1 lg:grid-cols-2 items-center text-slate-50 bg-secondary py-16 px-4 lg:px-8"
         >
             <div>
-                <h2 class="text-6xl font-bold text-center">Our Products</h2>
+                <h2 class="text-3xl lg:text-6xl font-bold text-center">
+                    Our Products
+                </h2>
 
-                <p class="text-2xl mt-8 text-justify">
+                <p class="lg:text-2xl mt-8 text-justify">
                     Indulge in our meticulously crafted products, skillfully
                     prepared with authentic ingredients that cater to every
                     discerning palate. Discover flavors that transcend
@@ -92,7 +93,7 @@ const props = defineProps<{
                 </p>
 
                 <div class="grid place-items-center">
-                    <Button class="mt-16" size="large" label="View our menu" />
+                    <Button class="mt-16" label="View our menu" />
                 </div>
             </div>
 
@@ -102,6 +103,8 @@ const props = defineProps<{
                     :numVisible="1"
                     circular
                     :autoplayInterval="2500"
+                    :showIndicators="false"
+                    :showNavigators="false"
                 >
                     <template #item="{ data }">
                         <div class="p-5 text-slate-900 text-center">
@@ -122,31 +125,21 @@ const props = defineProps<{
         </div>
 
         <!-- Location -->
-        <div class="py-16 px-8 text-center bg-slate-100">
-            <h2 class="font-bold text-6xl">WHERE ARE WE LOCATED?</h2>
+        <div class="py-16 px-4 lg:px-8 text-center bg-slate-100 test">
+            <h2 class="font-bold text-2xl lg:text-6xl">
+                WHERE ARE WE LOCATED?
+            </h2>
 
             <p class="mt-5">
                 You can visit us on SM, Robinson's, or Ayala Malls Food Court.
-                We are also available in selected schools and universities.
+                We are also available in schools and universities.
             </p>
-
-            <div class="w-3/4 mx-auto mt-5">
-                <Carousel
-                    id="locations"
-                    :value="props.locations"
-                    :numVisible="3"
-                >
-                    <template #item="{ data }">
-                        <div
-                            class="flex flex-col items-center p-5 text-slate-900 text-center"
-                        >
-                            <Image :src="data.logo" width="100" />
-
-                            <p class="font-bold mt-5">{{ data.name }}</p>
-                        </div>
-                    </template>
-                </Carousel>
-            </div>
         </div>
     </section>
 </template>
+
+<style>
+/* * {
+    background-color: rgba(255, 0, 0, 0.237);
+} */
+</style>

@@ -9,10 +9,6 @@ proxy:
 services:
     appserver:
         scanner: false
-        xdebug: debug
-        build_as_root:
-            - curl -sL https://deb.nodesource.com/setup_18.x | bash -
-            - apt-get install -y nodejs
     database:
         type: mysql
         portforward: 33071
@@ -39,6 +35,3 @@ tooling:
     build:
         service: node
         cmd: yarn build
-    ssr:
-        service: appserver
-        cmd: php artisan inertia:start-ssr

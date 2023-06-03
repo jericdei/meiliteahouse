@@ -110,9 +110,13 @@ const handleMenuToggle = (event: Event) => {
         <header
             class="flex flex-col items-center justify-between p-3 sticky top-0 z-10 bg-slate-100 transition-all"
         >
-            <div class="flex w-full">
-                <Link class="ml-0 mr-auto" :href="route('auth.login')">
-                    <Button :label="$page.props.user ? 'Dashboard' : 'Login'" />
+            <div class="flex w-full relative">
+                <Link class="absolute left-0" :href="route('auth.login')">
+                    <Button
+                        size="small"
+                        :label="$page.props.user ? 'Dashboard' : 'Login'"
+                        icon="pi pi-sign-in"
+                    />
                 </Link>
 
                 <div class="mx-auto flex justify-center items-center gap-3">
@@ -135,7 +139,7 @@ const handleMenuToggle = (event: Event) => {
                     </h2>
                 </div>
 
-                <div class="mr-0 ml-auto">
+                <div class="absolute right-0">
                     <Button
                         iconClass="text-2xl"
                         icon="pi pi-bars"
