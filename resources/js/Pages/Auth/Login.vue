@@ -1,8 +1,8 @@
 <script setup>
+import { Head, useForm } from '@inertiajs/vue3'
+import Image from 'primevue/image'
 import InputText from 'primevue/inputtext'
 import Password from 'primevue/password'
-import Image from 'primevue/image'
-import { Head, useForm } from '@inertiajs/vue3'
 
 const form = useForm({
     email: '',
@@ -20,10 +20,10 @@ const submit = () => {
     <section class="grid place-items-center h-screen">
         <Head title="Log in" />
 
-        <div class="border border-primary p-5 rounded-xl bg-white">
+        <div class="border border-slate-200 p-5 rounded-xl bg-white">
             <Image
                 image-class="mx-auto mb-5"
-                src="/images/logo.png"
+                src="/images/logos/logo-2023.jpg"
                 alt="Mei Li Tea House Logo"
                 width="100"
             />

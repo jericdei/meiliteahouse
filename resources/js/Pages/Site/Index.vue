@@ -28,7 +28,7 @@ const props = defineProps<{
     <section>
         <!-- Hero -->
         <div
-            class="grid grid-cols-1 lg:grid-cols-2 bg-[url('images/backgrounds/bg-pattern-sm.png')] bg-contain"
+            class="grid grid-cols-1 lg:grid-cols-2 bg-[url('/images/backgrounds/bg-pattern-sm.png')] bg-contain"
         >
             <div
                 class="flex flex-col gap-8 items-center lg:items-end text-slate-100 py-16"
@@ -68,7 +68,7 @@ const props = defineProps<{
                 "THE FIRST SIZZLING ASIAN-CHINESE CUISINE IN THE WORLD."
             </h2>
 
-            <p class="mt-5 lg:text-2xl mx-16">
+            <p class="mt-5 lg:text-2xl mx-4 lg:mx-16">
                 Ignite your palate with the scintillating essence of Asia as we
                 present the world's first sizzling Asian-Chinese cuisine. A
                 fusion of tradition and innovation that will leave you craving
@@ -134,12 +134,38 @@ const props = defineProps<{
                 You can visit us on SM, Robinson's, or Ayala Malls Food Court.
                 We are also available in schools and universities.
             </p>
+
+            <div class="mapouter mt-5">
+                <div class="gmap_canvas">
+                    <iframe
+                        class="gmap_iframe"
+                        width="100%"
+                        frameborder="0"
+                        scrolling="no"
+                        marginheight="0"
+                        marginwidth="0"
+                        src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=sm bataan&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
+                    ></iframe>
+                </div>
+            </div>
         </div>
     </section>
 </template>
 
 <style>
-/* * {
-    background-color: rgba(255, 0, 0, 0.237);
-} */
+.mapouter {
+    position: relative;
+    text-align: right;
+    width: 100%;
+    height: 400px;
+}
+.gmap_canvas {
+    overflow: hidden;
+    background: none !important;
+    width: 100%;
+    height: 400px;
+}
+.gmap_iframe {
+    height: 400px !important;
+}
 </style>

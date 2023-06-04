@@ -11,6 +11,7 @@ import { computed, ref, watch } from 'vue'
 
 const { y } = useWindowScroll()
 const toast = useToast()
+const page = usePage()
 
 const activeBorderColor = computed(() => {
     return y.value > 0 ? 'var(--tw-slate-50)' : 'var(--primary-color)'
@@ -53,7 +54,16 @@ const items = ref([
         label: 'Invest',
         icon: 'pi pi-dollar',
         class: 'mlth-menu-item',
-        command: () => router.get(route('site.invest')),
+        command: () => router.get(route('site.investments.index')),
+    },
+    {
+        label: page.props.user ? 'Dashboard' : 'Login',
+        icon: page.props.user ? 'pi pi-chart-bar' : 'pi pi-sign-in',
+        class: 'mlth-menu-item',
+        command: () =>
+            router.get(
+                route(page.props.user ? 'invest.dashboard' : 'auth.login')
+            ),
     },
 ])
 
@@ -111,7 +121,10 @@ const handleMenuToggle = (event: Event) => {
             class="flex flex-col items-center justify-between p-3 sticky top-0 z-10 bg-slate-100 transition-all"
         >
             <div class="flex w-full relative">
-                <Link class="absolute left-0" :href="route('auth.login')">
+                <Link
+                    class="absolute left-0 hidden"
+                    :href="route('auth.login')"
+                >
                     <Button
                         size="small"
                         :label="$page.props.user ? 'Dashboard' : 'Login'"
@@ -119,7 +132,9 @@ const handleMenuToggle = (event: Event) => {
                     />
                 </Link>
 
-                <div class="mx-auto flex justify-center items-center gap-3">
+                <div
+                    class="lg:mx-auto flex lg:justify-center items-center gap-3"
+                >
                     <p
                         class="hidden lg:block text-2xl lg:text-3xl text-secondary font-chinese"
                     >
@@ -153,7 +168,7 @@ const handleMenuToggle = (event: Event) => {
             </div>
 
             <nav
-                v-if="isMenuShown"
+                :class="{ hidden: !isMenuShown }"
                 class="items-center gap-10 text-primary font-heading pt-8 transition-all"
             >
                 <ul class="flex gap-8 font-bold">

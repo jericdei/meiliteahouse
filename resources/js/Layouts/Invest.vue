@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import Image from 'primevue/image'
-import Avatar from 'primevue/avatar'
-import Menu from 'primevue/menu'
-import InvestSidebarMenuItem from '../Components/InvestSidebarMenuItem.vue'
-import { onBeforeMount, onUpdated, ref } from 'vue'
 import { router, usePage } from '@inertiajs/vue3'
+import Avatar from 'primevue/avatar'
+import Image from 'primevue/image'
+import Menu from 'primevue/menu'
+import { onBeforeMount, onUpdated, ref } from 'vue'
+import InvestSidebarMenuItem from '../Components/InvestSidebarMenuItem.vue'
 import { capitalizeFirst } from '../Helpers/string'
 
 const props = defineProps<{
@@ -94,7 +94,8 @@ onUpdated(() => (activeSidebarLink.value = page.url))
 
             <div class="flex items-center gap-3">
                 <Image
-                    src="/images/logo.png"
+                    imageClass="rounded-full"
+                    src="/images/logos/logo-2023.jpg"
                     alt="Mei Li Tea House Logo"
                     width="40"
                 />
