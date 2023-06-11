@@ -13,6 +13,7 @@ import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 
 import PrimeVue from 'primevue/config';
 import Button from 'primevue/button';
+import Image from 'primevue/image';
 import Tooltip from 'primevue/tooltip';
 import ConfirmationService from 'primevue/confirmationservice';
 import DialogService from 'primevue/dialogservice';
@@ -56,6 +57,7 @@ createInertiaApp({
                     </Link>`,
             })
             .component('Button', Button)
+            .component('Image', Image)
             .use(ToastService)
             .use(ConfirmationService)
             .use(DialogService)

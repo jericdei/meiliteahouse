@@ -44,7 +44,7 @@ class InvestorFactory extends Factory
             'name' => fake()->company(),
             'address' => fake()->address(),
             'contactNo' => fake()->phoneNumber(),
-            'courseYear' => fake()->words(random_int(1, 3)),
+            'courseYear' => fake()->words(random_int(1, 3), true),
         ];
     }
 

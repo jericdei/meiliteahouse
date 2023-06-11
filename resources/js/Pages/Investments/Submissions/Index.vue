@@ -8,11 +8,15 @@ import _ from 'lodash';
 import Title from '@/Components/Investments/Title.vue';
 import type { LazyTableProps } from '@/types';
 import { useDataTableActions } from '@/Composables/datatable';
+import { useDialog } from 'primevue/usedialog';
+import ShowModal from './Modals/ShowModal.vue';
+import { dynamicDialogProps } from '@/Config/modal';
 
 const props = defineProps<{
     submissions: LazyTableProps<Submission>;
 }>();
 
+const dialog = useDialog();
 const dt = ref();
 
 const datatable = useDataTableActions(
@@ -32,6 +36,23 @@ const columns = [
     { field: 'occupation.type', header: 'Occupation' },
     { field: 'initialInvestment.amount', header: 'Investment Amount' },
 ];
+
+const showSubmissionModal = (submission: Submission) => {
+    dialog.open(ShowModal, {
+        props: {
+            ...dynamicDialogProps,
+            header: 'View Submission',
+            position: 'center',
+            closeOnEscape: true,
+            style: {
+                width: '90%',
+            },
+        },
+        data: {
+            submission,
+        },
+    });
+};
 </script>
 
 <template>
@@ -68,6 +89,7 @@ const columns = [
                             text
                             rounded
                             v-tooltip.top="'View'"
+                            @click="showSubmissionModal(data)"
                         />
 
                         <Button

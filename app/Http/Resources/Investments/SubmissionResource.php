@@ -15,6 +15,9 @@ class SubmissionResource extends JsonResource
         return [
             'id' => $this->id,
             'status' => $this->status,
+            'firstName' => $this->first_name,
+            'middleName' => $this->middle_name,
+            'lastName' => $this->last_name,
             'fullName' => $this->full_name,
             'contactNo' => $this->contact_no,
             'email' => $this->email,

@@ -6,6 +6,9 @@ import Menu from 'primevue/menu';
 import { onBeforeMount, onUpdated, ref } from 'vue';
 import InvestSidebarMenuItem from '../Components/InvestSidebarMenuItem.vue';
 import { capitalizeFirst } from '../Helpers/string';
+import Toast from 'primevue/toast';
+import DynamicDialog from 'primevue/dynamicdialog';
+import ConfirmDialog from 'primevue/confirmdialog';
 
 const props = defineProps<{
     user: {
@@ -77,6 +80,10 @@ onUpdated(() => (activeSidebarLink.value = page.url));
 </script>
 
 <template>
+    <Toast position="bottom-right" group="br" />
+    <DynamicDialog />
+    <ConfirmDialog />
+
     <header
         class="flex items-center justify-between bg-primary text-slate-50 p-3 lg:p-4 lg:px-10"
     >
