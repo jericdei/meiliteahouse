@@ -16,7 +16,7 @@ use App\Http\Controllers\Site\ProductsController;
 use App\Http\Controllers\Site\StoresController;
 use Illuminate\Support\Facades\Route;
 
-# WEBSITE ROUTES
+// WEBSITE ROUTES
 Route::name('site.')->group(function () {
     Route::get('/', HomeController::class)->name('home');
     Route::get('about', AboutController::class)->name('about');
@@ -27,7 +27,7 @@ Route::name('site.')->group(function () {
     Route::resource('investments', InvestController::class)->except(['create', 'show', 'destroy']);
 });
 
-# INVESTMENT SYSTEM ROUTES
+// INVESTMENT SYSTEM ROUTES
 Route::middleware(['auth'])
     ->name('invest.')
     ->prefix('invest')
@@ -43,7 +43,7 @@ Route::middleware(['auth'])
             'create, edit',
         ]);
 
-        # ADMIN ONLY
+        // ADMIN ONLY
         Route::middleware('role:admin')->group(function () {
             Route::resource('submissions', SubmissionController::class);
             Route::resource('users', UserController::class)->except([
@@ -55,4 +55,4 @@ Route::middleware(['auth'])
         });
     });
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';

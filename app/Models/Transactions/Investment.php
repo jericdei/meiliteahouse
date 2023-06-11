@@ -2,8 +2,6 @@
 
 namespace App\Models\Transactions;
 
-use App\Enums\Common\StatusEnum;
-use App\Enums\PaymentMethodEnum;
 use App\Models\Investors\Investor;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -18,12 +16,7 @@ class Investment extends Model
 
     protected $guarded = [];
 
-    protected $casts = [
-        'status' => StatusEnum::class,
-        'payment_method' => PaymentMethodEnum::class
-    ];
-
-    # RELATIONSHIPS
+    // RELATIONSHIPS
 
     public function investor(): BelongsTo
     {

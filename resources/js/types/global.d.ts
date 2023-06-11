@@ -21,3 +21,10 @@ declare module 'vue' {
 declare module '@inertiajs/core' {
     interface PageProps extends InertiaPageProps, AppPageProps {}
 }
+
+declare module '@inertiajs/vue3' {
+    export type {
+        InertiaForm,
+        InertiaFormProps,
+    } from '@inertiajs/vue3/types/useForm';
+}

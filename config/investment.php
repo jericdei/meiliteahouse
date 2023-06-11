@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'interest_rate' => 0.08
+    'interest_rate' => 0.08,
 ];

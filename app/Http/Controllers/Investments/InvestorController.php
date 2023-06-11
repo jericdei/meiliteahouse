@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Investments;
 
-use Inertia\Response;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Inertia\Response;
 
 class InvestorController extends Controller
 {

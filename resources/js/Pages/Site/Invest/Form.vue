@@ -1,36 +1,19 @@
 <script setup lang="ts">
-import type { Dropdown as DropdownObj } from '@/types/common'
-import type { SchoolDetails, CompanyDetails } from '@/types/submission'
-
-import { useForm } from '@inertiajs/vue3'
-import InputText from 'primevue/inputtext'
-import InputNumber from 'primevue/inputnumber'
-import FileUpload from 'primevue/fileupload'
-import Dropdown from 'primevue/dropdown'
-import { computed } from 'vue'
+import type { Dropdown as DropdownObj } from '@/types/common';
+import { Submission } from '@/types/submission';
+import { useForm } from '@inertiajs/vue3';
+import Dropdown from 'primevue/dropdown';
+import FileUpload from 'primevue/fileupload';
+import InputNumber from 'primevue/inputnumber';
+import InputText from 'primevue/inputtext';
+import { computed } from 'vue';
 
 const props = defineProps<{
-    paymentMethods: Array<DropdownObj>
-    occupationTypes: Array<DropdownObj>
-}>()
+    paymentMethods: Array<DropdownObj>;
+    occupationTypes: Array<DropdownObj>;
+}>();
 
-const form = useForm<{
-    firstName: string
-    middleName: string
-    lastName: string
-    contactNo: string
-    email: string
-    age: number
-    referralCode: string
-    profilePicture: File | null
-    occupationType: string
-    occupationData: SchoolDetails & CompanyDetails
-    paymentMethod: string
-    initialInvestment: number
-    referenceNumber: string
-    validId: File | null
-    proofOfPayment: File | null
-}>({
+const form = useForm<Submission>({
     firstName: '',
     middleName: '',
     lastName: '',
@@ -53,15 +36,15 @@ const form = useForm<{
     referenceNumber: '',
     validId: null,
     proofOfPayment: null,
-})
+});
 
 const occupation = computed(() => {
-    return form.occupationType === 'student' ? 'School' : 'Company'
-})
+    return form.occupationType === 'student' ? 'School' : 'Company';
+});
 
 const submit = () => {
-    form.post(route('site.investments.store'))
-}
+    form.post(route('site.investments.store'));
+};
 </script>
 
 <template>

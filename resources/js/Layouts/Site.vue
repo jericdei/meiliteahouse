@@ -122,13 +122,17 @@ const handleMenuToggle = (event: Event) => {
         >
             <div class="flex w-full relative">
                 <Link
-                    class="absolute left-0 hidden"
+                    class="absolute left-0 hidden lg:block"
                     :href="route('auth.login')"
                 >
                     <Button
                         size="small"
                         :label="$page.props.user ? 'Dashboard' : 'Login'"
-                        icon="pi pi-sign-in"
+                        :icon="
+                            $page.props.user
+                                ? 'pi pi-chart-bar'
+                                : 'pi pi-sign-in'
+                        "
                     />
                 </Link>
 

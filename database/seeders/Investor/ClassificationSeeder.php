@@ -3,7 +3,6 @@
 namespace Database\Seeders\Investor;
 
 use App\Models\Investors\Classification;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class ClassificationSeeder extends Seeder
@@ -18,19 +17,19 @@ class ClassificationSeeder extends Seeder
                 'title' => 'Basic',
                 'total_investment' => 1000.00,
                 'interest_rate' => config('investment.interest_rate'),
-                'referral_rate' => 0
+                'referral_rate' => 0,
             ],
             [
                 'title' => 'Bronze',
                 'total_investment' => 5000.00,
                 'interest_rate' => config('investment.interest_rate'),
-                'referral_rate' => 0.025
+                'referral_rate' => 0.025,
             ],
             [
                 'title' => 'Silver',
                 'total_investment' => 7500.00,
                 'interest_rate' => config('investment.interest_rate'),
-                'referral_rate' => 0.05
+                'referral_rate' => 0.05,
             ],
             [
                 'title' => 'Gold',
@@ -38,7 +37,7 @@ class ClassificationSeeder extends Seeder
                 'interest_rate' => config('investment.interest_rate'),
                 'referral_rate' => 0.075,
                 'freebies' => [
-                    'certificate_with_contract' => true
+                    'certificate_with_contract' => true,
                 ],
             ],
             [

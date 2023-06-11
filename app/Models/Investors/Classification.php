@@ -15,6 +15,6 @@ class Classification extends Model
     protected $guarded = [];
 
     protected $casts = [
-        'freebies' => 'array'
+        'freebies' => 'array',
     ];
 }

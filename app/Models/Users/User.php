@@ -17,8 +17,6 @@ class User extends Authenticatable
 
     protected $hidden = ['password'];
 
-    # ACCESSORS
-
     public function getNameAttribute(): string
     {
         return "{$this->first_name} {$this->last_name}";

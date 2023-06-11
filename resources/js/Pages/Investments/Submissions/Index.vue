@@ -1,5 +1,99 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import LazyDataTable from '@/Components/LazyDataTable.vue';
+import LazyDataTableColumn from '@/Components/LazyDataTableColumn.vue';
+import { Submission } from '@/types/submission';
+import Column from 'primevue/column';
+import { ref } from 'vue';
+import _ from 'lodash';
+import Title from '@/Components/Investments/Title.vue';
+import type { LazyTableProps } from '@/types';
+import { useDataTableActions } from '@/Composables/datatable';
+
+const props = defineProps<{
+    submissions: LazyTableProps<Submission>;
+}>();
+
+const dt = ref();
+
+const datatable = useDataTableActions(
+    dt,
+    route('invest.submissions.index'),
+    {}
+);
+
+const columns = [
+    { field: 'id', header: 'ID' },
+    { field: 'status', header: 'Status' },
+    { field: 'fullName', header: 'Full Name' },
+    { field: 'contactNo', header: 'Contact No.' },
+    { field: 'email', header: 'Email' },
+    { field: 'age', header: 'Age' },
+    { field: 'referredBy', header: 'Referral' },
+    { field: 'occupation.type', header: 'Occupation' },
+    { field: 'initialInvestment.amount', header: 'Investment Amount' },
+];
+</script>
 
 <template>
-    <p>submissions</p>
+    <Head title="Submissions" />
+
+    <section>
+        <Title icon="pi pi-list" class="mb-5">Submissions</Title>
+
+        <LazyDataTable
+            class="mx-auto my-2"
+            ref="dt"
+            :value="props.submissions.items"
+            :totalRecords="props.submissions.total"
+            :isLoading="datatable.loading"
+            :rows="10"
+            :rowsPerPageOptions="[10, 50, 100]"
+            @page="datatable.paginate($event.page + 1, $event.rows)"
+        >
+            <Column v-for="col in columns" :header="col.header">
+                <template #body="{ data }">
+                    <LazyDataTableColumn
+                        :value="_.get(data, col.field)"
+                        :isLoading="datatable.loading.value"
+                    />
+                </template>
+            </Column>
+
+            <Column header="Actions">
+                <template #body="{ data }">
+                    <div class="flex">
+                        <Button
+                            severity="success"
+                            icon="pi pi-eye"
+                            text
+                            rounded
+                            v-tooltip.top="'View'"
+                        />
+
+                        <Button
+                            severity="info"
+                            icon="pi pi-pencil"
+                            text
+                            rounded
+                            v-tooltip.top="'Edit'"
+                        />
+
+                        <Button
+                            severiry="danger"
+                            icon="pi pi-trash"
+                            text
+                            rounded
+                            v-tooltip.top="'Delete'"
+                        />
+                    </div>
+                </template>
+            </Column>
+        </LazyDataTable>
+    </section>
 </template>
+
+<style scoped>
+:deep(.p-datatable-wrapper) {
+    @apply rounded-xl;
+}
+</style>

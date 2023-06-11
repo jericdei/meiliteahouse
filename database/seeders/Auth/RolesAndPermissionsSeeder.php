@@ -4,8 +4,8 @@ namespace Database\Seeders\Auth;
 
 use App\Models\Users\User;
 use Illuminate\Database\Seeder;
-use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class RolesAndPermissionsSeeder extends Seeder
 {
@@ -18,17 +18,17 @@ class RolesAndPermissionsSeeder extends Seeder
 
         $permissions = [
             'user' => [
-                'create', 'view', 'update', 'delete'
+                'create', 'view', 'update', 'delete',
             ],
             'investor' => [
-                'create', 'view', 'update', 'delete'
+                'create', 'view', 'update', 'delete',
             ],
             'investment' => [
-                'create', 'view', 'update', 'delete'
+                'create', 'view', 'update', 'delete',
             ],
             'withdrawal' => [
-                'create', 'view', 'update', 'delete'
-            ]
+                'create', 'view', 'update', 'delete',
+            ],
         ];
 
         $allPermissions = [];
@@ -51,11 +51,11 @@ class RolesAndPermissionsSeeder extends Seeder
         }
 
         Role::create([
-            'name' => 'admin'
+            'name' => 'admin',
         ])->givePermissionTo($allPermissions);
 
         Role::create([
-            'name' => 'investor'
+            'name' => 'investor',
         ])->givePermissionTo($investorPermissions);
 
         User::firstOrCreate([
@@ -64,7 +64,7 @@ class RolesAndPermissionsSeeder extends Seeder
             'last_name' => 'Logan',
             'contact_no' => '09760763828',
             'email' => 'jeric@meiliteahouse.com',
-            'password' => bcrypt('loganmlth')
+            'password' => bcrypt('loganmlth'),
         ])->assignRole('admin');
     }
 }

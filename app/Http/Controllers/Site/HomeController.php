@@ -35,8 +35,8 @@ class HomeController extends Controller
                     'id' => 4,
                     'name' => "Robinsons' Malls",
                     'logo' => '/images/logos/robinsons.jpg',
-                ]
-            ]
+                ],
+            ],
         ]);
     }
 }

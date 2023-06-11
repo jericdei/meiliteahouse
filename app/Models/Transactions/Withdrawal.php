@@ -3,10 +3,10 @@
 namespace App\Models\Transactions;
 
 use App\Models\Investors\Investor;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Withdrawal extends Model
 {
@@ -16,12 +16,7 @@ class Withdrawal extends Model
 
     protected $guarded = [];
 
-    protected $casts = [
-        'status' => StatusEnum::class,
-        'payment_method' => PaymentMethodEnum::class
-    ];
-
-    # RELATIONSHIPS
+    // RELATIONSHIPS
 
     public function investor(): BelongsTo
     {

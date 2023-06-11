@@ -3,12 +3,11 @@
 namespace App\Models\Investors;
 
 use App\Models\Users\User;
-use App\Enums\Common\StatusEnum;
-use App\Enums\OccupationTypeEnum;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Investor extends Model
 {
@@ -19,8 +18,6 @@ class Investor extends Model
     protected $guarded = [];
 
     protected $casts = [
-        'status' => StatusEnum::class,
-        'occupation_type' => OccupationTypeEnum::class,
         'occupation_data' => 'array',
     ];
 
@@ -50,5 +47,10 @@ class Investor extends Model
         return $investor
             ? $investor->id
             : null;
+    }
+
+    public function scopeActive(): Builder
+    {
+        return $this->where('status', 'active');
     }
 }

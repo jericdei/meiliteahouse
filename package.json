@@ -29,6 +29,7 @@
         "@vueuse/core": "^10.1.2",
         "laravel-precognition": "^0.1.0",
         "laravel-precognition-vue": "^0.1.0",
+        "lodash": "^4.17.21",
         "primeicons": "^6.0.1",
         "primevue": "^3.29.1",
         "vue-composable": "^1.0.0-beta.24"

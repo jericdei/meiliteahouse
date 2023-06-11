@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Site;
 
-use Inertia\Response;
-use App\Http\Controllers\Controller;
 use App\Enums\Investors\OccupationTypeEnum;
 use App\Enums\Transactions\PaymentMethodEnum;
-use App\Services\Investments\SubmissionService;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Investments\SubmissionStoreRequest;
-use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
+use App\Services\Investments\SubmissionService;
+use Inertia\Response;
 
 class InvestController extends Controller
 {
@@ -29,8 +28,7 @@ class InvestController extends Controller
     {
         $service->store($request->validated());
 
-        return redirect()
-            ->back()
+        return to_route('site.home')
             ->with('success', 'Your investment proposal has been submitted successfully!');
     }
 }

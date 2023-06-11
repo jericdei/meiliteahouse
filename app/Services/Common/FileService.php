@@ -4,8 +4,8 @@ namespace App\Services\Common;
 
 use Illuminate\Http\File;
 use Illuminate\Http\UploadedFile;
-use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class FileService
 {
@@ -16,7 +16,7 @@ class FileService
         Storage::put(
             "$path/$filename",
             Image::make($file)
-            ->encode('webp', 75)
+                ->encode('webp', 75)
         );
     }
 }

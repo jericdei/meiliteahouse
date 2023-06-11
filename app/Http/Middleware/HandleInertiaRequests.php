@@ -37,21 +37,21 @@ class HandleInertiaRequests extends Middleware
                 'name' => $user->name,
                 'fullName' => $user->fullName,
                 'initials' => $user->initials,
-                'role' => $user->roles->pluck("name")[0],
+                'role' => $user->roles->pluck('name')[0],
             ] : null,
             'ziggy' => function () use ($request) {
                 return array_merge((new Ziggy)->toArray(), [
                     'location' => $request->url(),
                 ]);
             },
-            "flash" => function () use ($request) {
-                $flashTypes = ["success", "error", "warning"];
+            'flash' => function () use ($request) {
+                $flashTypes = ['success', 'error', 'warning'];
                 foreach ($request->session()->all() as $key => $value) {
                     if (in_array($key, $flashTypes)) {
                         return [
-                            "severity" => $key === "warning" ? "warn" : $key,
-                            "summary" => ucfirst($key) . "!",
-                            "detail" => $value,
+                            'severity' => $key === 'warning' ? 'warn' : $key,
+                            'summary' => ucfirst($key).'!',
+                            'detail' => $value,
                         ];
                     }
                 }

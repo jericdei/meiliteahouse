@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('investor_submissions', function (Blueprint $table) {
-            $table->uuid("id");
+            $table->uuid('id');
             $table->string('status')->default(StatusEnum::Pending->value);
             $table->string('first_name');
             $table->string('middle_name');
