@@ -2,13 +2,13 @@
 import Skeleton from 'primevue/skeleton';
 
 const props = defineProps<{
-    value: any;
-    isLoading: Boolean;
+  value: any;
+  isLoading: Boolean;
 }>();
 </script>
 
 <template>
-    <Skeleton v-if="props.isLoading" />
+  <Skeleton v-if="props.isLoading" />
 
-    <span v-else>{{ props.value }}</span>
+  <span v-else>{{ props.value }}</span>
 </template>

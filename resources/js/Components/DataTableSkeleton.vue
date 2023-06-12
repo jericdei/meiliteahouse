@@ -5,30 +5,30 @@ import Skeleton from 'primevue/skeleton';
 import { ref } from 'vue';
 
 interface ColumnProps {
-    header: string;
-    field: any;
+  header: string;
+  field: any;
 }
 
 const props = defineProps<{
-    rows: number;
-    columns: ColumnProps[];
+  rows: number;
+  columns: ColumnProps[];
 }>();
 
 const items = ref(new Array(props.rows));
 </script>
 
 <template>
-    <DataTable :value="items">
-        <Column v-for="col in props.columns" :header="col.header">
-            <template #body>
-                <Skeleton></Skeleton>
-            </template>
-        </Column>
-    </DataTable>
+  <DataTable :value="items">
+    <Column v-for="col in props.columns" :header="col.header">
+      <template #body>
+        <Skeleton></Skeleton>
+      </template>
+    </Column>
+  </DataTable>
 </template>
 
 <style scoped>
 :deep(.p-skeleton) {
-    height: 2.5rem !important;
+  height: 2.5rem !important;
 }
 </style>
