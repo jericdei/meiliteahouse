@@ -1,7 +1,7 @@
 module.exports = {
   root: true,
   parserOptions: {
-    ecmaVersion: 2020, // Use the latest ecmascript standard
+    ecmaVersion: 2020, // Use the latest ecmascript standards
     sourceType: 'module', // Allows using import/export statements
   },
   settings: {
