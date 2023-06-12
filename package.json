@@ -1,37 +1,57 @@
 {
-    "private": true,
-    "type": "module",
-    "scripts": {
-        "dev": "vite",
-        "build": "vue-tsc && vite build && vite build --ssr"
-    },
-    "devDependencies": {
-        "@inertiajs/vue3": "^1.0.0",
-        "@tailwindcss/forms": "^0.5.3",
-        "@types/ziggy-js": "^1.3.2",
-        "@vitejs/plugin-vue": "^4.0.0",
-        "@vue/server-renderer": "^3.2.31",
-        "autoprefixer": "^10.4.12",
-        "axios": "^1.1.2",
-        "laravel-vite-plugin": "^0.7.5",
-        "postcss": "^8.4.18",
-        "prettier": "^2.8.8",
-        "tailwindcss": "^3.2.1",
-        "typescript": "^5.0.2",
-        "vite": "^4.0.0",
-        "vue": "^3.2.41",
-        "vue-tsc": "^1.2.0"
-    },
-    "dependencies": {
-        "@types/node": "^20.2.1",
-        "@vue/composition-api": "^1.7.1",
-        "@vueuse/components": "^10.1.2",
-        "@vueuse/core": "^10.1.2",
-        "laravel-precognition": "^0.1.0",
-        "laravel-precognition-vue": "^0.1.0",
-        "lodash": "^4.17.21",
-        "primeicons": "^6.0.1",
-        "primevue": "^3.29.1",
-        "vue-composable": "^1.0.0-beta.24"
-    }
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "prepare": "husky install",
+    "dev": "vite",
+    "build": "vue-tsc && vite build && vite build --ssr",
+    "lint": "eslint --fix .",
+    "format": "prettier 'resources/js/**/*.{js,vue}' --write",
+    "pre-commit": "yarn run format && lint-staged && pretty-quick --staged"
+  },
+  "devDependencies": {
+    "@inertiajs/vue3": "^1.0.0",
+    "@tailwindcss/forms": "^0.5.3",
+    "@types/ziggy-js": "^1.3.2",
+    "@vitejs/plugin-vue": "^4.0.0",
+    "@vue/server-renderer": "^3.2.31",
+    "autoprefixer": "^10.4.12",
+    "axios": "^1.1.2",
+    "eslint": "^8.42.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-vue": "^9.14.1",
+    "husky": "^8.0.3",
+    "laravel-vite-plugin": "^0.7.5",
+    "lint-staged": "^13.2.2",
+    "postcss": "^8.4.18",
+    "prettier": "^2.8.8",
+    "pretty-quick": "^3.1.3",
+    "tailwindcss": "^3.2.1",
+    "typescript": "^5.0.2",
+    "vite": "^4.0.0",
+    "vue": "^3.2.41",
+    "vue-tsc": "^1.2.0"
+  },
+  "dependencies": {
+    "@types/node": "^20.2.1",
+    "@vue/composition-api": "^1.7.1",
+    "@vueuse/components": "^10.1.2",
+    "@vueuse/core": "^10.1.2",
+    "laravel-precognition": "^0.1.0",
+    "laravel-precognition-vue": "^0.1.0",
+    "lodash": "^4.17.21",
+    "primeicons": "^6.0.1",
+    "primevue": "^3.29.1",
+    "vue-composable": "^1.0.0-beta.24"
+  },
+  "name": "meiliteahouse-website",
+  "version": "1.0.0",
+  "main": "./resources/js/app.ts",
+  "repository": "git@github.com:jericdei/meiliteahouse-website.git",
+  "author": "Jeric June Logan",
+  "license": "MIT",
+  "lint-staged": {
+    "*.js": "eslint --cache --fix"
+  }
 }

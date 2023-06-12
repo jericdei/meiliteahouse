@@ -3,7 +3,7 @@ import LazyDataTable from '@/Components/LazyDataTable.vue';
 import LazyDataTableColumn from '@/Components/LazyDataTableColumn.vue';
 import { Submission } from '@/types/submission';
 import Column from 'primevue/column';
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, markRaw } from 'vue';
 import _ from 'lodash';
 import Title from '@/Components/Investments/Title.vue';
 import type { LazyTableProps } from '@/types';
@@ -11,7 +11,6 @@ import { useDataTableActions } from '@/Composables/datatable';
 import { useDialog } from 'primevue/usedialog';
 import ShowModal from './Modals/ShowModal.vue';
 import { dynamicDialogProps } from '@/Config/modal';
-import { markRaw } from 'vue';
 import ShowModalFooter from './Modals/Templates/ShowModalFooter.vue';
 import DataTableSkeleton from '@/Components/DataTableSkeleton.vue';
 
