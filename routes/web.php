@@ -16,6 +16,8 @@ use App\Http\Controllers\Site\ProductsController;
 use App\Http\Controllers\Site\StoresController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/test', fn () => 'test!!!');
+
 // WEBSITE ROUTES
 Route::name('site.')->group(function () {
     Route::get('/', HomeController::class)->name('home');

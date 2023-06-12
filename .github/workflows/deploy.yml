@@ -1,7 +1,7 @@
 on: push
-name: CI
+name: Deploy
 jobs:
-  phpunit:
+  deploy:
     runs-on: ubuntu-latest
     container:
       image: kirschbaumdevelopment/laravel-test-runner:8.2
@@ -30,7 +30,7 @@ jobs:
           cp .env.ci .env
           php artisan key:generate
 
-      - name: Install front-end dependencies
+      - name: Install & Build frontend dependencies
         run: |
           yarn install
           yarn build
