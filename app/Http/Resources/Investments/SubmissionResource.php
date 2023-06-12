@@ -24,14 +24,14 @@ class SubmissionResource extends JsonResource
             'age' => $this->age,
             'referredBy' => ! is_null($this->referral)
                 ? $this->referral->user->name
-                : null,
+                : 'N/A',
             'occupation' => [
                 'type' => $this->occupation_type,
                 'data' => $this->occupation_data,
             ],
             'initialInvestment' => [
                 'paymentMethod' => $this->payment_method,
-                'amount' => $this->investment_amount,
+                'amount' => formatCurrency($this->investment_amount),
                 'referenceNumber' => $this->reference_no,
             ],
         ];

@@ -41,10 +41,10 @@ class InvestorFactory extends Factory
     public function generateSchoolData(): array
     {
         return [
-            'name' => fake()->company(),
+            'name' => fake()->company().' University',
             'address' => fake()->address(),
             'contactNo' => fake()->phoneNumber(),
-            'courseYear' => fake()->words(random_int(1, 3), true),
+            'courseYear' => 'Bachelor of Science in '.fake()->jobTitle(),
         ];
     }
 

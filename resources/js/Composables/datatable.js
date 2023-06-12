@@ -80,7 +80,6 @@ export function useDataTableActions(dt, route, filters) {
 
     return {
         loading,
-        removeNullValues,
         getData,
         paginate,
         filter,

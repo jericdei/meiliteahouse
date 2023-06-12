@@ -65,6 +65,7 @@ class RolesAndPermissionsSeeder extends Seeder
             'contact_no' => '09760763828',
             'email' => 'jeric@meiliteahouse.com',
             'password' => bcrypt('loganmlth'),
+            'photo' => 'https://api.dicebear.com/6.x/avataaars/svg?seed=Jeric',
         ])->assignRole('admin');
     }
 }

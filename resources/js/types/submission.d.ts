@@ -19,6 +19,7 @@ export interface SubmissionFormProps {
 export interface Submission extends SubmissionFormProps {
     id: string;
     fullName: string;
+    status: string;
     referredBy: Investor?;
 }
 

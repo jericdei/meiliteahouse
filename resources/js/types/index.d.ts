@@ -1,16 +1,20 @@
 export interface User {
     id: number;
-    name: string;
+    firstName: string;
+    middleName: string;
+    lastName: string;
+    fullName: string;
+    initials: string;
     email: string;
-    email_verified_at: string;
+    contactNo: string;
+    photo: string;
+    role: string;
 }
 
 export type PageProps<
     T extends Record<string, unknown> = Record<string, unknown>
 > = T & {
-    auth: {
-        user: User;
-    };
+    user: User;
 };
 
 export interface LazyTableProps<T> {

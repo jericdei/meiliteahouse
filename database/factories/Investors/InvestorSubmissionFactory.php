@@ -32,7 +32,9 @@ class InvestorSubmissionFactory extends Factory
             'contact_no' => fake()->phoneNumber(),
             'email' => fake()->email(),
             'age' => random_int(18, 65),
-            'referred_by' => Investor::inRandomOrder()->first()->id,
+            'referred_by' => fake()->boolean()
+                ? Investor::inRandomOrder()->first()->id
+                : null,
             'occupation_type' => $occupation,
             'occupation_data' => match ($occupation) {
                 'student' => $investorFactory->generateSchoolData(),

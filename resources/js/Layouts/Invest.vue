@@ -9,6 +9,7 @@ import { capitalizeFirst } from '../Helpers/string';
 import Toast from 'primevue/toast';
 import DynamicDialog from 'primevue/dynamicdialog';
 import ConfirmDialog from 'primevue/confirmdialog';
+import Sidebar from './Invest/Sidebar.vue';
 
 const props = defineProps<{
     user: {
@@ -80,168 +81,13 @@ onUpdated(() => (activeSidebarLink.value = page.url));
 </script>
 
 <template>
-    <Toast position="bottom-right" group="br" />
-    <DynamicDialog />
-    <ConfirmDialog />
+    <div class="flex">
+        <Toast position="bottom-right" group="br" />
+        <DynamicDialog />
+        <ConfirmDialog />
+        <Sidebar />
 
-    <header
-        class="flex items-center justify-between bg-primary text-slate-50 p-3 lg:p-4 lg:px-10"
-    >
-        <div class="lg:hidden">
-            <Button
-                icon="pi pi-bars"
-                text
-                rounded
-                icon-class="text-slate-50"
-                @click="sidebarMenu.toggle($event)"
-            />
-            <Menu :model="sidebarItems" popup ref="sidebarMenu" />
-        </div>
-
-        <div class="flex items-center gap-3">
-            <Image
-                imageClass="rounded-full"
-                src="/images/logos/logo-2023.jpg"
-                alt="Mei Li Tea House Logo"
-                width="40"
-            />
-
-            <h2 class="text-md hidden lg:block text-center font-bold">
-                Mei Li Tea House Invest
-            </h2>
-        </div>
-
-        <div class="flex items-center gap-5">
-            <Link :href="route('site.home')">
-                <Button
-                    class="hidden lg:block"
-                    label="Back to Site Home"
-                    icon="pi pi-replay"
-                    severity="secondary"
-                />
-
-                <Button
-                    class="block lg:hidden"
-                    icon="pi pi-replay"
-                    severity="secondary"
-                />
-            </Link>
-
-            <Avatar
-                class="cursor-pointer bg-warning"
-                :label="props.user.initials"
-                size="large"
-                shape="circle"
-                @click="menu.toggle($event)"
-            />
-
-            <Menu ref="menu" :model="items" popup>
-                <template #start>
-                    <div class="flex gap-3 p-5">
-                        <div>
-                            <Avatar
-                                class="cursor-pointer bg-warning text-slate-50"
-                                :label="props.user.initials"
-                                shape="circle"
-                            />
-                        </div>
-
-                        <div>
-                            <p class="font-bold text-sm">
-                                {{ props.user.name }}
-                            </p>
-
-                            <p class="text-xs">
-                                {{ capitalizeFirst(props.user.role) }}
-                            </p>
-                        </div>
-                    </div>
-                </template>
-            </Menu>
-        </div>
-    </header>
-
-    <div class="flex h-full">
-        <aside
-            class="w-1/6 px-2 py-5 border-r border-r-slate-300 hidden lg:block"
-        >
-            <nav>
-                <ul class="flex flex-col gap-5">
-                    <li>
-                        <InvestSidebarMenuItem
-                            :href="route('invest.dashboard')"
-                            label="Dashboard"
-                            icon="pi-chart-bar"
-                            :is-active="
-                                activeSidebarLink.startsWith(
-                                    '/invest/dashboard'
-                                )
-                            "
-                        />
-                    </li>
-                    <li>
-                        <InvestSidebarMenuItem
-                            :href="route('invest.submissions.index')"
-                            label="Submissions"
-                            icon="pi-list"
-                            :is-active="
-                                activeSidebarLink.startsWith(
-                                    '/invest/submissions'
-                                )
-                            "
-                        />
-                    </li>
-                    <li>
-                        <InvestSidebarMenuItem
-                            :href="route('invest.users.index')"
-                            label="Users"
-                            icon="pi-users"
-                            :is-active="
-                                activeSidebarLink.startsWith('/invest/users')
-                            "
-                        />
-                    </li>
-                    <li>
-                        <InvestSidebarMenuItem
-                            :href="route('invest.investors.index')"
-                            label="Investors"
-                            icon="pi-id-card"
-                            :is-active="
-                                activeSidebarLink.startsWith(
-                                    '/invest/investors'
-                                )
-                            "
-                        />
-                    </li>
-                    <li>
-                        <InvestSidebarMenuItem
-                            :href="route('invest.investments.index')"
-                            label="Investments"
-                            icon="pi-money-bill"
-                            :is-active="
-                                activeSidebarLink.startsWith(
-                                    '/invest/investments'
-                                )
-                            "
-                        />
-                    </li>
-                    <li>
-                        <InvestSidebarMenuItem
-                            :href="route('invest.withdrawals.index')"
-                            label="Withdrawals"
-                            icon="pi-credit-card"
-                            :is-active="
-                                activeSidebarLink.startsWith(
-                                    '/invest/withdrawals'
-                                )
-                            "
-                        />
-                    </li>
-                </ul>
-            </nav>
-        </aside>
-
-        <main class="p-10 flex-1">
+        <main class="flex-1 p-10">
             <slot />
         </main>
     </div>
@@ -317,5 +163,9 @@ onUpdated(() => (activeSidebarLink.value = page.url));
             .p-menuitem-icon
     ) {
     @apply text-slate-50;
+}
+
+.p-dialog .p-dialog-header {
+    @apply text-slate-50 bg-primary;
 }
 </style>

@@ -16,13 +16,16 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $firstName = fake()->firstName();
+
         return [
-            'first_name' => fake()->firstName(),
+            'first_name' => $firstName,
             'middle_name' => fake()->lastName(),
             'last_name' => fake()->lastName(),
             'contact_no' => fake()->phoneNumber(),
             'email' => fake()->unique()->safeEmail(),
             'password' => bcrypt('password'),
+            'photo' => "https://api.dicebear.com/6.x/avataaars/svg?seed=$firstName",
         ];
     }
 }

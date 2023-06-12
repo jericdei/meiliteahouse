@@ -11,6 +11,8 @@ import { useDataTableActions } from '@/Composables/datatable';
 import { useDialog } from 'primevue/usedialog';
 import ShowModal from './Modals/ShowModal.vue';
 import { dynamicDialogProps } from '@/Config/modal';
+import { markRaw } from 'vue';
+import ShowModalFooter from './Modals/Templates/ShowModalFooter.vue';
 
 const props = defineProps<{
     submissions: LazyTableProps<Submission>;
@@ -41,15 +43,21 @@ const showSubmissionModal = (submission: Submission) => {
     dialog.open(ShowModal, {
         props: {
             ...dynamicDialogProps,
-            header: 'View Submission',
+            header: `Submission ID: ${submission.id}`,
             position: 'center',
             closeOnEscape: true,
             style: {
-                width: '90%',
+                width: '75%',
             },
+        },
+        templates: {
+            footer: markRaw(ShowModalFooter),
         },
         data: {
             submission,
+        },
+        onClose: (options) => {
+            console.log(options);
         },
     });
 };
@@ -117,5 +125,9 @@ const showSubmissionModal = (submission: Submission) => {
 <style scoped>
 :deep(.p-datatable-wrapper) {
     @apply rounded-xl;
+}
+
+:deep(.p-skeleton) {
+    height: 2.5rem !important;
 }
 </style>

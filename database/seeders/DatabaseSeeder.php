@@ -36,7 +36,9 @@ class DatabaseSeeder extends Seeder
         $investors = Investor::factory(random_int(50, 100))
             ->create()
             ->each(fn (Investor $investor) => $investor->update([
-                'referred_by' => Investor::inRandomOrder()->first()->id,
+                'referred_by' => fake()->boolean()
+                    ? Investor::inRandomOrder()->first()->id
+                    : null,
             ]));
 
         InvestorSubmission::factory(random_int(50, 100))->create();

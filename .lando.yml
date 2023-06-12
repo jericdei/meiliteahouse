@@ -22,8 +22,6 @@ services:
         ports:
             - '5181:5181'
             - '13711:13711'
-        build:
-            - yarn install && yarn build
 tooling:
     node:
         service: appserver
