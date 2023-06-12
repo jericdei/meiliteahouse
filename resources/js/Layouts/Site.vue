@@ -1,23 +1,23 @@
 <script setup lang="ts">
-import { router, usePage } from '@inertiajs/vue3'
-import { useWindowScroll } from '@vueuse/core'
-import ConfirmDialog from 'primevue/confirmdialog'
-import DynamicDialog from 'primevue/dynamicdialog'
-import Image from 'primevue/image'
-import Menu from 'primevue/menu'
-import Toast from 'primevue/toast'
-import { useToast } from 'primevue/usetoast'
-import { computed, ref, watch } from 'vue'
+import { router, usePage } from '@inertiajs/vue3';
+import { useWindowScroll } from '@vueuse/core';
+import ConfirmDialog from 'primevue/confirmdialog';
+import DynamicDialog from 'primevue/dynamicdialog';
+import Image from 'primevue/image';
+import Menu from 'primevue/menu';
+import Toast from 'primevue/toast';
+import { useToast } from 'primevue/usetoast';
+import { computed, ref, watch } from 'vue';
 
-const { y } = useWindowScroll()
-const toast = useToast()
-const page = usePage()
+const { y } = useWindowScroll();
+const toast = useToast();
+const page = usePage();
 
 const activeBorderColor = computed(() => {
-    return y.value > 0 ? 'var(--tw-slate-50)' : 'var(--primary-color)'
-})
+    return y.value > 0 ? 'var(--tw-slate-50)' : 'var(--primary-color)';
+});
 
-const menu = ref()
+const menu = ref();
 
 const items = ref([
     {
@@ -65,9 +65,9 @@ const items = ref([
                 route(page.props.user ? 'invest.dashboard' : 'auth.login')
             ),
     },
-])
+]);
 
-const isMenuShown = ref(false)
+const isMenuShown = ref(false);
 
 watch(
     () => usePage().props.flash,
@@ -80,11 +80,11 @@ watch(
                 detail: flash.detail,
                 group: 'br',
                 closable: true,
-            })
+            });
         }
     },
     { deep: true }
-)
+);
 
 watch(
     () => usePage().props.errors,
@@ -97,18 +97,18 @@ watch(
                 detail: item,
                 group: 'br',
                 closable: true,
-            })
-        })
+            });
+        });
     }
-)
+);
 
 const handleMenuToggle = (event: Event) => {
     if (window.innerWidth >= 1024) {
-        isMenuShown.value = !isMenuShown.value
+        isMenuShown.value = !isMenuShown.value;
     } else {
-        menu.value.toggle(event)
+        menu.value.toggle(event);
     }
-}
+};
 </script>
 
 <template>
@@ -118,9 +118,9 @@ const handleMenuToggle = (event: Event) => {
         <ConfirmDialog />
 
         <header
-            class="flex flex-col items-center justify-between p-3 sticky top-0 z-10 bg-slate-100 transition-all"
+            class="sticky top-0 z-10 flex flex-col items-center justify-between p-3 transition-all bg-slate-100"
         >
-            <div class="flex w-full relative">
+            <div class="relative flex w-full">
                 <Link
                     class="absolute left-0 hidden lg:block"
                     :href="route('auth.login')"
@@ -137,23 +137,23 @@ const handleMenuToggle = (event: Event) => {
                 </Link>
 
                 <div
-                    class="lg:mx-auto flex lg:justify-center items-center gap-3"
+                    class="flex items-center gap-3 lg:mx-auto lg:justify-center"
                 >
                     <p
-                        class="hidden lg:block text-2xl lg:text-3xl text-secondary font-chinese"
+                        class="hidden text-2xl lg:block lg:text-3xl text-secondary font-chinese"
                     >
                         梅丽茶馆
                     </p>
 
                     <Image
-                        class="shadow-2xl shadow-neutral-900 rounded-full"
+                        class="rounded-full shadow-2xl shadow-neutral-900"
                         imageClass="rounded-full"
                         src="/images/logos/logo-2023.jpg"
                         alt="Mei Li Tea House Logo"
                         width="50"
                     />
 
-                    <h2 class="hidden lg:block text-lg lg:text-2xl font-bold">
+                    <h2 class="hidden text-lg font-bold lg:block lg:text-2xl">
                         MEI LI TEA HOUSE
                     </h2>
                 </div>
@@ -164,6 +164,7 @@ const handleMenuToggle = (event: Event) => {
                         icon="pi pi-bars"
                         text
                         rounded
+                        disabled
                         @click="handleMenuToggle($event)"
                     />
 
@@ -173,7 +174,7 @@ const handleMenuToggle = (event: Event) => {
 
             <nav
                 :class="{ hidden: !isMenuShown }"
-                class="items-center gap-10 text-primary font-heading pt-8 transition-all"
+                class="items-center gap-10 pt-8 transition-all text-primary font-heading"
             >
                 <ul class="flex gap-8 font-bold">
                     <li :class="{ active: $page.url === '/' }">
@@ -212,7 +213,7 @@ const handleMenuToggle = (event: Event) => {
             <slot />
         </section>
 
-        <footer class="mb-0 mt-auto bg-slate-300 p-2">
+        <footer class="p-2 mt-auto mb-0 bg-slate-300">
             <p class="text-center">
                 Mei Li Tea House &copy; {{ new Date().getFullYear() }}
             </p>
