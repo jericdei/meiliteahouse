@@ -3,7 +3,7 @@ import LazyDataTable from '@/Components/LazyDataTable.vue';
 import LazyDataTableColumn from '@/Components/LazyDataTableColumn.vue';
 import { Submission } from '@/types/submission';
 import Column from 'primevue/column';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import _ from 'lodash';
 import Title from '@/Components/Investments/Title.vue';
 import type { LazyTableProps } from '@/types';
@@ -13,23 +13,26 @@ import ShowModal from './Modals/ShowModal.vue';
 import { dynamicDialogProps } from '@/Config/modal';
 import { markRaw } from 'vue';
 import ShowModalFooter from './Modals/Templates/ShowModalFooter.vue';
+import DataTableSkeleton from '@/Components/DataTableSkeleton.vue';
 
-const props = defineProps<{
-    submissions: LazyTableProps<Submission>;
-}>();
+const props = withDefaults(
+    defineProps<{
+        submissions: LazyTableProps<Submission>;
+    }>(),
+    {
+        submissions: undefined,
+    }
+);
 
 const dialog = useDialog();
 const dt = ref();
 
-const datatable = useDataTableActions(
-    dt,
-    route('invest.submissions.index'),
-    {}
-);
+const datatable = useDataTableActions(route('invest.submissions.index'), {}, [
+    'submissions',
+]);
 
 const columns = [
     { field: 'id', header: 'ID' },
-    { field: 'status', header: 'Status' },
     { field: 'fullName', header: 'Full Name' },
     { field: 'contactNo', header: 'Contact No.' },
     { field: 'email', header: 'Email' },
@@ -37,6 +40,7 @@ const columns = [
     { field: 'referredBy', header: 'Referral' },
     { field: 'occupation.type', header: 'Occupation' },
     { field: 'initialInvestment.amount', header: 'Investment Amount' },
+    { field: 'status', header: 'Status' },
 ];
 
 const showSubmissionModal = (submission: Submission) => {
@@ -61,6 +65,10 @@ const showSubmissionModal = (submission: Submission) => {
         },
     });
 };
+
+onMounted(() => {
+    datatable.getData();
+});
 </script>
 
 <template>
@@ -69,14 +77,21 @@ const showSubmissionModal = (submission: Submission) => {
     <section>
         <Title icon="pi pi-list" class="mb-5">Submissions</Title>
 
+        <DataTableSkeleton
+            v-if="props.submissions === undefined"
+            :columns="columns"
+            :rows="10"
+        />
+
         <LazyDataTable
+            v-else
             class="mx-auto my-2"
             ref="dt"
             :value="props.submissions.items"
             :totalRecords="props.submissions.total"
             :isLoading="datatable.loading"
             :rows="10"
-            :rowsPerPageOptions="[10, 50, 100]"
+            :rowsPerPageOptions="[10, 25, 50, 100]"
             @page="datatable.paginate($event.page + 1, $event.rows)"
         >
             <Column v-for="col in columns" :header="col.header">

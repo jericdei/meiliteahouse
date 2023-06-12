@@ -1,20 +1,26 @@
+import './bootstrap';
+import '../css/app.css';
+import '/public/css/themes/light.css';
+import 'primeicons/primeicons.css';
+import 'primevue/resources/primevue.min.css';
+
 import { createSSRApp, h, DefineComponent } from 'vue';
 import { renderToString } from '@vue/server-renderer';
 import { Head, Link, createInertiaApp } from '@inertiajs/vue3';
 import createServer from '@inertiajs/vue3/server';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
+import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 
 import PrimeVue from 'primevue/config';
 import Button from 'primevue/button';
-
-import Site from './Layouts/Site.vue';
-import Invest from './Layouts/Invest.vue';
-import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import Tooltip from 'primevue/tooltip';
 import Image from 'primevue/image';
 import ToastService from 'primevue/toastservice';
 import ConfirmationService from 'primevue/confirmationservice';
 import DialogService from 'primevue/dialogservice';
+
+import Site from './Layouts/Site.vue';
+import Invest from './Layouts/Invest.vue';
 
 const appName =
     window.document.getElementsByTagName('title')[0]?.innerText ||

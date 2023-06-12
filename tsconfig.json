@@ -21,6 +21,6 @@
         "resources/js/**/*.ts",
         "resources/js/**/*.d.ts",
         "resources/js/**/*.vue",
-        "resources/js/Composables/datatable.js"
+        "resources/js/Composables/*.ts"
     ]
 }
