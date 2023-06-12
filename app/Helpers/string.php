@@ -1,7 +1,5 @@
 <?php
 
-use NumberFormatter;
-
 if (! function_exists('formatCurrency')) {
     function formatCurrency(int|float $amount, string $currency = 'PHP'): string
     {
