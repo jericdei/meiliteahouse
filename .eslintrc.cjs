@@ -14,7 +14,11 @@ module.exports = {
     amd: true,
     node: true,
   },
-  extends: ['eslint:recommended', 'plugin:prettier/recommended'],
+  extends: [
+    'eslint:recommended',
+    'plugin:prettier/recommended',
+    'plugin:vue/essential',
+  ],
   plugins: ['prettier'],
   rules: {
     'prettier/prettier': [

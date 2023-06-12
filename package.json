@@ -52,7 +52,7 @@
   "author": "Jeric June Logan",
   "license": "MIT",
   "lint-staged": {
-    "*.js": "lando yarn eslint --cache --fix",
+    "*.{js,vue}": "eslint --cache --fix",
     "**/*.php": "lando pint"
   }
 }
