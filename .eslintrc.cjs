@@ -28,6 +28,7 @@ module.exports = {
         usePrettierrc: true,
       },
     ],
+    'vue/multi-word-component-names': 0,
     'no-console': 2,
   },
 };
