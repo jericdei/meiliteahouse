@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Dropdown as DropdownObj } from '@/types/common';
-import { Submission } from '@/types/submission';
+import { SubmissionFormProps } from '@/types/submission';
 import { useForm } from '@inertiajs/vue3';
 import Dropdown from 'primevue/dropdown';
 import FileUpload from 'primevue/fileupload';
@@ -13,7 +13,7 @@ const props = defineProps<{
     occupationTypes: Array<DropdownObj>;
 }>();
 
-const form = useForm<Submission>({
+const form = useForm<SubmissionFormProps>({
     firstName: '',
     middleName: '',
     lastName: '',
@@ -22,18 +22,22 @@ const form = useForm<Submission>({
     age: 18,
     referralCode: '',
     profilePicture: null,
-    occupationType: '',
-    occupationData: {
-        name: '',
-        address: '',
-        contactNo: '',
-        courseYear: '',
-        position: '',
-        workYears: 0,
+    occupation: {
+        type: '',
+        data: {
+            name: '',
+            address: '',
+            contactNo: '',
+            courseYear: '',
+            position: '',
+            workYears: 0,
+        },
     },
-    paymentMethod: '',
-    initialInvestment: 0,
-    referenceNumber: '',
+    initialInvestment: {
+        amount: 0,
+        paymentMethod: '',
+        referenceNumber: '',
+    },
     validId: null,
     proofOfPayment: null,
 });
@@ -51,17 +55,17 @@ const submit = () => {
     <div class="p-5">
         <Head title="Investment Form" />
 
-        <h1 class="form-heading text-center my-10">Investment Form</h1>
+        <h1 class="my-10 text-center form-heading">Investment Form</h1>
 
         <form @submit.prevent="submit()" enctype="multipart/form-data">
             <div
-                class="bg-slate-200 p-3 md:p-10 rounded-xl mx-5 md:mx-10 lg:mx-20"
+                class="p-3 mx-5 bg-slate-200 md:p-10 rounded-xl md:mx-10 lg:mx-20"
             >
                 <div>
                     <h2 class="form-subheading">Personal Details</h2>
 
                     <div class="form-grid-3">
-                        <span class="p-float-label w-full">
+                        <span class="w-full p-float-label">
                             <InputText
                                 class="w-full"
                                 id="firstName"
@@ -74,7 +78,7 @@ const submit = () => {
                             </label>
                         </span>
 
-                        <span class="p-float-label w-full">
+                        <span class="w-full p-float-label">
                             <InputText
                                 class="w-full"
                                 id="middleName"
@@ -85,7 +89,7 @@ const submit = () => {
                             >
                         </span>
 
-                        <span class="p-float-label w-full">
+                        <span class="w-full p-float-label">
                             <InputText
                                 class="w-full"
                                 id="lastName"
@@ -100,7 +104,7 @@ const submit = () => {
                     </div>
 
                     <div class="form-grid-3">
-                        <span class="p-float-label w-full">
+                        <span class="w-full p-float-label">
                             <InputText
                                 class="w-full"
                                 id="contactNo"
@@ -113,7 +117,7 @@ const submit = () => {
                             >
                         </span>
 
-                        <span class="p-float-label w-full">
+                        <span class="w-full p-float-label">
                             <InputText
                                 class="w-full"
                                 id="email"
@@ -126,7 +130,7 @@ const submit = () => {
                             >
                         </span>
 
-                        <span class="p-float-label w-full">
+                        <span class="w-full p-float-label">
                             <InputNumber
                                 class="w-full"
                                 id="age"
@@ -142,9 +146,9 @@ const submit = () => {
                     </div>
 
                     <div
-                        class="grid grid-cols-1 md:grid-cols-2 mt-10 gap-10 place-items-center"
+                        class="grid grid-cols-1 gap-10 mt-10 md:grid-cols-2 place-items-center"
                     >
-                        <span class="p-float-label w-full px-1">
+                        <span class="w-full px-1 p-float-label">
                             <InputText
                                 class="w-full"
                                 id="referralCode"
@@ -176,11 +180,11 @@ const submit = () => {
                     </div>
                 </div>
 
-                <div class="mt-12 flex flex-col gap-8">
+                <div class="flex flex-col gap-8 mt-12">
                     <div>
                         <h2 class="form-subheading">Occupation Details</h2>
 
-                        <div class="p-float-label mt-10">
+                        <div class="mt-10 p-float-label">
                             <Dropdown
                                 v-model="form.occupationType"
                                 inputId="occupationType"
@@ -200,13 +204,13 @@ const submit = () => {
 
                     <div v-if="form.occupationType">
                         <div class="flex flex-col gap-8">
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                <span class="p-float-label w-full">
+                            <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
+                                <span class="w-full p-float-label">
                                     <InputText
                                         class="w-full"
                                         id="occupationData.name"
                                         required
-                                        v-model="form.occupationData.name"
+                                        v-model="form.occupation.data.name"
                                     />
                                     <label
                                         class="w-full"
@@ -218,12 +222,12 @@ const submit = () => {
                                     >
                                 </span>
 
-                                <span class="p-float-label w-full">
+                                <span class="w-full p-float-label">
                                     <InputText
                                         class="w-full"
                                         id="occupationData.contactNo"
                                         required
-                                        v-model="form.occupationData.contactNo"
+                                        v-model="form.occupation.data.contactNo"
                                     />
                                     <label
                                         class="w-full"
@@ -236,12 +240,12 @@ const submit = () => {
                                 </span>
                             </div>
 
-                            <span class="p-float-label w-full">
+                            <span class="w-full p-float-label">
                                 <InputText
                                     class="w-full"
                                     id="occupationData.address"
                                     required
-                                    v-model="form.occupationData.address"
+                                    v-model="form.occupation.data.address"
                                 />
                                 <label
                                     class="w-full"
@@ -252,14 +256,14 @@ const submit = () => {
                             </span>
 
                             <span
-                                class="p-float-label w-full"
+                                class="w-full p-float-label"
                                 v-if="form.occupationType === 'student'"
                             >
                                 <InputText
                                     class="w-full"
                                     id="occupationData.courseYear"
                                     required
-                                    v-model="form.occupationData.courseYear"
+                                    v-model="form.occupation.data.courseYear"
                                 />
                                 <label
                                     class="w-full"
@@ -270,15 +274,15 @@ const submit = () => {
                             </span>
 
                             <div
-                                class="grid grid-cols-1 md:grid-cols-2 gap-8"
+                                class="grid grid-cols-1 gap-8 md:grid-cols-2"
                                 v-if="form.occupationType === 'working'"
                             >
-                                <span class="p-float-label w-full">
+                                <span class="w-full p-float-label">
                                     <InputText
                                         class="w-full"
                                         id="occupationData.position"
                                         required
-                                        v-model="form.occupationData.position"
+                                        v-model="form.occupation.data.position"
                                     />
                                     <label
                                         class="w-full"
@@ -290,12 +294,12 @@ const submit = () => {
                                     >
                                 </span>
 
-                                <span class="p-float-label w-full">
+                                <span class="w-full p-float-label">
                                     <InputNumber
                                         class="w-full"
                                         id="occupationData.workYears"
                                         required
-                                        v-model="form.occupationData.workYears"
+                                        v-model="form.occupation.data.workYears"
                                     />
                                     <label
                                         class="w-full"
@@ -312,12 +316,12 @@ const submit = () => {
                 </div>
 
                 <div>
-                    <h2 class="form-subheading mt-10">
+                    <h2 class="mt-10 form-subheading">
                         Initial Investment Details
                     </h2>
 
                     <div class="form-grid-3">
-                        <div class="p-float-label w-full">
+                        <div class="w-full p-float-label">
                             <Dropdown
                                 v-model="form.paymentMethod"
                                 inputId="paymentMethod"
@@ -333,7 +337,7 @@ const submit = () => {
                             >
                         </div>
 
-                        <span class="p-float-label w-full">
+                        <span class="w-full p-float-label">
                             <InputNumber
                                 class="w-full"
                                 id="initialInvestment"
@@ -342,7 +346,7 @@ const submit = () => {
                                 currency="PHP"
                                 locale="en-PH"
                                 :min="1000"
-                                v-model="form.initialInvestment"
+                                v-model="form.initialInvestment.amount"
                             />
                             <label class="w-full" for="initialInvestment"
                                 >Initial Investment Amount
@@ -350,13 +354,13 @@ const submit = () => {
                             >
                         </span>
 
-                        <span class="p-float-label w-full">
+                        <span class="w-full p-float-label">
                             <InputText
                                 class="w-full"
                                 id="referenceNumber"
                                 required
                                 type="referenceNumber"
-                                v-model="form.referenceNumber"
+                                v-model="form.initialInvestment.referenceNumber"
                             />
                             <label class="w-full" for="referenceNumber"
                                 >Reference Number
@@ -367,9 +371,9 @@ const submit = () => {
                 </div>
 
                 <div>
-                    <h2 class="form-subheading mt-10">Verification</h2>
+                    <h2 class="mt-10 form-subheading">Verification</h2>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">
+                    <div class="grid grid-cols-1 gap-8 mt-10 md:grid-cols-2">
                         <span class="w-full px-1">
                             <label class="w-full" for="validId"
                                 >Valid ID
@@ -410,7 +414,7 @@ const submit = () => {
 
                 <div class="flex justify-end">
                     <Button
-                        class="w-full md:w-1/5 mt-24"
+                        class="w-full mt-24 md:w-1/5"
                         severity="success"
                         type="submit"
                         label="Submit"
