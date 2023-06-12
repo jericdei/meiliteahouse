@@ -19,6 +19,11 @@ php artisan clear-compiled
 # Recreate cache
 php artisan optimize
 
+# Resolve NVM
+export NVM_DIR=~/.nvm
+source ~/.nvm/nvm.sh
+yarn --help
+
 # Compile npm assets
 yarn build
 
