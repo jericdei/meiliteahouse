@@ -8,7 +8,7 @@ enum OccupationTypeEnum: string
 {
     use EnumToArray;
 
-    case Student = 'student';
+    case STUDENT = 'student';
 
-    case Working = 'working';
+    case WORKING = 'working';
 }

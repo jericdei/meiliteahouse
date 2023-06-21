@@ -12,7 +12,17 @@ enum PaymentMethodEnum: string
 
     case BDO = 'bdo';
 
-    case GCash = 'gcash';
+    case GCASH = 'gcash';
 
-    case Maya = 'maya';
+    case MAYA = 'maya';
+
+    public function prettify(): string
+    {
+        return match ($this) {
+            self::BPI => 'BPI',
+            self::BDO => 'BDO',
+            self::GCASH => 'GCash',
+            self::MAYA => 'Maya',
+        };
+    }
 }

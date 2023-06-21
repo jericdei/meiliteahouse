@@ -58,14 +58,13 @@ class RolesAndPermissionsSeeder extends Seeder
             'name' => 'investor',
         ])->givePermissionTo($investorPermissions);
 
-        User::firstOrCreate([
+        User::create([
             'first_name' => 'Jeric June',
             'middle_name' => 'Galano',
             'last_name' => 'Logan',
             'contact_no' => '09760763828',
             'email' => 'jeric@meiliteahouse.com',
-            'password' => bcrypt('loganmlth'),
-            'photo' => 'https://api.dicebear.com/6.x/avataaars/svg?seed=Jeric',
+            'password' => 'loganmlth',
         ])->assignRole('admin');
     }
 }

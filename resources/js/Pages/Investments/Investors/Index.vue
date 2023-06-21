@@ -1,5 +1,5 @@
 <script setup lang="ts"></script>
 
 <template>
-  <p>investors</p>
+    <p>investors</p>
 </template>

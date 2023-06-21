@@ -24,8 +24,7 @@ class UserFactory extends Factory
             'last_name' => fake()->lastName(),
             'contact_no' => fake()->phoneNumber(),
             'email' => fake()->unique()->safeEmail(),
-            'password' => bcrypt('password'),
-            'photo' => "https://api.dicebear.com/6.x/avataaars/svg?seed=$firstName",
+            'password' => 'password',
         ];
     }
 }

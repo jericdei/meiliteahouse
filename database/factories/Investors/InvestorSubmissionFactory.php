@@ -20,12 +20,12 @@ class InvestorSubmissionFactory extends Factory
      */
     public function definition(): array
     {
-        $occupation = array_rand(OccupationTypeEnum::array());
+        $occupation = fake()->randomElement(OccupationTypeEnum::values());
         $investorFactory = new InvestorFactory();
 
         return [
             'id' => fake()->uuid(),
-            'status' => array_rand(StatusEnum::array()),
+            'status' => fake()->randomElement(StatusEnum::values()),
             'first_name' => fake()->firstName(),
             'middle_name' => fake()->lastName(),
             'last_name' => fake()->lastName(),
@@ -42,7 +42,7 @@ class InvestorSubmissionFactory extends Factory
             },
             'investment_amount' => random_int(1000, 25000),
             'reference_no' => fake()->uuid(),
-            'payment_method' => array_rand(PaymentMethodEnum::array()),
+            'payment_method' => fake()->randomElement(PaymentMethodEnum::values()),
         ];
     }
 }

@@ -14,16 +14,15 @@ return new class extends Migration
     {
         Schema::create('investor_submissions', function (Blueprint $table) {
             $table->uuid('id');
-            $table->string('status')->default(StatusEnum::Pending->value);
+            $table->string('status')->default(StatusEnum::PENDING->value);
             $table->string('first_name');
             $table->string('middle_name');
             $table->string('last_name');
             $table->string('contact_no');
             $table->string('email');
             $table->unsignedInteger('age');
-            $table->foreignId('referred_by')
-                ->nullable()
-                ->constrained('investors');
+            $table->uuid('referred_by')
+                ->nullable();
             $table->string('occupation_type');
             $table->json('occupation_data');
             $table->double('investment_amount', 9, 2);

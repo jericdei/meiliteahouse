@@ -8,9 +8,9 @@ enum InvestorStatusEnum: string
 {
     use EnumToArray;
 
-    case Active = 'active';
+    case ACTIVE = 'active';
 
-    case Inactive = 'inactive';
+    case INACTIVE = 'inactive';
 
-    case Blacklisted = 'blacklisted';
+    case BLACKLISTED = 'blacklisted';
 }

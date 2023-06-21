@@ -13,14 +13,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('transaction_investments', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id');
             $table->double('amount', 9, 2);
-            $table->string('status')->default(StatusEnum::Pending->value);
+            $table->string('status')->default(StatusEnum::PENDING->value);
             $table->string('payment_method');
             $table->string('reference_no');
             $table->string('proof_of_payment');
-            $table->foreignId('investor_id')
-                ->nullable()->constrained('investors');
+            $table->uuid('investor_id')
+                ->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

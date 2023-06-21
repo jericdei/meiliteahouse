@@ -27,13 +27,17 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // For testing
-        User::factory(random_int(50, 100))->create()->each(
-            fn (User $user) => $user->assignRole(
-                Role::inRandomOrder()->first()->name
-            )
-        );
+        User::factory()
+            ->count(random_int(50, 100))
+            ->create()
+            ->each(
+                fn (User $user) => $user->assignRole(
+                    Role::inRandomOrder()->first()->name
+                )
+            );
 
-        $investors = Investor::factory(random_int(50, 100))
+        Investor::factory()
+            ->count(random_int(50, 100))
             ->create()
             ->each(fn (Investor $investor) => $investor->update([
                 'referred_by' => fake()->boolean()
@@ -41,6 +45,8 @@ class DatabaseSeeder extends Seeder
                     : null,
             ]));
 
-        InvestorSubmission::factory(random_int(50, 100))->create();
+        InvestorSubmission::factory()
+            ->count(random_int(50, 100))
+            ->create();
     }
 }

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->text('description');
-            $table->foreignId('category_id')->nullable()->constrained('product_categories');
+            $table->foreignId('category_id')->nullable();
             $table->string('photo')->nullable();
             $table->string('status')->default('active');
             $table->timestamps();

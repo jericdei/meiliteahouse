@@ -1,6 +1,6 @@
 <?php
 
-use App\Enums\Common\StatusEnum;
+use App\Enums\Investors\InvestorStatusEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,20 +13,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('investors', function (Blueprint $table) {
-            $table->id();
-            $table->string('status')->default(StatusEnum::Pending->value);
+            $table->uuid('id');
+            $table->string('status')->default(InvestorStatusEnum::ACTIVE->value);
             $table->string('referral_code')->unique();
-            $table->foreignId('referred_by')
-                ->nullable()->constrained('investors');
+            $table->uuid('referred_by')
+                ->nullable();
             $table->double('referral_bonus', 9, 2)->default(0);
             $table->unsignedInteger('age');
             $table->string('occupation_type');
             $table->json('occupation_data');
-            $table->string('valid_id');
-            $table->foreignId('user_id')
-                ->nullable()->constrained('users');
+            $table->uuid('user_id')
+                ->nullable();
             $table->foreignId('classification_id')
-                ->nullable()->constrained('investor_classifications');
+                ->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

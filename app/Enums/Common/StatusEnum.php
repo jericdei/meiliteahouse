@@ -8,9 +8,9 @@ enum StatusEnum: string
 {
     use EnumToArray;
 
-    case Pending = 'pending';
+    case PENDING = 'pending';
 
-    case Approved = 'approved';
+    case APPROVED = 'approved';
 
-    case Declined = 'declined';
+    case DECLINED = 'declined';
 }

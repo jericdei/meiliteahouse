@@ -20,10 +20,10 @@ class InvestorFactory extends Factory
      */
     public function definition(): array
     {
-        $occupation = array_rand(OccupationTypeEnum::array());
+        $occupation = fake()->randomElement(OccupationTypeEnum::values());
 
         return [
-            'status' => array_rand(InvestorStatusEnum::array()),
+            'status' => fake()->randomElement(InvestorStatusEnum::values()),
             'referral_code' => Str::random(8),
             'referral_bonus' => 0,
             'age' => random_int(18, 65),
@@ -32,7 +32,6 @@ class InvestorFactory extends Factory
                 'student' => $this->generateSchoolData(),
                 'working' => $this->generateCompanyData()
             },
-            'valid_id' => fake()->filePath(),
             'user_id' => User::inRandomOrder()->first()->id,
             'classification_id' => null,
         ];
