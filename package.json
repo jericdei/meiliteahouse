@@ -6,7 +6,7 @@
         "dev": "vite",
         "build": "vue-tsc && vite build && vite build --ssr",
         "format": "prettier 'resources/js/**/*.{js,vue}' --write",
-        "pre-commit": "yarn run format && pretty-quick --staged"
+        "pre-commit": "vue-tsc && yarn run format && pretty-quick --staged"
     },
     "devDependencies": {
         "@inertiajs/vue3": "^1.0.0",
