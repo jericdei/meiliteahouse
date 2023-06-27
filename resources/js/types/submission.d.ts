@@ -8,19 +8,19 @@ export interface SubmissionFormProps {
     contactNo: string
     email: string
     age: number
-    referralCode: string?
+    referralCode?: string
     occupation: Occupation
     initialInvestment: InitialInvestment
-    profilePicture: File?
-    validId: File?
-    proofOfPayment: File?
+    profilePicture?: File
+    validId?: File
+    proofOfPayment?: File
 }
 
 export interface Submission extends SubmissionFormProps {
     id: string
     fullName: string
     status: string
-    referredBy: Investor?
+    referredBy?: Investor
 }
 
 export type SubmissionAction = 'approve' | 'reject'

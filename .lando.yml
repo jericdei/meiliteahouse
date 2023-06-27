@@ -42,6 +42,6 @@ tooling:
     pint:
         service: appserver
         cmd: ./vendor/bin/pint --preset laravel
-    dep:
-        service: appserver
-        cmd: ./vendor/deployer/deployer/dep
+    tsc:
+        service: node
+        cmd: vue-tsc

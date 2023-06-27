@@ -21,7 +21,7 @@ const form = useForm<SubmissionFormProps>({
     email: '',
     age: 18,
     referralCode: '',
-    profilePicture: null,
+    profilePicture: undefined,
     occupation: {
         type: '',
         data: {
@@ -38,8 +38,8 @@ const form = useForm<SubmissionFormProps>({
         paymentMethod: '',
         referenceNumber: '',
     },
-    validId: null,
-    proofOfPayment: null,
+    validId: undefined,
+    proofOfPayment: undefined,
 })
 
 const occupation = computed(() => {
