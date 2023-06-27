@@ -26,6 +26,7 @@ class SubmissionController extends Controller
                 $resource = SubmissionResource::collection(
                     InvestorSubmission::query()
                         ->orderByRaw("CASE WHEN status = 'pending' THEN 0 ELSE 1 END")
+                        ->latest('updated_at')
                         ->orderBy('status')
                         ->paginate($request->input('perPage', 15))
                 )->response()->getData(true);
@@ -41,7 +42,7 @@ class SubmissionController extends Controller
     public function update(InvestorSubmission $submission, SubmissionUpdateRequest $request): RedirectResponse
     {
         $action = $request->validated('action');
-        $this->service->verify($submission, $action, $request->validated('rejectReason', null));
+        $this->service->verify($submission, $action, $request->validated('reject_reason', null));
 
         return redirect()
             ->back()

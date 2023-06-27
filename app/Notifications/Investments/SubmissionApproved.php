@@ -16,7 +16,8 @@ class SubmissionApproved extends Notification implements ShouldQueue
      * Create a new notification instance.
      */
     public function __construct(
-        protected Investor $investor
+        protected Investor $investor,
+        protected string $password
     ) {
     }
 
@@ -36,9 +37,11 @@ class SubmissionApproved extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->from('invest@meiliteahouse.com', 'Mei Li Tea House Investment Inc.')
+            ->from('invest@meiliteahouse.com', 'Mei Li Tea House Investment')
+            ->subject('Your Mei Li Tea House Investment Submission has been approved!')
             ->view('emails.submission-approved', [
                 'investor' => $this->investor,
+                'password' => $this->password,
             ]);
     }
 

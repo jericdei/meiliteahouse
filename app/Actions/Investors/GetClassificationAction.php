@@ -2,20 +2,23 @@
 
 namespace App\Actions\Investors;
 
+use App\Models\Investors\Classification;
 use App\Models\Investors\Investor;
 
-class getClassificationAction
+class GetClassificationAction
 {
-    public static function execute(Investor $investor): int
+    public static function execute(Investor $investor): Classification
     {
         $amount = $investor->investments->sum('amount');
 
-        return match (true) {
-            $amount <= 1000 => 1,
-            $amount > 1000 && $amount <= 5000 => 2,
-            $amount > 5000 && $amount <= 7500 => 3,
-            $amount > 7500 && $amount <= 10000 => 4,
-            $amount > 10000 && $amount <= 25000 => 5,
-        };
+        $classifications = Classification::all(['id', 'total_investment']);
+
+        foreach ($classifications as $item) {
+            if ($amount >= $item->total_investment) {
+                $classification = $item;
+            }
+        }
+
+        return $classification;
     }
 }

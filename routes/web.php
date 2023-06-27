@@ -23,8 +23,10 @@ Route::name('site.')->group(function () {
     Route::get('products', ProductsController::class)->name('products');
     Route::get('stores', StoresController::class)->name('stores');
     Route::get('franchise', FranchiseController::class)->name('franchise');
+
     Route::get('investments/form', [InvestController::class, 'form'])->name('investments.form');
-    Route::resource('investments', InvestController::class)->except(['create', 'show', 'destroy']);
+    Route::post('investments/{submission}', [InvestController::class, 'update'])->name('investments.update');
+    Route::resource('investments', InvestController::class)->except(['create', 'edit', 'update', 'show', 'destroy']);
 });
 
 // INVESTMENT SYSTEM ROUTES

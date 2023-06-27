@@ -38,8 +38,10 @@ class SubmissionDeclined extends Notification implements ShouldQueue
     {
         return (new MailMessage)
             ->from('invest@meiliteahouse.com', 'Mei Li Tea House Investment Inc.')
+            ->subject('Your Mei Li Tea House Investment Submission has been declined.')
             ->view('emails.submission-declined', [
                 'submission' => $this->submission,
+                'rejectReason' => $this->rejectReason,
             ]);
     }
 

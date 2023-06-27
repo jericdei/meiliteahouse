@@ -1,14 +1,18 @@
 <script setup lang="ts">
 import type { Dropdown as DropdownObj } from '@/types/common'
-import { SubmissionFormProps } from '@/types/submission'
+import { Submission, SubmissionFormProps } from '@/types/submission'
 import { useForm } from '@inertiajs/vue3'
 import Dropdown from 'primevue/dropdown'
 import FileUpload from 'primevue/fileupload'
 import InputNumber from 'primevue/inputnumber'
 import InputText from 'primevue/inputtext'
+import { ref } from 'vue'
+import { onMounted } from 'vue'
 import { computed } from 'vue'
+import { Method } from '@inertiajs/core'
 
 const props = defineProps<{
+    submission?: Submission
     paymentMethods: Array<DropdownObj>
     occupationTypes: Array<DropdownObj>
 }>()
@@ -42,12 +46,41 @@ const form = useForm<SubmissionFormProps>({
     proofOfPayment: undefined,
 })
 
+const isResubmit = ref(false)
+
+onMounted(() => {
+    if (props.submission) {
+        Object.assign(form, props.submission)
+
+        isResubmit.value = true
+    }
+})
+
 const occupation = computed(() => {
     return form.occupationType === 'student' ? 'School' : 'Company'
 })
 
 const submit = () => {
-    form.post(route('site.investments.store'))
+    console.log(form.data())
+
+    const submitOptions: {
+        method: Method
+        url: string
+    } = isResubmit.value
+        ? {
+              method: 'patch',
+              url: route('site.investments.update', props.submission!.id),
+          }
+        : {
+              method: 'post',
+              url: route('site.investments.store'),
+          }
+
+    form.post(submitOptions.url, {
+        data: {
+            _method: submitOptions.method,
+        },
+    })
 }
 </script>
 
@@ -186,7 +219,7 @@ const submit = () => {
 
                         <div class="mt-10 p-float-label">
                             <Dropdown
-                                v-model="form.occupationType"
+                                v-model="form.occupation.type"
                                 inputId="occupationType"
                                 :options="props.occupationTypes"
                                 optionValue="value"
@@ -202,7 +235,7 @@ const submit = () => {
                         </div>
                     </div>
 
-                    <div v-if="form.occupationType">
+                    <div v-if="form.occupation.type">
                         <div class="flex flex-col gap-8">
                             <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
                                 <span class="w-full p-float-label">
@@ -323,7 +356,7 @@ const submit = () => {
                     <div class="form-grid-3">
                         <div class="w-full p-float-label">
                             <Dropdown
-                                v-model="form.paymentMethod"
+                                v-model="form.initialInvestment.paymentMethod"
                                 inputId="paymentMethod"
                                 :options="props.paymentMethods"
                                 optionValue="value"

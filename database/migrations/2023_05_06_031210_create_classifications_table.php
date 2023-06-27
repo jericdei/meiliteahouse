@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->double('total_investment', 9, 2);
-            $table->decimal('interest_rate', 4, 3);
             $table->decimal('referral_rate', 4, 3);
             $table->json('freebies')->nullable();
             $table->softDeletes();

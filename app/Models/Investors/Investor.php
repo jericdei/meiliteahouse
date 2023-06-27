@@ -50,11 +50,7 @@ class Investor extends Model
 
     public static function referredBy(string $referralCode): self|null
     {
-        $investor = self::where('referral_code', $referralCode)->first();
-
-        return $investor
-            ? $investor->id
-            : null;
+        return self::firstWhere('referral_code', $referralCode) ?? null;
     }
 
     public function scopeActive(): Builder

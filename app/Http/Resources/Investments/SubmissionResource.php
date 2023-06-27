@@ -22,6 +22,9 @@ class SubmissionResource extends JsonResource
             'contactNo' => $this->contact_no,
             'email' => $this->email,
             'age' => $this->age,
+            'referralCode' => ! is_null($this->referral)
+                ? $this->referral->referral_code
+                : 'N/A',
             'referredBy' => ! is_null($this->referral)
                 ? $this->referral->user->name
                 : 'N/A',
@@ -31,7 +34,7 @@ class SubmissionResource extends JsonResource
             ],
             'initialInvestment' => [
                 'paymentMethod' => $this->payment_method,
-                'amount' => formatCurrency($this->investment_amount),
+                'amount' => $this->investment_amount,
                 'referenceNumber' => $this->reference_no,
             ],
         ];

@@ -24,10 +24,78 @@ class SubmissionService
 
     public function store(mixed $input)
     {
-        // Generate UUID
-        $id = Str::orderedUuid();
+        try {
+            DB::beginTransaction();
 
-        // Upload files
+            // Generate UUID
+            $id = Str::orderedUuid();
+
+            // Upload files
+            $this->uploadFiles($input, $id);
+
+            // Create a new submission
+            InvestorSubmission::create([
+                'id' => $id,
+                'first_name' => $input['firstName'],
+                'middle_name' => $input['middleName'],
+                'last_name' => $input['lastName'],
+                'contact_no' => $input['contactNo'],
+                'email' => $input['email'],
+                'age' => $input['age'],
+                'referred_by' => $input['referralCode']
+                    ? Investor::referredBy($input['referralCode'])
+                    : null,
+                'occupation_type' => OccupationTypeEnum::from($input['occupation']['type'])->value,
+                'occupation_data' => collect($input['occupation']['data'])->filter()->toArray(),
+                'payment_method' => PaymentMethodEnum::from($input['initialInvestment']['paymentMethod'])->value,
+                'investment_amount' => $input['initialInvestment']['amount'],
+                'reference_no' => $input['initialInvestment']['referenceNumber'],
+            ]);
+
+            DB::commit();
+        } catch (Throwable $e) {
+            DB::rollback();
+
+            throw $e;
+        }
+    }
+
+    public function update(InvestorSubmission $submission, mixed $input): void
+    {
+        try {
+            DB::beginTransaction();
+
+            $referredBy = Investor::referredBy($input['referralCode']);
+
+            // Upload files
+            $this->uploadFiles($input, $submission->id);
+
+            $submission->update([
+                'first_name' => $input['firstName'],
+                'middle_name' => $input['middleName'],
+                'last_name' => $input['lastName'],
+                'contact_no' => $input['contactNo'],
+                'email' => $input['email'],
+                'age' => $input['age'],
+                'referred_by' => $referredBy ? $referredBy->id : null,
+                'occupation_type' => $input['occupation']['type'],
+                'occupation_data' => $input['occupation']['data'],
+                'investment_amount' => $input['initialInvestment']['amount'],
+                'reference_no' => $input['initialInvestment']['referenceNumber'],
+                'payment_method' => $input['initialInvestment']['paymentMethod'],
+                'status' => StatusEnum::PENDING->value,
+            ]);
+
+            DB::commit();
+        } catch (Throwable $e) {
+            DB::rollBack();
+
+            throw $e;
+        }
+    }
+
+    public function uploadFiles(array $input, string $id): void
+    {
         $files = [
             'profile' => $input['profilePicture'],
             'id' => $input['validId'],
@@ -37,25 +105,6 @@ class SubmissionService
         foreach ($files as $name => $file) {
             $this->fileService->upload("submissions/$id", $file, $name);
         }
-
-        // Create a new submission
-        InvestorSubmission::create([
-            'id' => $id,
-            'first_name' => $input['firstName'],
-            'middle_name' => $input['middleName'],
-            'last_name' => $input['lastName'],
-            'contact_no' => $input['contactNo'],
-            'email' => $input['email'],
-            'age' => $input['age'],
-            'referred_by' => $input['referralCode']
-                ? Investor::referredBy($input['referralCode'])
-                : null,
-            'occupation_type' => OccupationTypeEnum::from($input['occupationType'])->value,
-            'occupation_data' => collect($input['occupationData'])->filter()->toArray(),
-            'payment_method' => PaymentMethodEnum::from($input['paymentMethod'])->value,
-            'investment_amount' => $input['initialInvestment'],
-            'reference_no' => $input['referenceNumber'],
-        ]);
     }
 
     public function verify(InvestorSubmission $submission, string $action, ?string $rejectReason): void
@@ -64,6 +113,8 @@ class SubmissionService
             DB::beginTransaction();
 
             if ($action === 'approve') {
+                $password = Str::random();
+
                 // Create user account
                 $user = (new UserService())->store([
                     'first_name' => $submission->first_name,
@@ -71,7 +122,7 @@ class SubmissionService
                     'last_name' => $submission->last_name,
                     'contact_no' => $submission->contact_no,
                     'email' => $submission->email,
-                    'password' => Str::random(),
+                    'password' => $password,
                 ]);
 
                 // Move profile photo
@@ -103,13 +154,16 @@ class SubmissionService
                 // Move proof of payment photo
                 Storage::move("submissions/$submission->id/proof.webp", "investments/$investment->id/proof.webp");
 
+                // Remove submission folder
+                Storage::deleteDirectory("submissions/$submission->id");
+
                 // Update submission status to approved
                 $submission->update([
                     'status' => StatusEnum::APPROVED->value,
                 ]);
 
                 // Notify investor
-                $submission->notify(new SubmissionApproved($investor));
+                $submission->notify(new SubmissionApproved($investor, $password));
             } else {
                 // Update submission status to rejected
                 $submission->update([
@@ -121,8 +175,8 @@ class SubmissionService
 
             DB::commit();
         } catch (Throwable $e) {
-
             DB::rollBack();
+
             throw $e;
         }
     }

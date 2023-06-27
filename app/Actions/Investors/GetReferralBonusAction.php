@@ -2,12 +2,12 @@
 
 namespace App\Actions\Investors;
 
-use App\Models\Investors\Classification;
+use App\Models\Investors\Investor;
 
 class GetReferralBonusAction
 {
-    public static function execute(int|float $amount, Classification $classification): int|float
+    public static function execute(Investor $referral, int|float $amount): int|float
     {
-        return $amount * $classification->referral_rate;
+        return $referral->referral_bonus + ($amount * $referral->classification->referral_rate);
     }
 }

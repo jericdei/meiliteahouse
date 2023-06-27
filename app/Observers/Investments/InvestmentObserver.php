@@ -4,7 +4,7 @@ namespace App\Observers\Investments;
 
 use App\Actions\Investors\GetClassificationAction;
 use App\Actions\Investors\GetReferralBonusAction;
-use App\Models\Investors\Classification;
+use App\Enums\Common\StatusEnum;
 use App\Models\Transactions\Investment;
 
 class InvestmentObserver
@@ -14,13 +14,21 @@ class InvestmentObserver
      */
     public function created(Investment $investment): void
     {
-        // Update investor classification and referral bonus
-        $classificationId = GetClassificationAction::execute($investment->investor);
+        $investor = $investment->investor;
 
-        $investment->investor->update([
-            'classification_id' => $classificationId,
-            'referral_bonus' => GetReferralBonusAction::execute($investment->amount, Classification::find($classificationId)),
+        // Update investor's classification
+        $investor->update([
+            'classification_id' => (GetClassificationAction::execute($investor))->id,
         ]);
+
+        // If investment is approved, add referral bonus to referral
+        if ($investment->status === StatusEnum::APPROVED->value) {
+            $referral = $investor->referral;
+
+            $referral->update([
+                'referral_bonus' => GetReferralBonusAction::execute($referral, $investment->amount),
+            ]);
+        }
     }
 
     /**
