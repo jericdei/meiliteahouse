@@ -2,12 +2,14 @@
 
 namespace App\Models\Investors;
 
+use App\Models\Transactions\Investment;
 use App\Models\Users\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Investor extends Model
@@ -37,6 +39,11 @@ class Investor extends Model
     public function classification(): BelongsTo
     {
         return $this->belongsTo(Classification::class, 'classification_id');
+    }
+
+    public function investments(): HasMany
+    {
+        return $this->hasMany(Investment::class);
     }
 
     // SCOPES

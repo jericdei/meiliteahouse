@@ -1,41 +1,47 @@
 name: meiliteahouse-website
 recipe: laravel
 config:
-  webroot: ./public
-  php: '8.2'
+    webroot: ./public
+    php: '8.2'
 proxy:
-  appserver:
-    - meiliteahouse-website.localhost
+    appserver:
+        - meiliteahouse-website.localhost
+    mailhog:
+        - mail.meiliteahouse-website.localhost
 services:
-  appserver:
-    scanner: false
-  database:
-    type: mysql
-    portforward: 33071
-    creds:
-      user: username
-      password: password
-      database: meiliteahouse
-  node:
-    type: node:18
-    scanner: false
-    ports:
-      - '5181:5181'
-      - '13711:13711'
+    appserver:
+        scanner: false
+    database:
+        type: mysql
+        portforward: 33071
+        creds:
+            user: username
+            password: password
+            database: meiliteahouse
+    node:
+        type: node:18
+        scanner: false
+        ports:
+            - '5181:5181'
+            - '13711:13711'
+    mailhog:
+        type: mailhog
+        scanner: false
+        portforward: true
 tooling:
-  node:
-    service: appserver
-  yarn:
-    service: node
-  dev:
-    service: node
-    cmd: yarn dev
-  build:
-    service: node
-    cmd: yarn build
-  pint:
-    service: appserver
-    cmd: ./vendor/bin/pint --preset laravel
-  dep:
-    service: appserver
-    cmd: ./vendor/deployer/deployer/dep
+    node:
+        service: appserver
+    yarn:
+        service: node
+    dev:
+        service: node
+        cmd: yarn dev
+    build:
+        service: node
+        cmd: yarn build
+    pint:
+        service: appserver
+        cmd: ./vendor/bin/pint --preset laravel
+    dep:
+        service: appserver
+        cmd: ./vendor/deployer/deployer/dep

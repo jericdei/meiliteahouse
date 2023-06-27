@@ -25,7 +25,7 @@ class InvestorSubmissionFactory extends Factory
 
         return [
             'id' => fake()->uuid(),
-            'status' => fake()->randomElement(StatusEnum::values()),
+            'status' => StatusEnum::PENDING->value,
             'first_name' => fake()->firstName(),
             'middle_name' => fake()->lastName(),
             'last_name' => fake()->lastName(),

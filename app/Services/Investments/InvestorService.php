@@ -12,11 +12,6 @@ class InvestorService
     {
         $validated = Validator::make($attributes, (new InvestorStoreRequest())->rules())->validated();
 
-        // Compute referral bonus and classification
-        dd($validated);
-
-        $investor = Investor::create($validated);
-
-        return $investor;
+        return Investor::create($validated);
     }
 }

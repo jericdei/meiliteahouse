@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('status')->default(StatusEnum::PENDING->value);
             $table->string('payment_method');
             $table->string('reference_no');
-            $table->string('proof_of_payment');
             $table->uuid('investor_id')
                 ->nullable();
             $table->softDeletes();

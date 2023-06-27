@@ -46,16 +46,15 @@ namespace App\Models\Investors{
 /**
  * App\Models\Investors\Investor
  *
- * @property int $id
+ * @property string $id
  * @property string $status
  * @property string $referral_code
- * @property int|null $referred_by
+ * @property string|null $referred_by
  * @property float $referral_bonus
  * @property int $age
  * @property string $occupation_type
  * @property array $occupation_data
- * @property string $valid_id
- * @property int|null $user_id
+ * @property string|null $user_id
  * @property int|null $classification_id
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -82,7 +81,6 @@ namespace App\Models\Investors{
  * @method static \Illuminate\Database\Eloquent\Builder|Investor whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Investor whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Investor whereUserId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Investor whereValidId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Investor withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Investor withoutTrashed()
  */
@@ -101,7 +99,7 @@ namespace App\Models\Investors{
  * @property string $contact_no
  * @property string $email
  * @property int $age
- * @property int|null $referred_by
+ * @property string|null $referred_by
  * @property string $occupation_type
  * @property array $occupation_data
  * @property float $investment_amount
@@ -194,13 +192,13 @@ namespace App\Models\Transactions{
 /**
  * App\Models\Transactions\Investment
  *
- * @property int $id
+ * @property string $id
  * @property float $amount
  * @property string $status
  * @property string $payment_method
  * @property string $reference_no
  * @property string $proof_of_payment
- * @property int|null $investor_id
+ * @property string|null $investor_id
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -229,12 +227,12 @@ namespace App\Models\Transactions{
 /**
  * App\Models\Transactions\Withdrawal
  *
- * @property int $id
+ * @property string $id
  * @property float $amount
  * @property string $status
  * @property string $payment_method
  * @property string $account_number
- * @property int|null $investor_id
+ * @property string|null $investor_id
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -262,14 +260,13 @@ namespace App\Models\Users{
 /**
  * App\Models\Users\User
  *
- * @property int $id
+ * @property string $id
  * @property string $first_name
  * @property string $middle_name
  * @property string $last_name
  * @property string $contact_no
  * @property string $email
  * @property string $password
- * @property string|null $photo
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -296,7 +293,6 @@ namespace App\Models\Users{
  * @method static \Illuminate\Database\Eloquent\Builder|User whereLastName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereMiddleName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User wherePassword($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User wherePhoto($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|User withoutTrashed()

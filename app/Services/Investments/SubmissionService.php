@@ -2,10 +2,13 @@
 
 namespace App\Services\Investments;
 
+use App\Enums\Common\StatusEnum;
 use App\Enums\Investors\OccupationTypeEnum;
 use App\Enums\Transactions\PaymentMethodEnum;
 use App\Models\Investors\Investor;
 use App\Models\Investors\InvestorSubmission;
+use App\Notifications\Investments\SubmissionApproved;
+use App\Notifications\Investments\SubmissionDeclined;
 use App\Services\Common\FileService;
 use App\Services\Users\UserService;
 use Illuminate\Support\Facades\DB;
@@ -83,20 +86,38 @@ class SubmissionService
                     'occupation_type' => $submission->occupation_type,
                     'occupation_data' => $submission->occupation_data,
                     'user_id' => $user->id,
-                    'investment_amount' => $submission->investment_amount,
                 ]);
 
-                dd($investor);
+                // Move valid ID photo
+                Storage::move("submissions/$submission->id/id.webp", "investors/$investor->id/id.webp");
+
                 // Create transaction details
+                $investment = (new InvestmentService())->store([
+                    'amount' => $submission->investment_amount,
+                    'status' => StatusEnum::APPROVED->value,
+                    'payment_method' => $submission->payment_method,
+                    'reference_no' => $submission->reference_no,
+                    'investor_id' => $investor->id,
+                ]);
+
+                // Move proof of payment photo
+                Storage::move("submissions/$submission->id/proof.webp", "investments/$investment->id/proof.webp");
 
                 // Update submission status to approved
+                $submission->update([
+                    'status' => StatusEnum::APPROVED->value,
+                ]);
 
                 // Notify investor
+                $submission->notify(new SubmissionApproved($investor));
+            } else {
+                // Update submission status to rejected
+                $submission->update([
+                    'status' => StatusEnum::DECLINED->value,
+                ]);
+
+                $submission->notify(new SubmissionDeclined($submission, $rejectReason));
             }
-
-            // Update submission status to rejected
-
-            // Notify investor and provide link for resubmission
 
             DB::commit();
         } catch (Throwable $e) {
