@@ -33,7 +33,7 @@ const submission: Submission = dialogRef.value.data.submission
             <p class="italic font-bold">
                 {{
                     submission.occupation.data[
-                        submission.occupation.type === 'Student'
+                        submission.occupation.type === 'student'
                             ? 'courseYear'
                             : 'position'
                     ]

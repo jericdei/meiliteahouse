@@ -9,7 +9,10 @@ export interface SubmissionFormProps {
     email: string
     age: number
     referralCode?: string
-    occupation: Occupation
+    occupation: {
+        type: Occupation['type'] | ''
+        data: Occupation['data']
+    }
     initialInvestment: InitialInvestment
     profilePicture?: File
     validId?: File
@@ -32,7 +35,7 @@ export interface InitialInvestment {
 }
 
 export interface Occupation {
-    type: string
+    type: 'student' | 'working'
     data: SchoolDetails & CompanyDetails
 }
 

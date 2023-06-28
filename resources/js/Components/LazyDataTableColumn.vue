@@ -10,5 +10,9 @@ const props = defineProps<{
 <template>
     <Skeleton v-if="props.isLoading" />
 
-    <span v-else>{{ props.value }}</span>
+    <span v-else>
+        <slot name="content" :value="props.value">
+            {{ props.value }}
+        </slot>
+    </span>
 </template>

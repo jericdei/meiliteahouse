@@ -12,8 +12,9 @@ import { useDialog } from 'primevue/usedialog'
 import ShowModal from './Modals/ShowModal.vue'
 import { dynamicDialogProps } from '@/Config/modal'
 import ShowModalFooter from './Modals/Templates/ShowModalFooter.vue'
-import DataTableSkeleton from '@/Components/DataTableSkeleton.vue'
 import { router } from '@inertiajs/vue3'
+import StatusTag from '@/Components/StatusTag.vue'
+import OccupationTag from '@/Components/OccupationTag.vue'
 
 const props = withDefaults(
     defineProps<{
@@ -70,14 +71,7 @@ const showSubmissionModal = (submission: Submission) => {
     <section>
         <Title icon="pi pi-list" class="mb-5">Submissions</Title>
 
-        <DataTableSkeleton
-            v-if="props.submissions === undefined"
-            :columns="columns"
-            :rows="10"
-        />
-
         <LazyDataTable
-            v-else
             class="mx-auto my-2"
             ref="dt"
             :value="props.submissions.items"
@@ -87,12 +81,39 @@ const showSubmissionModal = (submission: Submission) => {
             :rowsPerPageOptions="[10, 25, 50, 100]"
             @page="datatable.paginate($event.page + 1, $event.rows)"
         >
-            <Column v-for="col in columns" :header="col.header">
+            <Column
+                v-for="col in columns"
+                :header="col.header"
+                :key="col.field"
+            >
                 <template #body="{ data }">
-                    <LazyDataTableColumn
-                        :value="_.get(data, col.field)"
-                        :isLoading="datatable.loading.value"
-                    />
+                    <div>
+                        <LazyDataTableColumn
+                            v-if="col.field === 'status'"
+                            :value="_.get(data, col.field)"
+                            :isLoading="datatable.loading.value"
+                        >
+                            <template #content="{ value }">
+                                <StatusTag :status="value" />
+                            </template>
+                        </LazyDataTableColumn>
+
+                        <LazyDataTableColumn
+                            v-else-if="col.field === 'occupation.type'"
+                            :value="_.get(data, col.field)"
+                            :isLoading="datatable.loading.value"
+                        >
+                            <template #content="{ value }">
+                                <OccupationTag :occupation="value" />
+                            </template>
+                        </LazyDataTableColumn>
+
+                        <LazyDataTableColumn
+                            v-else
+                            :value="_.get(data, col.field)"
+                            :isLoading="datatable.loading.value"
+                        />
+                    </div>
                 </template>
             </Column>
 
