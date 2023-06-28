@@ -15,8 +15,7 @@ export interface Params {
 
 export function useDataTableActions(
     routeName: string,
-    filters: Params['filters'],
-    only: string[]
+    filters: Params['filters']
 ) {
     const loading = ref<Boolean>(false)
 

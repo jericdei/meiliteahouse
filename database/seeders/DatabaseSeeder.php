@@ -11,7 +11,6 @@ use Database\Seeders\Investor\ClassificationSeeder;
 use Database\Seeders\Products\CategorySeeder;
 use Database\Seeders\Products\ProductSeeder;
 use Illuminate\Database\Seeder;
-use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
@@ -32,9 +31,7 @@ class DatabaseSeeder extends Seeder
             ->count(random_int(10, 20))
             ->create()
             ->each(
-                fn (User $user) => $user->assignRole(
-                    Role::inRandomOrder()->first()->name
-                )
+                fn (User $user) => $user->assignRole('investor')
             );
 
         Investor::factory()

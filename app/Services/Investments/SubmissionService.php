@@ -125,6 +125,9 @@ class SubmissionService
                     'password' => $password,
                 ]);
 
+                // Assign role to investor
+                $user->assignRole('investor');
+
                 // Move profile photo
                 Storage::move("submissions/$submission->id/profile.webp", "users/$user->id/profile.webp");
 

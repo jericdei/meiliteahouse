@@ -26,10 +26,7 @@ const props = withDefaults(
 
 const dialog = useDialog()
 const dt = ref()
-
-const datatable = useDataTableActions(route('invest.submissions.index'), {}, [
-    'submissions',
-])
+const datatable = useDataTableActions(route('invest.submissions.index'), {})
 
 const columns = [
     { field: 'id', header: 'ID' },
@@ -67,70 +64,71 @@ const showSubmissionModal = (submission: Submission) => {
 </script>
 
 <template>
-    <Head title="Submissions" />
+    <div>
+        <Head title="Submissions" />
 
-    <section>
-        <Title icon="pi pi-list" class="mb-5">Submissions</Title>
+        <section>
+            <Title icon="pi pi-list" class="mb-5">Submissions</Title>
 
-        <LazyDataTable
-            class="mx-auto my-2"
-            ref="dt"
-            :value="props.submissions.items"
-            :totalRecords="props.submissions.total"
-            :isLoading="datatable.loading"
-            :rows="10"
-            :rowsPerPageOptions="[10, 25, 50, 100]"
-            @page="datatable.paginate($event.page + 1, $event.rows)"
-        >
-            <Column
-                v-for="col in columns"
-                :header="col.header"
-                :key="col.field"
+            <LazyDataTable
+                class="mx-auto my-2"
+                ref="dt"
+                :value="props.submissions.items"
+                :totalRecords="props.submissions.total"
+                :isLoading="datatable.loading"
+                :rows="10"
+                :rowsPerPageOptions="[10, 25, 50, 100]"
+                @page="datatable.paginate($event.page + 1, $event.rows)"
             >
-                <template #body="{ data }">
-                    <div>
-                        <LazyDataTableColumn
-                            v-if="col.field === 'status'"
-                            :value="_.get(data, col.field)"
-                            :isLoading="datatable.loading.value"
-                        >
-                            <template #content="{ value }">
-                                <StatusTag :status="value" />
-                            </template>
-                        </LazyDataTableColumn>
+                <Column
+                    v-for="col in columns"
+                    :header="col.header"
+                    :key="col.field"
+                >
+                    <template #body="{ data }">
+                        <div>
+                            <LazyDataTableColumn
+                                v-if="col.field === 'status'"
+                                :value="_.get(data, col.field)"
+                                :isLoading="datatable.loading.value"
+                            >
+                                <template #content="{ value }">
+                                    <StatusTag :status="value" />
+                                </template>
+                            </LazyDataTableColumn>
 
-                        <LazyDataTableColumn
-                            v-else-if="col.field === 'occupation.type'"
-                            :value="_.get(data, col.field)"
-                            :isLoading="datatable.loading.value"
-                        >
-                            <template #content="{ value }">
-                                <OccupationTag :occupation="value" />
-                            </template>
-                        </LazyDataTableColumn>
+                            <LazyDataTableColumn
+                                v-else-if="col.field === 'occupation.type'"
+                                :value="_.get(data, col.field)"
+                                :isLoading="datatable.loading.value"
+                            >
+                                <template #content="{ value }">
+                                    <OccupationTag :occupation="value" />
+                                </template>
+                            </LazyDataTableColumn>
 
-                        <LazyDataTableColumn
-                            v-else
-                            :value="_.get(data, col.field)"
-                            :isLoading="datatable.loading.value"
-                        />
-                    </div>
-                </template>
-            </Column>
+                            <LazyDataTableColumn
+                                v-else
+                                :value="_.get(data, col.field)"
+                                :isLoading="datatable.loading.value"
+                            />
+                        </div>
+                    </template>
+                </Column>
 
-            <Column header="Actions">
-                <template #body="{ data }">
-                    <div class="flex">
-                        <Button
-                            severity="success"
-                            icon="pi pi-eye"
-                            text
-                            rounded
-                            v-tooltip.top="'View'"
-                            @click="showSubmissionModal(data)"
-                        />
+                <Column header="Actions">
+                    <template #body="{ data }">
+                        <div class="flex">
+                            <Button
+                                severity="success"
+                                icon="pi pi-eye"
+                                text
+                                rounded
+                                v-tooltip.top="'View'"
+                                @click="showSubmissionModal(data)"
+                            />
 
-                        <!-- <Button
+                            <!-- <Button
                             severity="info"
                             icon="pi pi-pencil"
                             text
@@ -145,11 +143,12 @@ const showSubmissionModal = (submission: Submission) => {
                             rounded
                             v-tooltip.top="'Delete'"
                         /> -->
-                    </div>
-                </template>
-            </Column>
-        </LazyDataTable>
-    </section>
+                        </div>
+                    </template>
+                </Column>
+            </LazyDataTable>
+        </section>
+    </div>
 </template>
 
 <style scoped>
