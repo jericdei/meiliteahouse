@@ -45,8 +45,32 @@
     /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 
+@font-face {
+    font-family: 'Telegraf';
+    src: url('/fonts/pptelegraf-regular-webfont.woff2') format('woff2'),
+        url('/fonts/pptelegraf-regular-webfont.woff') format('woff');
+    font-style: normal;
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'Telegraf';
+    src: url('/fonts/pptelegraf-ultrabold-webfont.woff2') format('woff2'),
+        url('/fonts/pptelegraf-ultrabold-webfont.woff') format('woff');
+    font-style: normal;
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: 'Telegraf';
+    src: url('/fonts/pptelegraf-ultralight-webfont.woff2') format('woff2'),
+        url('/fonts/pptelegraf-ultralight-webfont.woff') format('woff');
+    font-style: normal;
+    font-weight: 300;
+}
+
 body {
-    font-family: var(--font-family);
+    font-family: 'Telegraf', sans-serif !important;
     @apply text-slate-950;
 }
 

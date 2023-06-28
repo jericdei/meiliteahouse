@@ -13,10 +13,12 @@ module.exports = {
         extend: {
             fontFamily: {
                 heading: ['Poppins', 'sans-serif'],
+                body: ['Telegraf', 'sans-serif'],
                 chinese: ['Long Cang'],
             },
             colors: {
                 primary: '#890202',
+                'primary-dark': '#88181A',
                 secondary: '#bf9b30',
                 success: '#22c55e',
                 info: '3b82f6',

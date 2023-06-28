@@ -164,7 +164,6 @@ const handleMenuToggle = (event: Event) => {
                         icon="pi pi-bars"
                         text
                         rounded
-                        disabled
                         @click="handleMenuToggle($event)"
                     />
 
@@ -198,7 +197,9 @@ const handleMenuToggle = (event: Event) => {
                             active: $page.url.startsWith('/franchise'),
                         }"
                     >
-                        <Link :href="route('site.franchise')">Franchise</Link>
+                        <a :href="route('site.franchise')" target="_blank"
+                            >Franchise</a
+                        >
                     </li>
                     <li :class="{ active: $page.url.startsWith('/invest') }">
                         <Link :href="route('site.investments.index')"
