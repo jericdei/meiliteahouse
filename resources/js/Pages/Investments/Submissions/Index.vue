@@ -12,7 +12,6 @@ import { useDialog } from 'primevue/usedialog'
 import ShowModal from './Modals/ShowModal.vue'
 import { dynamicDialogProps } from '@/Config/modal'
 import ShowModalFooter from './Modals/Templates/ShowModalFooter.vue'
-import { router } from '@inertiajs/vue3'
 import StatusTag from '@/Components/StatusTag.vue'
 import OccupationTag from '@/Components/OccupationTag.vue'
 
@@ -28,7 +27,9 @@ const props = withDefaults(
 const dialog = useDialog()
 const dt = ref()
 
-const datatable = useDataTableActions({}, ['submissions'])
+const datatable = useDataTableActions(route('invest.submissions.index'), {}, [
+    'submissions',
+])
 
 const columns = [
     { field: 'id', header: 'ID' },
@@ -129,7 +130,7 @@ const showSubmissionModal = (submission: Submission) => {
                             @click="showSubmissionModal(data)"
                         />
 
-                        <Button
+                        <!-- <Button
                             severity="info"
                             icon="pi pi-pencil"
                             text
@@ -143,7 +144,7 @@ const showSubmissionModal = (submission: Submission) => {
                             text
                             rounded
                             v-tooltip.top="'Delete'"
-                        />
+                        /> -->
                     </div>
                 </template>
             </Column>

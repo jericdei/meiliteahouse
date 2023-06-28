@@ -14,6 +14,7 @@ export interface Params {
 }
 
 export function useDataTableActions(
+    routeName: string,
     filters: Params['filters'],
     only: string[]
 ) {
@@ -29,13 +30,16 @@ export function useDataTableActions(
 
         loading.value = true
 
-        router.reload({
-            data: { ...query },
-            only: only,
-            preserveState: true,
-            replace: true,
-            onFinish: () => (loading.value = false),
-        })
+        router.get(
+            routeName,
+            { ...query },
+            {
+                preserveState: true,
+                preserveScroll: true,
+                replace: true,
+                onFinish: () => (loading.value = false),
+            }
+        )
     }
 
     const paginate = (

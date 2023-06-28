@@ -33,7 +33,6 @@ class UserStoreRequest extends FormRequest
                 Password::min(8)
                     ->letters()
                     ->numbers()
-                    ->mixedCase()
                     ->uncompromised(),
             ],
             'photo' => ['string'],
