@@ -9,7 +9,7 @@ class GetClassificationAction
 {
     public static function execute(Investor $investor): Classification
     {
-        $amount = $investor->investments->sum('amount');
+        $amount = $investor->total_investments;
 
         $classifications = Classification::all(['id', 'total_investment']);
 
@@ -17,6 +17,10 @@ class GetClassificationAction
             if ($amount >= $item->total_investment) {
                 $classification = $item;
             }
+        }
+
+        if (! isset($classification)) {
+            $classification = $classifications->find(1);
         }
 
         return $classification;

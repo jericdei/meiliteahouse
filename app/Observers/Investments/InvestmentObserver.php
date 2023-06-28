@@ -21,8 +21,8 @@ class InvestmentObserver
             'classification_id' => (GetClassificationAction::execute($investor))->id,
         ]);
 
-        // If investment is approved, add referral bonus to referral
-        if ($investment->status === StatusEnum::APPROVED->value) {
+        // If investment is approved, add referral bonus to referral if exists
+        if ($investor->referral && $investment->status === StatusEnum::APPROVED->value) {
             $referral = $investor->referral;
 
             $referral->update([

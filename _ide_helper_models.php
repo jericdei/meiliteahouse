@@ -17,7 +17,6 @@ namespace App\Models\Investors{
  * @property int $id
  * @property string $title
  * @property float $total_investment
- * @property string $interest_rate
  * @property string $referral_rate
  * @property array|null $freebies
  * @property \Illuminate\Support\Carbon|null $deleted_at
@@ -31,7 +30,6 @@ namespace App\Models\Investors{
  * @method static \Illuminate\Database\Eloquent\Builder|Classification whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Classification whereFreebies($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Classification whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Classification whereInterestRate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Classification whereReferralRate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Classification whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Classification whereTotalInvestment($value)
@@ -60,6 +58,7 @@ namespace App\Models\Investors{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Investors\Classification|null $classification
+ * @property-read int|float $total_investments
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Transactions\Investment> $investments
  * @property-read int|null $investments_count
  * @property-read Investor|null $referral
@@ -201,12 +200,12 @@ namespace App\Models\Transactions{
  * @property string $status
  * @property string $payment_method
  * @property string $reference_no
- * @property string $proof_of_payment
  * @property string|null $investor_id
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Investors\Investor|null $investor
+ * @method static \Database\Factories\Transactions\InvestmentFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Investment newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Investment newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Investment onlyTrashed()
@@ -217,7 +216,6 @@ namespace App\Models\Transactions{
  * @method static \Illuminate\Database\Eloquent\Builder|Investment whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Investment whereInvestorId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Investment wherePaymentMethod($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Investment whereProofOfPayment($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Investment whereReferenceNo($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Investment whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Investment whereUpdatedAt($value)

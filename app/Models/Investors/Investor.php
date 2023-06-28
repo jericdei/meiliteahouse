@@ -2,6 +2,7 @@
 
 namespace App\Models\Investors;
 
+use App\Enums\Common\StatusEnum;
 use App\Models\Transactions\Investment;
 use App\Models\Users\User;
 use Illuminate\Database\Eloquent\Builder;
@@ -56,5 +57,14 @@ class Investor extends Model
     public function scopeActive(): Builder
     {
         return $this->where('status', 'active');
+    }
+
+    // ACCESSORS
+
+    public function getTotalInvestmentsAttribute(): int|float
+    {
+        return $this->investments
+            ->where('status', StatusEnum::APPROVED->value)
+            ->sum('amount');
     }
 }

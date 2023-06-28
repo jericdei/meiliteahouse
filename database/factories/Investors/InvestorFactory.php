@@ -33,7 +33,7 @@ class InvestorFactory extends Factory
                 'working' => $this->generateCompanyData()
             },
             'user_id' => User::inRandomOrder()->first()->id,
-            'classification_id' => null,
+            'classification_id' => 1,
         ];
     }
 
