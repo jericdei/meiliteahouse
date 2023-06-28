@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { Submission, SubmissionAction } from '@/types/submission'
-import { useForm } from '@inertiajs/vue3'
+import { SubmissionAction } from '@/types/submission'
+import { router, useForm } from '@inertiajs/vue3'
 import { DynamicDialogInstance } from 'primevue/dynamicdialogoptions'
 import { useConfirm } from 'primevue/useconfirm'
 import { useDialog } from 'primevue/usedialog'

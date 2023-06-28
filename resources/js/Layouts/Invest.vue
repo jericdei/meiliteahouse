@@ -1,8 +1,54 @@
 <script setup lang="ts">
-import Toast from 'primevue/toast'
+import Toast, { ToastMessageOptions } from 'primevue/toast'
 import DynamicDialog from 'primevue/dynamicdialog'
 import ConfirmDialog from 'primevue/confirmdialog'
 import Sidebar from './Invest/Sidebar.vue'
+import { router, usePage } from '@inertiajs/vue3'
+import { useToast } from 'primevue/usetoast'
+import { onUnmounted, watch } from 'vue'
+
+const toast = useToast()
+const page = usePage()
+
+interface FlashMessage {
+    severity: ToastMessageOptions['severity']
+    life: number
+    summary: string
+    detail: string
+}
+
+let event = router.on('finish', () => {
+    if (page.props.flash) {
+        let flash: FlashMessage = page.props.flash as FlashMessage
+
+        toast.add({
+            severity: flash.severity,
+            life: flash.life ?? 3000,
+            summary: flash.summary,
+            detail: flash.detail,
+            group: 'br',
+            closable: true,
+        })
+    }
+})
+
+onUnmounted(() => event())
+
+watch(
+    () => usePage().props.errors,
+    errors => {
+        Object.values(errors).forEach((item: any) => {
+            toast.add({
+                severity: 'error',
+                life: 3000,
+                summary: 'Error!',
+                detail: item,
+                group: 'br',
+                closable: true,
+            })
+        })
+    }
+)
 </script>
 
 <template>

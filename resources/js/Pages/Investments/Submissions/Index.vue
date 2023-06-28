@@ -3,7 +3,7 @@ import LazyDataTable from '@/Components/LazyDataTable.vue'
 import LazyDataTableColumn from '@/Components/LazyDataTableColumn.vue'
 import { Submission } from '@/types/submission'
 import Column from 'primevue/column'
-import { onMounted, ref, markRaw } from 'vue'
+import { onMounted, ref, markRaw, onUpdated } from 'vue'
 import _ from 'lodash'
 import Title from '@/Components/Investments/Title.vue'
 import { LazyTableProps } from '@/types'
@@ -13,6 +13,7 @@ import ShowModal from './Modals/ShowModal.vue'
 import { dynamicDialogProps } from '@/Config/modal'
 import ShowModalFooter from './Modals/Templates/ShowModalFooter.vue'
 import DataTableSkeleton from '@/Components/DataTableSkeleton.vue'
+import { router } from '@inertiajs/vue3'
 
 const props = withDefaults(
     defineProps<{
@@ -26,9 +27,7 @@ const props = withDefaults(
 const dialog = useDialog()
 const dt = ref()
 
-const datatable = useDataTableActions(route('invest.submissions.index'), {}, [
-    'submissions',
-])
+const datatable = useDataTableActions({}, ['submissions'])
 
 const columns = [
     { field: 'id', header: 'ID' },
@@ -41,6 +40,8 @@ const columns = [
     { field: 'initialInvestment.amount', header: 'Investment Amount' },
     { field: 'status', header: 'Status' },
 ]
+
+onMounted(() => datatable.getData())
 
 const showSubmissionModal = (submission: Submission) => {
     dialog.open(ShowModal, {
@@ -61,10 +62,6 @@ const showSubmissionModal = (submission: Submission) => {
         },
     })
 }
-
-onMounted(() => {
-    datatable.getData()
-})
 </script>
 
 <template>
