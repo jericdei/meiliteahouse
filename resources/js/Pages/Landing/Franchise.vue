@@ -6,16 +6,7 @@ import InputMask from 'primevue/inputmask'
 import Dialog from 'primevue/dialog'
 import { ref } from 'vue'
 import { router } from '@inertiajs/vue3'
-
-interface FranchisingFormProps {
-    [key: string]: unknown
-    fullName: string
-    address: string
-    age?: number
-    contactNo: string
-    email: string
-    targetLocation: string
-}
+import { FranchisingFormProps } from '@/types/franchising'
 
 const form = useForm<FranchisingFormProps>({
     fullName: '',

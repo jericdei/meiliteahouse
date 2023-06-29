@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Investments;
+namespace App\Http\Controllers\Admin\Investments;
 
 use App\Http\Controllers\Controller;
 use App\Models\Investors\Investor;
@@ -12,7 +12,7 @@ class DashboardController extends Controller
 {
     public function __invoke(Request $request): Response
     {
-        return inertia('Investments/Dashboard', [
+        return inertia('Admin/Investments/Dashboard', [
             'headers' => [
                 'activeInvestors' => Investor::active()->count(),
                 'pendingSubmissions' => InvestorSubmission::pending()->count(),

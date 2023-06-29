@@ -20,39 +20,39 @@ const handleLogout = () => {
 const sidebarLinks = [
     {
         label: 'Dashboard',
-        route: route('invest.dashboard'),
+        route: route('admin.invest.dashboard'),
         icon: 'pi pi-chart-bar',
-        component: 'Investments/Dashboard',
+        component: 'Admin/Investments/Dashboard',
     },
     {
         label: 'Submissions',
-        route: route('invest.submissions.index'),
+        route: route('admin.invest.submissions.index'),
         icon: 'pi pi-list',
-        component: 'Investments/Submissions/Index',
+        component: 'Admin/Investments/Submissions/Index',
     },
     {
         label: 'Users',
-        route: route('invest.users.index'),
+        route: route('admin.invest.users.index'),
         icon: 'pi pi-users',
-        component: 'Investments/Users/Index',
+        component: 'Admin/Investments/Users/Index',
     },
     {
         label: 'Investors',
-        route: route('invest.investors.index'),
+        route: route('admin.invest.investors.index'),
         icon: 'pi pi-id-card',
-        component: 'Investments/Investors/Index',
+        component: 'Admin/Investments/Investors/Index',
     },
     {
         label: 'Investments',
-        route: route('invest.investments.index'),
+        route: route('admin.invest.investments.index'),
         icon: 'pi pi-money-bill',
-        component: 'Investments/Investment/Index',
+        component: 'Admin/Investments/Investment/Index',
     },
     {
         label: 'Withdrawals',
-        route: route('invest.withdrawals.index'),
+        route: route('admin.invest.withdrawals.index'),
         icon: 'pi pi-credit-card',
-        component: 'Investments/Withdrawals/Index',
+        component: 'Admin/Investments/Withdrawals/Index',
     },
 ]
 </script>

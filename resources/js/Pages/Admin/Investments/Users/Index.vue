@@ -20,7 +20,7 @@ const props = withDefaults(
 )
 
 const dt = ref()
-const datatable = useDataTableActions(route('invest.users.index'), {})
+const datatable = useDataTableActions(route('admin.invest.users.index'), {})
 
 const columns = [
     { field: 'id', header: 'ID' },

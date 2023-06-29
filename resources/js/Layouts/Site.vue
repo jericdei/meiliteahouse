@@ -62,7 +62,7 @@ const items = ref([
         class: 'mlth-menu-item',
         command: () =>
             router.get(
-                route(page.props.user ? 'invest.dashboard' : 'auth.login')
+                route(page.props.user ? 'admin.invest.dashboard' : 'auth.login')
             ),
     },
 ])

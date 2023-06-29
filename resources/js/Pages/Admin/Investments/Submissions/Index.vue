@@ -26,7 +26,10 @@ const props = withDefaults(
 
 const dialog = useDialog()
 const dt = ref()
-const datatable = useDataTableActions(route('invest.submissions.index'), {})
+const datatable = useDataTableActions(
+    route('admin.invest.submissions.index'),
+    {}
+)
 
 const columns = [
     { field: 'id', header: 'ID' },

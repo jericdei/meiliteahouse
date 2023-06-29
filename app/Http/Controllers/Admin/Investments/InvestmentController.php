@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Investments;
+namespace App\Http\Controllers\Admin\Investments;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -10,6 +10,6 @@ class InvestmentController extends Controller
 {
     public function index(Request $request): Response
     {
-        return inertia('Investments/Investment/Index');
+        return inertia('Admin/Investments/Investment/Index');
     }
 }

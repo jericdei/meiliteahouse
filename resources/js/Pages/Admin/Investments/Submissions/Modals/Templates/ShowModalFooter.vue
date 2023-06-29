@@ -61,7 +61,7 @@ const showConfirm = (action: SubmissionAction) => {
                 action: action,
             })).patch(
                 route(
-                    'invest.submissions.update',
+                    'admin.invest.submissions.update',
                     dialogRef.value.data.submission.id
                 )
             )
