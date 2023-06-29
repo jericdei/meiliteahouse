@@ -45,7 +45,7 @@ watch(
 const links = [
     {
         label: 'Submissions',
-        route: route('admin.invest.submissions.index'),
+        route: route('admin.franchise.submissions.index'),
         icon: 'pi pi-list',
         component: 'Admin/Franchise/Submissions/Index',
     },
