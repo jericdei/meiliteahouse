@@ -11,6 +11,7 @@ import Button from 'primevue/button'
 import ConfirmationService from 'primevue/confirmationservice'
 import type { DefineComponent } from 'vue'
 import DialogService from 'primevue/dialogservice'
+import Franchise from './Layouts/Franchise.vue'
 import Image from 'primevue/image'
 import Invest from './Layouts/Invest.vue'
 import PrimeVue from 'primevue/config'
@@ -34,6 +35,8 @@ createInertiaApp({
 
         if (name.startsWith('Admin/Investments/')) {
             page.default.layout = Invest
+        } else if (name.startsWith('Admin/Franchise/')) {
+            page.default.layout = Franchise
         } else if (name.startsWith('Site/')) {
             page.default.layout = Site
         } else {

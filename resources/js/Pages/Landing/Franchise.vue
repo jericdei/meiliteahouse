@@ -22,6 +22,7 @@ const dialogMessage = ref('')
 
 const handleSubmit = () => {
     form.post(route('site.franchise.store'), {
+        preserveScroll: true,
         onSuccess: (page: any) => {
             form.reset()
 
@@ -248,60 +249,121 @@ const scrollToForm = () => (location.hash = '#franchising_form')
                         </p>
 
                         <div class="flex flex-col gap-8 mt-8">
-                            <div class="p-float-label">
-                                <InputText
-                                    class="w-full"
-                                    v-model="form.fullName"
-                                />
+                            <div>
+                                <div class="p-float-label">
+                                    <InputText
+                                        class="w-full"
+                                        :class="{
+                                            'p-invalid': form.errors.fullName,
+                                        }"
+                                        v-model="form.fullName"
+                                    />
+                                    <label for="fullName">Full Name</label>
+                                </div>
 
-                                <label for="fullName">Full Name</label>
+                                <small
+                                    v-if="form.errors.fullName"
+                                    class="text-red-700"
+                                    >{{ form.errors.fullName }}</small
+                                >
                             </div>
 
-                            <div class="p-float-label">
-                                <InputText
-                                    class="w-full"
-                                    v-model="form.address"
-                                />
+                            <div>
+                                <div class="p-float-label">
+                                    <InputText
+                                        class="w-full"
+                                        :class="{
+                                            'p-invalid': form.errors.address,
+                                        }"
+                                        v-model="form.address"
+                                    />
+                                    <label for="address">Address</label>
+                                </div>
 
-                                <label for="address">Address</label>
+                                <small
+                                    v-if="form.errors.address"
+                                    class="text-red-700"
+                                    >{{ form.errors.address }}</small
+                                >
                             </div>
 
-                            <div class="p-float-label">
-                                <InputNumber
-                                    class="w-full"
-                                    v-model="form.age"
-                                />
+                            <div>
+                                <div class="p-float-label">
+                                    <InputNumber
+                                        class="w-full"
+                                        :class="{
+                                            'p-invalid': form.errors.age,
+                                        }"
+                                        v-model="form.age"
+                                    />
+                                    <label for="age">Age</label>
+                                </div>
 
-                                <label for="age">Age</label>
+                                <small
+                                    v-if="form.errors.age"
+                                    class="text-red-700"
+                                    >{{ form.errors.age }}</small
+                                >
                             </div>
 
-                            <div class="p-float-label">
-                                <InputMask
-                                    class="w-full"
-                                    v-model="form.contactNo"
-                                    mask="9999-999-9999"
-                                />
+                            <div>
+                                <div class="p-float-label">
+                                    <InputMask
+                                        class="w-full"
+                                        :class="{
+                                            'p-invalid': form.errors.contactNo,
+                                        }"
+                                        v-model="form.contactNo"
+                                        mask="9999-999-9999"
+                                    />
+                                    <label for="contactNo">Contact No.</label>
+                                </div>
 
-                                <label for="contactNo">Contact No.</label>
+                                <small
+                                    v-if="form.errors.contactNo"
+                                    class="text-red-700"
+                                    >{{ form.errors.contactNo }}</small
+                                >
                             </div>
 
-                            <div class="p-float-label">
-                                <InputText
-                                    class="w-full"
-                                    v-model="form.email"
-                                />
+                            <div>
+                                <div class="p-float-label">
+                                    <InputText
+                                        class="w-full"
+                                        :class="{
+                                            'p-invalid': form.errors.email,
+                                        }"
+                                        v-model="form.email"
+                                    />
+                                    <label for="email">Email Address</label>
+                                </div>
 
-                                <label for="email">Email Address</label>
+                                <small
+                                    v-if="form.errors.email"
+                                    class="text-red-700"
+                                    >{{ form.errors.email }}</small
+                                >
                             </div>
 
-                            <div class="p-float-label">
-                                <InputText
-                                    class="w-full"
-                                    v-model="form.targetLocation"
-                                />
+                            <div>
+                                <div class="p-float-label">
+                                    <InputText
+                                        class="w-full"
+                                        :class="{
+                                            'p-invalid':
+                                                form.errors.targetLocation,
+                                        }"
+                                        v-model="form.targetLocation"
+                                    />
+                                    <label for="targetLocation"
+                                        >Target Location</label
+                                    >
+                                </div>
 
-                                <label for="targetLocation"
-                                    >Target Location</label
+                                <small
+                                    v-if="form.errors.targetLocation"
+                                    class="text-red-700"
+                                    >{{ form.errors.targetLocation }}</small
                                 >
                             </div>
                         </div>

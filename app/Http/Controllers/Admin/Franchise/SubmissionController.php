@@ -12,7 +12,7 @@ class SubmissionController extends Controller
 {
     public function index(Request $request): Response
     {
-        return inertia('Admin/Franchise/Index', [
+        return inertia('Admin/Franchise/Submissions/Index', [
             'submissions' => getPaginatedResourceData(FranchisingFormResource::collection(
                 FranchisingSubmission::query()
                     ->latest()

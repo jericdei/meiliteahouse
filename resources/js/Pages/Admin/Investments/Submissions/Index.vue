@@ -15,14 +15,9 @@ import ShowModalFooter from './Modals/Templates/ShowModalFooter.vue'
 import StatusTag from '@/Components/StatusTag.vue'
 import OccupationTag from '@/Components/OccupationTag.vue'
 
-const props = withDefaults(
-    defineProps<{
-        submissions: LazyTableProps<Submission>
-    }>(),
-    {
-        submissions: undefined,
-    }
-)
+const props = defineProps<{
+    submissions: LazyTableProps<Submission>
+}>()
 
 const dialog = useDialog()
 const dt = ref()

@@ -44,40 +44,10 @@ watch(
 
 const links = [
     {
-        label: 'Dashboard',
-        route: route('admin.invest.dashboard'),
-        icon: 'pi pi-chart-bar',
-        component: 'Admin/Investments/Dashboard',
-    },
-    {
         label: 'Submissions',
         route: route('admin.invest.submissions.index'),
         icon: 'pi pi-list',
-        component: 'Admin/Investments/Submissions/Index',
-    },
-    {
-        label: 'Users',
-        route: route('admin.invest.users.index'),
-        icon: 'pi pi-users',
-        component: 'Admin/Investments/Users/Index',
-    },
-    {
-        label: 'Investors',
-        route: route('admin.invest.investors.index'),
-        icon: 'pi pi-id-card',
-        component: 'Admin/Investments/Investors/Index',
-    },
-    {
-        label: 'Investments',
-        route: route('admin.invest.investments.index'),
-        icon: 'pi pi-money-bill',
-        component: 'Admin/Investments/Investment/Index',
-    },
-    {
-        label: 'Withdrawals',
-        route: route('admin.invest.withdrawals.index'),
-        icon: 'pi pi-credit-card',
-        component: 'Admin/Investments/Withdrawals/Index',
+        component: 'Admin/Franchise/Submissions/Index',
     },
 ]
 </script>

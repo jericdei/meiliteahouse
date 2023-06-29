@@ -67,6 +67,20 @@ const items = ref([
     },
 ])
 
+const dashboardMenu = ref()
+const dashboardMenuItems = ref([
+    {
+        label: 'Investments',
+        icon: 'pi pi-money-bill',
+        command: () => router.get(route('admin.invest.dashboard')),
+    },
+    {
+        label: 'Franchise',
+        icon: 'pi pi-building',
+        command: () => router.get(route('admin.franchise.submissions.index')),
+    },
+])
+
 const isMenuShown = ref(false)
 
 watch(
@@ -122,19 +136,39 @@ const handleMenuToggle = (event: Event) => {
         >
             <div class="relative flex w-full">
                 <Link
+                    v-if="!$page.props.user"
                     class="absolute left-0 hidden lg:block"
                     :href="route('auth.login')"
                 >
+                    <Button size="small" label="Login" icon="pi pi-sign-in" />
+                </Link>
+
+                <Link
+                    v-else-if="$page.props.user.role === 'investor'"
+                    class="absolute left-0 hidden lg:block"
+                    :href="'#'"
+                >
                     <Button
                         size="small"
-                        :label="$page.props.user ? 'Dashboard' : 'Login'"
-                        :icon="
-                            $page.props.user
-                                ? 'pi pi-chart-bar'
-                                : 'pi pi-sign-in'
-                        "
+                        label="Dashboard"
+                        icon="pi pi-chart-bar"
                     />
                 </Link>
+
+                <div v-else class="absolute left-0 hidden lg:block">
+                    <Button
+                        size="small"
+                        label="Dashboard"
+                        icon="pi pi-chart-bar"
+                        @click="dashboardMenu.toggle($event)"
+                    />
+
+                    <Menu
+                        :model="dashboardMenuItems"
+                        popup
+                        ref="dashboardMenu"
+                    />
+                </div>
 
                 <div
                     class="flex items-center gap-3 lg:mx-auto lg:justify-center"

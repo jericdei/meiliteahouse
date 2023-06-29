@@ -5,8 +5,18 @@ import { router } from '@inertiajs/vue3'
 import SidebarLink from './SidebarLink.vue'
 import UserAvatar from '@/Components/UserAvatar.vue'
 
-const confirm = useConfirm()
+interface SidebarLink {
+    label: string
+    route: string
+    icon: string
+    component: string
+}
 
+const props = defineProps<{
+    links: SidebarLink[]
+}>()
+
+const confirm = useConfirm()
 const isSidebarActive = ref(false)
 
 const handleLogout = () => {
@@ -16,45 +26,6 @@ const handleLogout = () => {
         accept: () => router.post(route('auth.logout')),
     })
 }
-
-const sidebarLinks = [
-    {
-        label: 'Dashboard',
-        route: route('admin.invest.dashboard'),
-        icon: 'pi pi-chart-bar',
-        component: 'Admin/Investments/Dashboard',
-    },
-    {
-        label: 'Submissions',
-        route: route('admin.invest.submissions.index'),
-        icon: 'pi pi-list',
-        component: 'Admin/Investments/Submissions/Index',
-    },
-    {
-        label: 'Users',
-        route: route('admin.invest.users.index'),
-        icon: 'pi pi-users',
-        component: 'Admin/Investments/Users/Index',
-    },
-    {
-        label: 'Investors',
-        route: route('admin.invest.investors.index'),
-        icon: 'pi pi-id-card',
-        component: 'Admin/Investments/Investors/Index',
-    },
-    {
-        label: 'Investments',
-        route: route('admin.invest.investments.index'),
-        icon: 'pi pi-money-bill',
-        component: 'Admin/Investments/Investment/Index',
-    },
-    {
-        label: 'Withdrawals',
-        route: route('admin.invest.withdrawals.index'),
-        icon: 'pi pi-credit-card',
-        component: 'Admin/Investments/Withdrawals/Index',
-    },
-]
 </script>
 
 <template>
@@ -67,7 +38,7 @@ const sidebarLinks = [
                 class="flex flex-col items-center w-full p-0 pt-8 text-slate-50"
             >
                 <SidebarLink
-                    v-for="link in sidebarLinks"
+                    v-for="link in props.links"
                     :isActiveLink="$page.component === link.component"
                     :href="link.route"
                     :label="link.label"
@@ -99,6 +70,15 @@ const sidebarLinks = [
                         <small>{{ $page.props.user.email }}</small>
                     </div>
                 </div>
+
+                <Link
+                    :href="route('site.home')"
+                    class="flex px-8 gap-5 mt-8 py-3 w-full cursor-pointer font-heading transition-all hover:bg-slate-50/[0.1]"
+                >
+                    <i class="text-3xl pi pi-replay"></i>
+
+                    <span v-if="isSidebarActive">Back to Site Home</span>
+                </Link>
 
                 <div
                     class="flex px-8 gap-5 mt-8 py-3 w-full cursor-pointer font-heading transition-all hover:bg-slate-50/[0.1]"

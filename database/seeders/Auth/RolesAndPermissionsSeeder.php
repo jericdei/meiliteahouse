@@ -66,5 +66,14 @@ class RolesAndPermissionsSeeder extends Seeder
             'email' => 'jeric@meiliteahouse.com',
             'password' => 'loganmlth',
         ])->assignRole('admin');
+
+        User::create([
+            'first_name' => 'Cyruss',
+            'middle_name' => 'Morning',
+            'last_name' => 'Co',
+            'contact_no' => '09554580219',
+            'email' => 'cyruss@meiliteahouse.com',
+            'password' => 'cyrussmlth',
+        ])->assignRole('admin');
     }
 }
