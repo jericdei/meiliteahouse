@@ -34,9 +34,7 @@ const handleLogout = () => {
         :class="{ 'w-64': isSidebarActive }"
     >
         <div class="relative flex flex-col justify-between h-full">
-            <nav
-                class="flex flex-col items-center w-full p-0 pt-8 text-slate-50"
-            >
+            <nav class="flex flex-col items-center w-full p-0 text-slate-50">
                 <SidebarLink
                     v-for="link in props.links"
                     :isActiveLink="$page.component === link.component"
@@ -59,7 +57,7 @@ const handleLogout = () => {
                 @click="isSidebarActive = !isSidebarActive"
             />
 
-            <div class="pb-8 text-slate-50">
+            <div class="text-slate-50">
                 <div class="flex items-center gap-5 px-8">
                     <UserAvatar />
 

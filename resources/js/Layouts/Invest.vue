@@ -71,7 +71,7 @@ const links = [
         label: 'Investments',
         route: route('admin.invest.investments.index'),
         icon: 'pi pi-money-bill',
-        component: 'Admin/Investments/Investment/Index',
+        component: 'Admin/Investments/Investments/Index',
     },
     {
         label: 'Withdrawals',
