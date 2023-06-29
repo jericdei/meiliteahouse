@@ -76,11 +76,11 @@ const scrollToForm = () => (location.hash = '#franchising_form')
                 />
 
                 <div
-                    class="grid items-center grid-cols-1 lg:grid-cols-2 mt-16 lg:mt-0"
+                    class="grid items-center grid-cols-1 mt-16 lg:grid-cols-2 lg:mt-0"
                 >
                     <div>
                         <h1
-                            class="text-center lg:text-left text-4xl lg:text-6xl font-bold leading-relaxed"
+                            class="text-4xl font-bold leading-relaxed text-center lg:text-left lg:text-6xl"
                         >
                             Let's make<br />
                             <span class="text-5xl lg:text-7xl">
@@ -113,20 +113,20 @@ const scrollToForm = () => (location.hash = '#franchising_form')
             </div>
         </div>
 
-        <div class="grid lg:h-screen grid-cols-1 lg:grid-cols-2 bg-primary">
+        <div class="grid grid-cols-1 lg:h-screen lg:grid-cols-2 bg-primary">
             <div
                 class="bg-[url('/images/backgrounds/pancit.jpg')] bg-cover bg-[-12.5rem] bg-no-repeat hidden lg:block"
             ></div>
 
             <div class="p-8 lg:p-16 text-slate-50">
                 <h2
-                    class="text-4xl text-center lg:text-left lg:text-6xl font-bold"
+                    class="text-4xl font-bold text-center lg:text-left lg:text-6xl"
                 >
                     All About Mei Li Tea House
                 </h2>
 
                 <p
-                    class="mt-16 text-lg lg:text-xl leading-relaxed text-center lg:text-left"
+                    class="mt-16 text-lg leading-relaxed text-center lg:text-xl lg:text-left"
                 >
                     Mei Li Tea House is the newest “tea house” established in
                     the year 2019, that will offer the market with topnotch
@@ -155,9 +155,9 @@ const scrollToForm = () => (location.hash = '#franchising_form')
         <div
             class="grid lg:h-screen lg:grid-cols-2 items-center bg-primary-dark bg-[url('/images/backgrounds/table.png')] bg-no-repeat bg-cover bg-opacity-50 bg-blend-soft-light"
         >
-            <div class="h-full p-4 lg:p-16 order-2 lg:order-1">
+            <div class="order-2 h-full p-4 lg:p-16 lg:order-1">
                 <div
-                    class="lg:w-3/4 h-full p-4 lg:p-6 mx-auto bg-white rounded-3xl"
+                    class="h-full p-4 mx-auto bg-white lg:w-3/4 lg:p-6 rounded-3xl"
                 >
                     <Image
                         src="/images/stores/render-1.webp"
@@ -165,7 +165,7 @@ const scrollToForm = () => (location.hash = '#franchising_form')
                     />
 
                     <p
-                        class="mt-8 lg:mt-16 text-3xl lg:text-5xl font-bold text-center font-heading text-slate-900"
+                        class="mt-8 text-3xl font-bold text-center lg:mt-16 lg:text-5xl font-heading text-slate-900"
                     >
                         P750,000
                     </p>
@@ -173,9 +173,9 @@ const scrollToForm = () => (location.hash = '#franchising_form')
             </div>
 
             <div
-                class="p-8 lg:p-16 text-center text-slate-50 order-1 lg:order-2"
+                class="order-1 p-8 text-center lg:p-16 text-slate-50 lg:order-2"
             >
-                <h2 class="text-4xl lg:text-6xl font-bold uppercase">
+                <h2 class="text-4xl font-bold uppercase lg:text-6xl">
                     What We Offer
                 </h2>
 
@@ -189,7 +189,7 @@ const scrollToForm = () => (location.hash = '#franchising_form')
                     </p>
 
                     <div
-                        class="lg:w-1/2 p-4 mx-auto mt-2 rounded-3xl bg-secondary"
+                        class="p-4 mx-auto mt-2 lg:w-1/2 rounded-3xl bg-secondary"
                     >
                         <p
                             class="text-5xl font-bold text-slate-900 font-heading"
@@ -221,7 +221,7 @@ const scrollToForm = () => (location.hash = '#franchising_form')
         <div
             class="grid items-center grid-cols-1 lg:grid-cols-3 bg-primary-dark"
         >
-            <div class="h-full col-span-2 py-16 order-2 lg:order-1">
+            <div class="order-2 h-full col-span-2 py-16 lg:order-1">
                 <div
                     class="relative w-5/6 h-full p-6 mx-auto bg-slate-100 rounded-3xl"
                 >
@@ -231,7 +231,7 @@ const scrollToForm = () => (location.hash = '#franchising_form')
                     />
 
                     <p
-                        class="absolute lg:text-xl font-bold bottom-5 lg:bottom-10 left-8 lg:left-10"
+                        class="absolute font-bold lg:text-xl bottom-5 lg:bottom-10 left-8 lg:left-10"
                     >
                         Sample Store Front View
                     </p>
@@ -240,7 +240,7 @@ const scrollToForm = () => (location.hash = '#franchising_form')
 
             <div
                 id="franchising_form"
-                class="col-span-1 p-8 order-1 lg:order-2"
+                class="order-1 col-span-1 p-8 lg:order-2"
             >
                 <p
                     class="w-3/4 mx-auto text-xl font-bold text-center text-slate-50 font-heading"
@@ -252,7 +252,7 @@ const scrollToForm = () => (location.hash = '#franchising_form')
                     <div
                         class="p-4 mt-4 rounded-3xl bg-slate-100 text-slate-900"
                     >
-                        <p class="text-center lg:text-left text-lg font-bold">
+                        <p class="text-lg font-bold text-center lg:text-left">
                             Interested? Fill up the form below.
                         </p>
 
@@ -289,7 +289,6 @@ const scrollToForm = () => (location.hash = '#franchising_form')
                                     class="w-full"
                                     v-model="form.contactNo"
                                     mask="9999-999-9999"
-                                    unmask
                                 />
 
                                 <label for="contactNo">Contact No.</label>
@@ -335,20 +334,20 @@ const scrollToForm = () => (location.hash = '#franchising_form')
         <div
             class="bg-primary-dark bg-[url('/images/backgrounds/table.png')] bg-no-repeat bg-cover bg-opacity-50 bg-blend-soft-light text-slate-50 text-center p-16"
         >
-            <h2 class="text-4xl lg:text-6xl font-bold">Previous Turnovers</h2>
+            <h2 class="text-4xl font-bold lg:text-6xl">Previous Turnovers</h2>
 
-            <p class="mt-4 text-2xl lg:text-3xl font-bold">
+            <p class="mt-4 text-2xl font-bold lg:text-3xl">
                 Wanna see our current branches?
             </p>
 
             <div
-                class="grid lg:grid-cols-2 gap-8 lg:px-32 mt-16 place-items-center"
+                class="grid gap-8 mt-16 lg:grid-cols-2 lg:px-32 place-items-center"
             >
                 <div class="p-4 bg-slate-50 rounded-3xl">
                     <Image src="/images/stores/sm-bataan.jpg" />
 
                     <p
-                        class="my-16 mt-8 text-2xl lg:text-3xl font-bold text-center uppercase text-slate-900"
+                        class="my-16 mt-8 text-2xl font-bold text-center uppercase lg:text-3xl text-slate-900"
                     >
                         SM Bataan
                     </p>
@@ -358,7 +357,7 @@ const scrollToForm = () => (location.hash = '#franchising_form')
                     <Image src="/images/stores/lucky-chinatown.png" />
 
                     <p
-                        class="my-16 mt-8 text-2xl lg:text-3xl font-bold text-center uppercase text-slate-900"
+                        class="my-16 mt-8 text-2xl font-bold text-center uppercase lg:text-3xl text-slate-900"
                     >
                         Lucky China Town
                     </p>

@@ -25,7 +25,7 @@ class FranchisingFormRequest extends FormRequest
             'fullName' => ['required'],
             'address' => ['required'],
             'age' => ['required', 'integer', 'min:18'],
-            'contactNo' => ['required', 'max:11'],
+            'contactNo' => ['required'],
             'email' => ['required', 'email'],
             'targetLocation' => ['required'],
         ];
