@@ -48,7 +48,7 @@ const items = ref([
         label: 'Franchise',
         icon: 'pi pi-money-bill',
         class: 'mlth-menu-item',
-        command: () => router.get(route('site.franchise')),
+        command: () => window.open(route('site.franchise'), '_blank'),
     },
     {
         label: 'Invest',

@@ -69,9 +69,11 @@
     font-weight: 300;
 }
 
-body {
+body,
+html {
     font-family: 'Telegraf', sans-serif !important;
     @apply text-slate-950;
+    scroll-behavior: smooth;
 }
 
 h1,

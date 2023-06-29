@@ -3,6 +3,9 @@ import { useForm } from '@inertiajs/vue3'
 import InputText from 'primevue/inputtext'
 import InputNumber from 'primevue/inputnumber'
 import InputMask from 'primevue/inputmask'
+import Dialog from 'primevue/dialog'
+import { ref } from 'vue'
+import { router } from '@inertiajs/vue3'
 
 interface FranchisingFormProps {
     [key: string]: unknown
@@ -23,32 +26,64 @@ const form = useForm<FranchisingFormProps>({
     targetLocation: '',
 })
 
+const isDialogVisible = ref(false)
+const dialogMessage = ref('')
+
 const handleSubmit = () => {
-    console.log(form.data())
+    form.post(route('site.franchise.store'), {
+        onSuccess: (page: any) => {
+            form.reset()
+
+            isDialogVisible.value = true
+            dialogMessage.value = page.props.alert
+        },
+    })
 }
+
+const scrollToForm = () => (location.hash = '#franchising_form')
 </script>
 
 <template>
     <section>
         <Head title="Franchise" />
 
+        <Dialog
+            class="w-3/4 lg:w-1/2"
+            v-model:visible="isDialogVisible"
+            modal
+            header="Success!"
+        >
+            <p>{{ dialogMessage }}</p>
+
+            <template #footer>
+                <Button
+                    label="VISIT OUR WEBSITE"
+                    @click="router.get(route('site.home'))"
+                    autofocus
+                />
+            </template>
+        </Dialog>
+
         <div
-            class="h-screen bg-[url('/images/backgrounds/chicken.png')] bg-cover bg-no-repeat bg-opacity-50 bg-primary bg-blend-overlay px-24 py-16"
+            class="flex flex-col justify-center h-screen bg-[url('/images/backgrounds/chicken.png')] bg-cover bg-no-repeat bg-opacity-50 bg-primary bg-blend-overlay px-4 py-8 lg:px-24 lg:py-16"
         >
             <div>
                 <Image
                     class="rounded-full shadow-2xl shadow-neutral-900"
-                    imageClass="rounded-full"
+                    imageClass="rounded-full w-16 lg:w-32 mx-auto lg:mx-0"
                     src="/images/logos/logo-2023.jpg"
                     alt="Mei Li Tea House Logo"
-                    width="80"
                 />
 
-                <div class="grid items-center grid-cols-2">
+                <div
+                    class="grid items-center grid-cols-1 lg:grid-cols-2 mt-16 lg:mt-0"
+                >
                     <div>
-                        <h1 class="text-6xl font-bold leading-relaxed">
+                        <h1
+                            class="text-center lg:text-left text-4xl lg:text-6xl font-bold leading-relaxed"
+                        >
                             Let's make<br />
-                            <span class="text-7xl">
+                            <span class="text-5xl lg:text-7xl">
                                 your
                                 <span class="italic text-slate-50"
                                     >Pandasy</span
@@ -57,15 +92,18 @@ const handleSubmit = () => {
                             come true.
                         </h1>
 
-                        <Button
-                            size="large"
-                            class="mt-8"
-                            label="FRANCHISE NOW"
-                            rounded
-                        />
+                        <div class="flex justify-center lg:justify-start">
+                            <Button
+                                size="large"
+                                class="mt-8"
+                                label="FRANCHISE NOW"
+                                rounded
+                                @click="scrollToForm()"
+                            />
+                        </div>
                     </div>
 
-                    <div>
+                    <div class="hidden lg:block">
                         <Image
                             src="/images/products/kung-pao-chicken.png"
                             width="750"
@@ -75,15 +113,21 @@ const handleSubmit = () => {
             </div>
         </div>
 
-        <div class="grid h-screen grid-cols-2 bg-primary">
+        <div class="grid lg:h-screen grid-cols-1 lg:grid-cols-2 bg-primary">
             <div
-                class="bg-[url('/images/backgrounds/pancit.jpg')] bg-cover bg-[-12.5rem] bg-no-repeat"
+                class="bg-[url('/images/backgrounds/pancit.jpg')] bg-cover bg-[-12.5rem] bg-no-repeat hidden lg:block"
             ></div>
 
-            <div class="p-16 text-slate-50">
-                <h2 class="text-6xl font-bold">All About Mei Li Tea House</h2>
+            <div class="p-8 lg:p-16 text-slate-50">
+                <h2
+                    class="text-4xl text-center lg:text-left lg:text-6xl font-bold"
+                >
+                    All About Mei Li Tea House
+                </h2>
 
-                <p class="mt-16 text-xl leading-relaxed">
+                <p
+                    class="mt-16 text-lg lg:text-xl leading-relaxed text-center lg:text-left"
+                >
                     Mei Li Tea House is the newest “tea house” established in
                     the year 2019, that will offer the market with topnotch
                     service, food, and overall quality experience, one customer
@@ -95,36 +139,45 @@ const handleSubmit = () => {
                     Li Tea House is formerly Mei Lin Tea House.
                 </p>
 
-                <Button
-                    class="mt-16"
-                    label="CONNECT WITH US"
-                    severity="secondary"
-                    rounded
-                    size="large"
-                />
+                <div class="flex justify-center lg:justify-start">
+                    <Button
+                        class="mt-16"
+                        label="CONNECT WITH US"
+                        severity="secondary"
+                        rounded
+                        size="large"
+                        @click="scrollToForm()"
+                    />
+                </div>
             </div>
         </div>
 
         <div
-            class="grid h-screen grid-cols-2 items-center bg-primary-dark bg-[url('/images/backgrounds/table.png')] bg-no-repeat bg-cover bg-opacity-50 bg-blend-soft-light"
+            class="grid lg:h-screen lg:grid-cols-2 items-center bg-primary-dark bg-[url('/images/backgrounds/table.png')] bg-no-repeat bg-cover bg-opacity-50 bg-blend-soft-light"
         >
-            <div class="h-full p-16">
-                <div class="w-3/4 h-full p-6 mx-auto bg-white rounded-3xl">
+            <div class="h-full p-4 lg:p-16 order-2 lg:order-1">
+                <div
+                    class="lg:w-3/4 h-full p-4 lg:p-6 mx-auto bg-white rounded-3xl"
+                >
                     <Image
                         src="/images/stores/render-1.webp"
                         imageClass="object-cover h-3/4"
                     />
 
                     <p
-                        class="mt-16 text-5xl font-bold text-center font-heading text-slate-900"
+                        class="mt-8 lg:mt-16 text-3xl lg:text-5xl font-bold text-center font-heading text-slate-900"
                     >
                         P750,000
                     </p>
                 </div>
             </div>
 
-            <div class="p-16 text-center text-slate-50">
-                <h2 class="text-6xl font-bold uppercase">What We Offer</h2>
+            <div
+                class="p-8 lg:p-16 text-center text-slate-50 order-1 lg:order-2"
+            >
+                <h2 class="text-4xl lg:text-6xl font-bold uppercase">
+                    What We Offer
+                </h2>
 
                 <p class="mt-4 text-2xl font-bold">
                     Be part of our fast-growing family!
@@ -136,7 +189,7 @@ const handleSubmit = () => {
                     </p>
 
                     <div
-                        class="w-1/2 p-4 mx-auto mt-2 rounded-3xl bg-secondary"
+                        class="lg:w-1/2 p-4 mx-auto mt-2 rounded-3xl bg-secondary"
                     >
                         <p
                             class="text-5xl font-bold text-slate-900 font-heading"
@@ -159,13 +212,16 @@ const handleSubmit = () => {
                         label="START YOUR FRANCHISE NOW"
                         rounded
                         size="large"
+                        @click="scrollToForm()"
                     />
                 </div>
             </div>
         </div>
 
-        <div class="grid items-center h-screen grid-cols-3 bg-primary-dark">
-            <div class="h-full col-span-2 py-16">
+        <div
+            class="grid items-center grid-cols-1 lg:grid-cols-3 bg-primary-dark"
+        >
+            <div class="h-full col-span-2 py-16 order-2 lg:order-1">
                 <div
                     class="relative w-5/6 h-full p-6 mx-auto bg-slate-100 rounded-3xl"
                 >
@@ -174,13 +230,18 @@ const handleSubmit = () => {
                         src="/images/stores/render-1.webp"
                     />
 
-                    <p class="absolute text-xl font-bold bottom-10 left-10">
+                    <p
+                        class="absolute lg:text-xl font-bold bottom-5 lg:bottom-10 left-8 lg:left-10"
+                    >
                         Sample Store Front View
                     </p>
                 </div>
             </div>
 
-            <div class="col-span-1 p-8">
+            <div
+                id="franchising_form"
+                class="col-span-1 p-8 order-1 lg:order-2"
+            >
                 <p
                     class="w-3/4 mx-auto text-xl font-bold text-center text-slate-50 font-heading"
                 >
@@ -191,7 +252,7 @@ const handleSubmit = () => {
                     <div
                         class="p-4 mt-4 rounded-3xl bg-slate-100 text-slate-900"
                     >
-                        <p class="text-lg font-bold">
+                        <p class="text-center lg:text-left text-lg font-bold">
                             Interested? Fill up the form below.
                         </p>
 
@@ -272,20 +333,22 @@ const handleSubmit = () => {
         </div>
 
         <div
-            class="h-screen bg-primary-dark bg-[url('/images/backgrounds/table.png')] bg-no-repeat bg-cover bg-opacity-50 bg-blend-soft-light text-slate-50 text-center p-16"
+            class="bg-primary-dark bg-[url('/images/backgrounds/table.png')] bg-no-repeat bg-cover bg-opacity-50 bg-blend-soft-light text-slate-50 text-center p-16"
         >
-            <h2 class="text-6xl font-bold">Previous Turnovers</h2>
+            <h2 class="text-4xl lg:text-6xl font-bold">Previous Turnovers</h2>
 
-            <p class="mt-4 text-3xl font-bold">
+            <p class="mt-4 text-2xl lg:text-3xl font-bold">
                 Wanna see our current branches?
             </p>
 
-            <div class="grid grid-cols-2 gap-8 px-32 mt-16 place-items-center">
+            <div
+                class="grid lg:grid-cols-2 gap-8 lg:px-32 mt-16 place-items-center"
+            >
                 <div class="p-4 bg-slate-50 rounded-3xl">
                     <Image src="/images/stores/sm-bataan.jpg" />
 
                     <p
-                        class="my-16 mt-8 text-3xl font-bold text-center uppercase text-slate-900"
+                        class="my-16 mt-8 text-2xl lg:text-3xl font-bold text-center uppercase text-slate-900"
                     >
                         SM Bataan
                     </p>
@@ -295,7 +358,7 @@ const handleSubmit = () => {
                     <Image src="/images/stores/lucky-chinatown.png" />
 
                     <p
-                        class="my-16 mt-8 text-3xl font-bold text-center uppercase text-slate-900"
+                        class="my-16 mt-8 text-2xl lg:text-3xl font-bold text-center uppercase text-slate-900"
                     >
                         Lucky China Town
                     </p>

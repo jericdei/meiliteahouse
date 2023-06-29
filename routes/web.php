@@ -22,7 +22,8 @@ Route::name('site.')->group(function () {
     Route::get('about', AboutController::class)->name('about');
     Route::get('products', ProductsController::class)->name('products');
     Route::get('stores', StoresController::class)->name('stores');
-    Route::get('franchise', FranchiseController::class)->name('franchise');
+    Route::get('franchise', [FranchiseController::class, 'index'])->name('franchise');
+    Route::post('franchise/submit', [FranchiseController::class, 'store'])->name('franchise.store');
 
     Route::get('investments/form', [InvestController::class, 'form'])->name('investments.form');
     Route::post('investments/{submission}', [InvestController::class, 'update'])->name('investments.update');

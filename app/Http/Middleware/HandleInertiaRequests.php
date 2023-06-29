@@ -47,6 +47,7 @@ class HandleInertiaRequests extends Middleware
                     'location' => $request->url(),
                 ]);
             },
+            'alert' => fn () => session('alert'),
             'flash' => function () use ($request) {
                 $flashTypes = ['success', 'error', 'warning'];
                 foreach ($request->session()->all() as $key => $value) {
