@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Franchise;
 
+use App\Rules\Recaptcha;
 use Illuminate\Foundation\Http\FormRequest;
 
 class FranchisingFormRequest extends FormRequest
@@ -28,6 +29,7 @@ class FranchisingFormRequest extends FormRequest
             'contactNo' => ['required'],
             'email' => ['required', 'email'],
             'targetLocation' => ['required'],
+            'captchaToken' => [new Recaptcha],
         ];
     }
 }

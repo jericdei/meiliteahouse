@@ -5,6 +5,7 @@ import 'primeicons/primeicons.css'
 import 'primevue/resources/primevue.min.css'
 
 import { Head, Link, createInertiaApp } from '@inertiajs/vue3'
+import { VueReCaptcha, useReCaptcha } from 'vue-recaptcha-v3'
 import { createSSRApp, h } from 'vue'
 
 import Button from 'primevue/button'
@@ -12,6 +13,7 @@ import ConfirmationService from 'primevue/confirmationservice'
 import type { DefineComponent } from 'vue'
 import DialogService from 'primevue/dialogservice'
 import Franchise from './Layouts/Franchise.vue'
+import { IReCaptchaOptions } from 'vue-recaptcha-v3/dist/IReCaptchaOptions'
 import Image from 'primevue/image'
 import Invest from './Layouts/Invest.vue'
 import PrimeVue from 'primevue/config'
@@ -46,8 +48,13 @@ createInertiaApp({
         return page
     },
     setup({ el, App, props, plugin }) {
+        const captchaKey = props.initialPage.props.recaptcha_site_key
+
         createSSRApp({ render: () => h(App, props) })
             .use(plugin)
+            .use(VueReCaptcha, {
+                siteKey: captchaKey,
+            } as any)
             .component('Head', Head)
             .component('Link', Link)
             .component('router-link', {

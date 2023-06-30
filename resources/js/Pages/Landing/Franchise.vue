@@ -7,6 +7,7 @@ import Dialog from 'primevue/dialog'
 import { ref } from 'vue'
 import { router } from '@inertiajs/vue3'
 import { FranchisingFormProps } from '@/types/franchising'
+import { useReCaptcha } from 'vue-recaptcha-v3'
 
 const form = useForm<FranchisingFormProps>({
     fullName: '',
@@ -15,10 +16,20 @@ const form = useForm<FranchisingFormProps>({
     contactNo: '',
     email: '',
     targetLocation: '',
+    captchaToken: undefined,
 })
 
+const captcha = useReCaptcha()
 const isDialogVisible = ref(false)
 const dialogMessage = ref('')
+
+const recaptcha = async () => {
+    await captcha?.recaptchaLoaded()
+
+    form.captchaToken = await captcha?.executeRecaptcha('login')
+
+    handleSubmit()
+}
 
 const handleSubmit = () => {
     form.post(route('site.franchise.store'), {
@@ -240,7 +251,7 @@ const scrollToForm = () => (location.hash = '#franchising_form')
                     We will help in locating the perfect spot for you.
                 </p>
 
-                <form @submit.prevent="handleSubmit()">
+                <form @submit.prevent="recaptcha()">
                     <div
                         class="p-4 mt-4 rounded-3xl bg-slate-100 text-slate-900"
                     >
@@ -367,6 +378,12 @@ const scrollToForm = () => (location.hash = '#franchising_form')
                                 >
                             </div>
                         </div>
+
+                        <small
+                            v-if="form.errors.captchaToken"
+                            class="text-red-700 text-center mt-2"
+                            >{{ form.errors.captchaToken }}</small
+                        >
                     </div>
 
                     <div class="flex justify-center">
@@ -377,7 +394,7 @@ const scrollToForm = () => (location.hash = '#franchising_form')
                             severity="secondary"
                             rounded
                             size="large"
-                            @submit.prevent="handleSubmit()"
+                            @submit.prevent="recaptcha()"
                         />
                     </div>
                 </form>

@@ -6,4 +6,5 @@ export interface FranchisingFormProps {
     contactNo: string
     email: string
     targetLocation: string
+    captchaToken?: string
 }
