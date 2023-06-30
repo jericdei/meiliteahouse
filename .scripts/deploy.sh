@@ -19,6 +19,9 @@ php artisan optimize
 export NVM_DIR=~/.nvm
 source ~/.nvm/nvm.sh
 
+# Install npm dependencies
+yarn install
+
 # Compile npm assets
 yarn build
 
