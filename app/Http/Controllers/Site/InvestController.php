@@ -17,7 +17,7 @@ class InvestController extends Controller
 {
     public function index(): Response
     {
-        return inertia('Landing/Invest');
+        return inertia('Landing/Invest/Index');
     }
 
     public function form(Request $request): Response
