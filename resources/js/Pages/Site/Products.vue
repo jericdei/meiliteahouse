@@ -4,6 +4,8 @@
     <section>
         <Head title="Products" />
 
-        <p class="text-4xl text-black text-center">This is the products page</p>
+        <p class="h-screen py-5 text-4xl text-center text-black">
+            This page is under construction. Please come back later!
+        </p>
     </section>
 </template>

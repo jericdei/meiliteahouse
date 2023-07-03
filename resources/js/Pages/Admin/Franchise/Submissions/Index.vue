@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Title from '@/Components/Investments/Title.vue'
-import { useDataTableActions } from '@/Composables/datatable'
+import { useDataTable } from '@/Composables/datatable'
 import { LazyTableProps } from '@/types'
 import { FranchisingFormProps } from '@/types/franchising'
 import { ref } from 'vue'
@@ -14,10 +14,7 @@ const props = defineProps<{
 }>()
 
 const dt = ref()
-const datatable = useDataTableActions(
-    route('admin.franchise.submissions.index'),
-    {}
-)
+const datatable = useDataTable('admin.franchise.submissions.index', {})
 
 const columns = [
     { field: 'id', header: 'ID' },

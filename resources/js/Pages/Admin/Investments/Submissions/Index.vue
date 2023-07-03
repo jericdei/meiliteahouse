@@ -7,7 +7,7 @@ import { onMounted, ref, markRaw, onUpdated } from 'vue'
 import _ from 'lodash'
 import Title from '@/Components/Investments/Title.vue'
 import { LazyTableProps } from '@/types'
-import { useDataTableActions } from '@/Composables/datatable'
+import { useDataTable } from '@/Composables/datatable'
 import { useDialog } from 'primevue/usedialog'
 import ShowModal from './Modals/ShowModal.vue'
 import { dynamicDialogProps } from '@/Config/modal'
@@ -21,10 +21,7 @@ const props = defineProps<{
 
 const dialog = useDialog()
 const dt = ref()
-const datatable = useDataTableActions(
-    route('admin.invest.submissions.index'),
-    {}
-)
+const datatable = useDataTable('admin.invest.submissions.index')
 
 const columns = [
     { field: 'id', header: 'ID' },

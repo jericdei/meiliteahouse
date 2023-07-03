@@ -10,18 +10,23 @@ export interface Params {
     sorts?: {
         field: DataTableSortEvent['sortField']
         order: DataTableSortEvent['sortOrder']
-    }
+    }[]
 }
 
-export function useDataTableActions(
+export function useDataTable(
     routeName: string,
-    filters: Params['filters']
+    options?: {
+        filters?: Params['filters']
+        sorts?: Params['sorts']
+    }
 ) {
     const loading = ref<Boolean>(false)
 
     const params = ref<Params>({
         page: 1,
         perPage: 10,
+        filters: options?.filters,
+        sorts: options?.sorts,
     })
 
     const getData = (): void => {
@@ -30,7 +35,7 @@ export function useDataTableActions(
         loading.value = true
 
         router.get(
-            routeName,
+            route(routeName),
             { ...query },
             {
                 preserveState: true,
@@ -56,16 +61,16 @@ export function useDataTableActions(
     }
 
     const sort = (event: DataTableSortEvent): void => {
-        params.value.sorts = {
+        params.value.sorts?.push({
             field: event.sortField,
             order: event.sortOrder,
-        }
+        })
 
         getData()
     }
 
     const clearFilters = (): void => {
-        params.value.filters = filters
+        params.value.filters = {}
 
         paginate(1, params.value.perPage)
     }

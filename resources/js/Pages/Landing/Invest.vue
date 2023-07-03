@@ -134,7 +134,7 @@ const scrollToForm = () => (location.hash = '#franchising_form')
                     Mei Li Tea House is the newest “tea house” established in
                     the year 2019, that will offer the market with topnotch
                     service, food, and overall quality experience, one customer
-                    deserves. Mei Li Tea House will provide top notch Food in
+                    deserves. Mei Lin Tea House will provide top notch Food in
                     sizzling bowl set up. Serving favorite Chinese dishes hot
                     and smoking. Our Goal is to make its name and will be one of
                     the topmost known Sizzling - Chinese option in food court

@@ -54,7 +54,7 @@ const items = ref([
         label: 'Invest',
         icon: 'pi pi-dollar',
         class: 'mlth-menu-item',
-        command: () => router.get(route('site.investments.index')),
+        command: () => window.open(route('site.investments.index'), '_blank'),
     },
     {
         label: page.props.user ? 'Dashboard' : 'Login',
@@ -236,8 +236,10 @@ const handleMenuToggle = (event: Event) => {
                         >
                     </li>
                     <li :class="{ active: $page.url.startsWith('/invest') }">
-                        <Link :href="route('site.investments.index')"
-                            >Invest</Link
+                        <a
+                            :href="route('site.investments.index')"
+                            target="_blank"
+                            >Invest</a
                         >
                     </li>
                 </ul>

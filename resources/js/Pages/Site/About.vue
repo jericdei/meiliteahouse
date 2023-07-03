@@ -1,11 +1,11 @@
-<script setup></script>
+<script setup lang="ts"></script>
 
 <template>
     <section>
         <Head title="About" />
 
-        <p class="text-4xl text-center text-black">
-            This is the about page!!!!
+        <p class="h-screen py-5 text-4xl text-center text-black">
+            This page is under construction. Please come back later!
         </p>
     </section>
 </template>

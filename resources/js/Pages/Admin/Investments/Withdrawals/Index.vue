@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Title from '@/Components/Investments/Title.vue'
 import LazyDataTable from '@/Components/LazyDataTable.vue'
-import { useDataTableActions } from '@/Composables/datatable'
+import { useDataTable } from '@/Composables/datatable'
 import { LazyTableProps } from '@/types'
 import Column from 'primevue/column'
 import { ref } from 'vue'
@@ -13,10 +13,7 @@ const props = defineProps<{
 }>()
 
 const dt = ref()
-const datatable = useDataTableActions(
-    route('admin.invest.withdrawals.index'),
-    {}
-)
+const datatable = useDataTable('admin.invest.withdrawals.index')
 
 const columns = [
     { field: 'id', header: 'ID' },
