@@ -31,18 +31,18 @@ const props = defineProps<{
             class="grid grid-cols-1 lg:grid-cols-2 bg-[url('/images/backgrounds/bg-pattern-sm.png')] bg-contain"
         >
             <div
-                class="flex flex-col gap-8 items-center lg:items-end text-slate-100 py-16"
+                class="flex flex-col items-center gap-8 py-16 lg:items-end text-slate-100"
             >
                 <h1
-                    class="text-4xl lg:text-8xl font-bold text-center lg:text-right"
+                    class="text-4xl font-bold text-center lg:text-8xl lg:text-right"
                 >
                     WHERE <br />
-                    <span class="text-secondary text-5xl lg:text-8xl"
+                    <span class="text-5xl text-secondary lg:text-8xl"
                         >FOOD</span
                     >
                     <span class="block lg:text-5xl">IS ALWAYS</span> PIPING
                     <br />
-                    <span class="text-secondary text-5xl lg:text-8xl"
+                    <span class="text-5xl text-secondary lg:text-8xl"
                         >HOT!</span
                     >
                 </h1>
@@ -56,19 +56,19 @@ const props = defineProps<{
             </div>
 
             <Image
-                class="relative overflow-hidden hidden lg:block"
+                class="relative hidden overflow-hidden lg:block"
                 imageClass="absolute lg:-left-20 lg:top-10 max-w-[40rem] -rotate-45"
                 src="/images/products/kung-pao-chicken.png"
             />
         </div>
 
         <!-- About -->
-        <div class="py-16 lg:px-8 text-center bg-slate-100">
-            <h2 class="font-bold text-xl lg:text-4xl italic">
+        <div class="py-16 text-center lg:px-8 bg-slate-100">
+            <h2 class="text-xl italic font-bold lg:text-4xl">
                 "THE FIRST SIZZLING ASIAN-CHINESE CUISINE IN THE WORLD."
             </h2>
 
-            <p class="mt-5 lg:text-2xl mx-4 lg:mx-16">
+            <p class="mx-4 mt-5 lg:text-2xl lg:mx-16">
                 Ignite your palate with the scintillating essence of Asia as we
                 present the world's first sizzling Asian-Chinese cuisine. A
                 fusion of tradition and innovation that will leave you craving
@@ -78,14 +78,14 @@ const props = defineProps<{
 
         <!-- Featured Products -->
         <div
-            class="grid grid-cols-1 lg:grid-cols-2 items-center text-slate-50 bg-secondary py-16 px-4 lg:px-8"
+            class="grid items-center grid-cols-1 px-4 py-16 lg:grid-cols-2 text-slate-50 bg-secondary lg:px-8"
         >
             <div>
-                <h2 class="text-3xl lg:text-6xl font-bold text-center">
+                <h2 class="text-3xl font-bold text-center lg:text-6xl">
                     Our Products
                 </h2>
 
-                <p class="lg:text-2xl mt-8 text-justify">
+                <p class="mt-8 text-justify lg:text-2xl">
                     Indulge in our meticulously crafted products, skillfully
                     prepared with authentic ingredients that cater to every
                     discerning palate. Discover flavors that transcend
@@ -107,13 +107,13 @@ const props = defineProps<{
                     :showNavigators="false"
                 >
                     <template #item="{ data }">
-                        <div class="p-5 text-slate-900 text-center">
+                        <div class="p-5 text-center text-slate-900">
                             <Image
                                 class="w-3/4"
                                 :src="`/images/products/${data.photo}`"
                             />
 
-                            <p class="font-heading font-bold text-xl mt-2">
+                            <p class="mt-2 text-xl font-bold font-heading">
                                 {{ data.name }}
                             </p>
 
@@ -125,17 +125,16 @@ const props = defineProps<{
         </div>
 
         <!-- Location -->
-        <div class="py-16 px-4 lg:px-8 text-center bg-slate-100 test">
-            <h2 class="font-bold text-2xl lg:text-6xl">
+        <div class="px-4 py-16 text-center lg:px-8 bg-slate-100 test">
+            <h2 class="text-2xl font-bold lg:text-6xl">
                 WHERE ARE WE LOCATED?
             </h2>
 
             <p class="mt-5">
                 You can visit us on SM, Robinson's, or Ayala Malls Food Court.
-                We are also available in schools and universities.
             </p>
 
-            <div class="mapouter mt-5">
+            <div class="mt-5 mapouter">
                 <div class="gmap_canvas">
                     <iframe
                         class="gmap_iframe"

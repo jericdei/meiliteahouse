@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Investments;
+namespace App\Http\Controllers\System\Investments;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Investments\SubmissionUpdateRequest;
@@ -27,7 +27,7 @@ class SubmissionController extends Controller
                 ->paginate($request->input('perPage', 15))
         )->response()->getData(true);
 
-        return inertia('Admin/Investments/Submissions/Index', [
+        return inertia('System/Investments/Submissions/Index', [
             'submissions' => [
                 'items' => $resource['data'],
                 'total' => $resource['meta']['total'],

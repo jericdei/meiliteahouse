@@ -62,7 +62,9 @@ const items = ref([
         class: 'mlth-menu-item',
         command: () =>
             router.get(
-                route(page.props.user ? 'admin.invest.dashboard' : 'auth.login')
+                route(
+                    page.props.user ? 'system.invest.dashboard' : 'auth.login'
+                )
             ),
     },
 ])
@@ -72,12 +74,12 @@ const dashboardMenuItems = ref([
     {
         label: 'Investments',
         icon: 'pi pi-money-bill',
-        command: () => router.get(route('admin.invest.dashboard')),
+        command: () => router.get(route('system.invest.dashboard')),
     },
     {
         label: 'Franchise',
         icon: 'pi pi-building',
-        command: () => router.get(route('admin.franchise.submissions.index')),
+        command: () => router.get(route('system.franchise.submissions.index')),
     },
 ])
 
@@ -146,7 +148,7 @@ const handleMenuToggle = (event: Event) => {
                 <Link
                     v-else-if="$page.props.user.role === 'investor'"
                     class="absolute left-0 hidden lg:block"
-                    :href="'#'"
+                    :href="route('system.invest.dashboard')"
                 >
                     <Button
                         size="small"

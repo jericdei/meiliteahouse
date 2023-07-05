@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Investments;
+namespace App\Http\Controllers\System\Investments;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Investment\WithdrawalResource;
@@ -18,7 +18,7 @@ class WithdrawalController extends Controller
                 ->paginate($request->input('perPage', 15))
         )->response()->getData(true);
 
-        return inertia('Admin/Investments/Withdrawals/Index', [
+        return inertia('System/Investments/Withdrawals/Index', [
             'withdrawals' => getPaginatedResourceData($resource),
         ]);
     }

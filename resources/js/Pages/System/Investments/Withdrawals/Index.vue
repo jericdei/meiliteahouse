@@ -1,44 +1,43 @@
 <script setup lang="ts">
 import Title from '@/Components/Investments/Title.vue'
-import { useDataTable } from '@/Composables/datatable'
-import { LazyTableProps } from '@/types'
-import { FranchisingFormProps } from '@/types/franchising'
-import { ref } from 'vue'
-import _ from 'lodash'
 import LazyDataTable from '@/Components/LazyDataTable.vue'
 import LazyDataTableColumn from '@/Components/LazyDataTableColumn.vue'
+import { useDataTable } from '@/Composables/datatable'
+import { LazyTableProps } from '@/types'
+import _ from 'lodash'
 import Column from 'primevue/column'
+import { ref } from 'vue'
 
 const props = defineProps<{
-    submissions: LazyTableProps<FranchisingFormProps>
+    withdrawals: LazyTableProps<any>
 }>()
 
 const dt = ref()
-const datatable = useDataTable('admin.franchise.submissions.index', {})
+const datatable = useDataTable('system.invest.withdrawals.index')
 
 const columns = [
     { field: 'id', header: 'ID' },
-    { field: 'fullName', header: 'Full Name' },
-    { field: 'address', header: 'Address' },
-    { field: 'age', header: 'Age' },
-    { field: 'contactNo', header: 'Contact No.' },
-    { field: 'email', header: 'Email' },
-    { field: 'targetLocation', header: 'Target Location' },
+    { field: 'investor', header: 'Investor' },
+    { field: 'amount', header: 'Amount' },
+    { field: 'status', header: 'Status' },
+    { field: 'paymentMethod', header: 'Payment Method' },
+    { field: 'accountNumber', header: 'Account No.' },
+    { field: 'createdAt', header: 'Created At' },
 ]
 </script>
 
 <template>
     <div>
-        <Head title="Franchising Submissions" />
+        <Head title="Withdrawals" />
 
         <section>
-            <Title icon="pi pi-list" class="mb-5">Submissions</Title>
+            <Title icon="pi pi-credit-card" class="mb-5">Withdrawals</Title>
 
             <LazyDataTable
                 class="mx-auto my-2"
                 ref="dt"
-                :value="props.submissions.items"
-                :totalRecords="props.submissions.total"
+                :value="props.withdrawals.items"
+                :totalRecords="props.withdrawals.total"
                 :isLoading="datatable.loading"
                 :rows="10"
                 :rowsPerPageOptions="[10, 25, 50, 100]"
@@ -62,3 +61,13 @@ const columns = [
         </section>
     </div>
 </template>
+
+<style scoped>
+:deep(.p-datatable-wrapper) {
+    @apply rounded-xl;
+}
+
+:deep(.p-skeleton) {
+    height: 2.5rem !important;
+}
+</style>

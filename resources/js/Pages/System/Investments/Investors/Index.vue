@@ -1,43 +1,44 @@
 <script setup lang="ts">
 import Title from '@/Components/Investments/Title.vue'
 import LazyDataTable from '@/Components/LazyDataTable.vue'
+import LazyDataTableColumn from '@/Components/LazyDataTableColumn.vue'
 import { useDataTable } from '@/Composables/datatable'
 import { LazyTableProps } from '@/types'
+import _ from 'lodash'
 import Column from 'primevue/column'
 import { ref } from 'vue'
-import _ from 'lodash'
-import LazyDataTableColumn from '@/Components/LazyDataTableColumn.vue'
 
 const props = defineProps<{
-    investments: LazyTableProps<any>
+    investors: LazyTableProps<any>
 }>()
 
 const dt = ref()
-const datatable = useDataTable('admin.invest.investments.index')
+const datatable = useDataTable('system.invest.investors.index')
 
 const columns = [
     { field: 'id', header: 'ID' },
-    { field: 'investor', header: 'Investor' },
-    { field: 'amount', header: 'Amount' },
+    { field: 'fullName', header: 'Full Name' },
     { field: 'status', header: 'Status' },
-    { field: 'paymentMethod', header: 'Payment Method' },
-    { field: 'referenceNo', header: 'Reference No.' },
+    { field: 'classification', header: 'Classification' },
+    { field: 'referralCode', header: 'Referral Code' },
+    { field: 'age', header: 'Age' },
+    { field: 'occupation.type', header: 'Occupation' },
     { field: 'createdAt', header: 'Created At' },
 ]
 </script>
 
 <template>
     <div>
-        <Head title="Investments" />
+        <Head title="Investors" />
 
         <section>
-            <Title icon="pi pi-money-bill" class="mb-5">Investments</Title>
+            <Title icon="pi pi-id-card" class="mb-5">Investors</Title>
 
             <LazyDataTable
                 class="mx-auto my-2"
                 ref="dt"
-                :value="props.investments.items"
-                :totalRecords="props.investments.total"
+                :value="props.investors.items"
+                :totalRecords="props.investors.total"
                 :isLoading="datatable.loading"
                 :rows="10"
                 :rowsPerPageOptions="[10, 25, 50, 100]"

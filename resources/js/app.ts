@@ -1,11 +1,10 @@
-import './bootstrap'
-import '../css/app.css'
-import '/public/css/themes/light.css'
 import 'primeicons/primeicons.css'
 import 'primevue/resources/primevue.min.css'
+import '../css/app.css'
+import './bootstrap'
+import '/public/css/themes/light.css'
 
 import { Head, Link, createInertiaApp } from '@inertiajs/vue3'
-import { VueReCaptcha, useReCaptcha } from 'vue-recaptcha-v3'
 import { createSSRApp, h } from 'vue'
 
 import Button from 'primevue/button'
@@ -13,13 +12,13 @@ import ConfirmationService from 'primevue/confirmationservice'
 import type { DefineComponent } from 'vue'
 import DialogService from 'primevue/dialogservice'
 import Franchise from './Layouts/Franchise.vue'
-import { IReCaptchaOptions } from 'vue-recaptcha-v3/dist/IReCaptchaOptions'
 import Image from 'primevue/image'
 import Invest from './Layouts/Invest.vue'
 import PrimeVue from 'primevue/config'
 import Site from './Layouts/Site.vue'
 import ToastService from 'primevue/toastservice'
 import Tooltip from 'primevue/tooltip'
+import { VueReCaptcha } from 'vue-recaptcha-v3'
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m'
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers'
 
@@ -35,9 +34,9 @@ createInertiaApp({
             import.meta.glob<DefineComponent>('./Pages/**/*.vue')
         )
 
-        if (name.startsWith('Admin/Investments/')) {
+        if (name.startsWith('System/Investments/')) {
             page.default.layout = Invest
-        } else if (name.startsWith('Admin/Franchise/')) {
+        } else if (name.startsWith('System/Franchise/')) {
             page.default.layout = Franchise
         } else if (name.startsWith('Site/')) {
             page.default.layout = Site

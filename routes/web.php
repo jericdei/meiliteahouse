@@ -1,20 +1,20 @@
 <?php
 
-use App\Http\Controllers\Admin\Franchise\SubmissionController as FranchiseSubmissionController;
-use App\Http\Controllers\Admin\Investments\DashboardController;
-use App\Http\Controllers\Admin\Investments\InvestmentController;
-use App\Http\Controllers\Admin\Investments\InvestorController;
-use App\Http\Controllers\Admin\Investments\ProfileController;
-use App\Http\Controllers\Admin\Investments\SettingsController;
-use App\Http\Controllers\Admin\Investments\SubmissionController;
-use App\Http\Controllers\Admin\Investments\UserController;
-use App\Http\Controllers\Admin\Investments\WithdrawalController;
 use App\Http\Controllers\Site\AboutController;
 use App\Http\Controllers\Site\FranchiseController;
 use App\Http\Controllers\Site\HomeController;
 use App\Http\Controllers\Site\InvestController;
 use App\Http\Controllers\Site\ProductsController;
 use App\Http\Controllers\Site\StoresController;
+use App\Http\Controllers\System\Franchise\SubmissionController as FranchiseSubmissionController;
+use App\Http\Controllers\System\Investments\DashboardController;
+use App\Http\Controllers\System\Investments\InvestmentController;
+use App\Http\Controllers\System\Investments\InvestorController;
+use App\Http\Controllers\System\Investments\ProfileController;
+use App\Http\Controllers\System\Investments\SettingsController;
+use App\Http\Controllers\System\Investments\SubmissionController;
+use App\Http\Controllers\System\Investments\UserController;
+use App\Http\Controllers\System\Investments\WithdrawalController;
 use Illuminate\Support\Facades\Route;
 
 // WEBSITE ROUTES
@@ -34,10 +34,10 @@ Route::name('site.')->group(function () {
     Route::resource('investments', InvestController::class)->except(['create', 'edit', 'update', 'show', 'destroy']);
 });
 
-// ADMIN ROUTES
-Route::middleware(['auth', 'role:admin'])
-    ->name('admin.')
-    ->prefix('admin')
+// SYSTEM ROUTES
+Route::middleware(['auth', 'role:admin|investor'])
+    ->name('system.')
+    ->prefix('system')
     ->group(function () {
         // Franchising
         Route::name('franchise.')
@@ -50,6 +50,18 @@ Route::middleware(['auth', 'role:admin'])
         Route::name('invest.')
             ->prefix('invest')
             ->group(function () {
+                // Admin only
+                Route::middleware('role:admin')
+                    ->group(function () {
+                        Route::resource('submissions', SubmissionController::class);
+                        Route::resource('users', UserController::class)->except([
+                            'create, edit',
+                        ]);
+                        Route::resource('investors', InvestorController::class)->except([
+                            'create, edit',
+                        ]);
+                    });
+
                 Route::get('dashboard', DashboardController::class)->name('dashboard');
                 Route::get('profile', ProfileController::class)->name('profile');
                 Route::get('settings', SettingsController::class)->name('settings');
@@ -58,14 +70,6 @@ Route::middleware(['auth', 'role:admin'])
                     'create, edit',
                 ]);
                 Route::resource('withdrawals', WithdrawalController::class)->except([
-                    'create, edit',
-                ]);
-
-                Route::resource('submissions', SubmissionController::class);
-                Route::resource('users', UserController::class)->except([
-                    'create, edit',
-                ]);
-                Route::resource('investors', InvestorController::class)->except([
                     'create, edit',
                 ]);
             });

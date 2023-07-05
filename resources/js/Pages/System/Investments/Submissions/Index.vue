@@ -1,19 +1,19 @@
 <script setup lang="ts">
+import Title from '@/Components/Investments/Title.vue'
 import LazyDataTable from '@/Components/LazyDataTable.vue'
 import LazyDataTableColumn from '@/Components/LazyDataTableColumn.vue'
-import { Submission } from '@/types/submission'
-import Column from 'primevue/column'
-import { onMounted, ref, markRaw, onUpdated } from 'vue'
-import _ from 'lodash'
-import Title from '@/Components/Investments/Title.vue'
-import { LazyTableProps } from '@/types'
-import { useDataTable } from '@/Composables/datatable'
-import { useDialog } from 'primevue/usedialog'
-import ShowModal from './Modals/ShowModal.vue'
-import { dynamicDialogProps } from '@/Config/modal'
-import ShowModalFooter from './Modals/Templates/ShowModalFooter.vue'
-import StatusTag from '@/Components/StatusTag.vue'
 import OccupationTag from '@/Components/OccupationTag.vue'
+import StatusTag from '@/Components/StatusTag.vue'
+import { useDataTable } from '@/Composables/datatable'
+import { dynamicDialogProps } from '@/Config/modal'
+import { LazyTableProps } from '@/types'
+import { Submission } from '@/types/submission'
+import _ from 'lodash'
+import Column from 'primevue/column'
+import { useDialog } from 'primevue/usedialog'
+import { markRaw, onMounted, ref } from 'vue'
+import ShowModal from './Modals/ShowModal.vue'
+import ShowModalFooter from './Modals/Templates/ShowModalFooter.vue'
 
 const props = defineProps<{
     submissions: LazyTableProps<Submission>
@@ -21,7 +21,7 @@ const props = defineProps<{
 
 const dialog = useDialog()
 const dt = ref()
-const datatable = useDataTable('admin.invest.submissions.index')
+const datatable = useDataTable('system.invest.submissions.index')
 
 const columns = [
     { field: 'id', header: 'ID' },

@@ -10,6 +10,7 @@ export interface User {
     role: Role
     createdAt: string
     updatedAt: string
+    photo: string
 }
 
 export type Role = 'admin' | 'investor'

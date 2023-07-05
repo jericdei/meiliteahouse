@@ -16,3 +16,9 @@ const props = defineProps<{
         </slot>
     </span>
 </template>
+
+<style>
+.p-skeleton {
+    height: 2.5rem !important;
+}
+</style>

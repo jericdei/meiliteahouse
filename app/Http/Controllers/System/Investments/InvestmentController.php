@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Investments;
+namespace App\Http\Controllers\System\Investments;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Investment\InvestmentResource;
@@ -18,7 +18,7 @@ class InvestmentController extends Controller
                 ->paginate($request->input('perPage', 15))
         )->response()->getData(true);
 
-        return inertia('Admin/Investments/Investments/Index', [
+        return inertia('System/Investments/Investments/Index', [
             'investments' => getPaginatedResourceData($resource),
         ]);
     }

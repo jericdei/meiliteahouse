@@ -44,7 +44,7 @@ class Investor extends Model
 
     public function investments(): HasMany
     {
-        return $this->hasMany(Investment::class);
+        return $this->hasMany(Investment::class, 'investor_id');
     }
 
     // SCOPES

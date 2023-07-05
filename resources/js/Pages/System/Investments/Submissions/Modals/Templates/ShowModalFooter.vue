@@ -1,13 +1,12 @@
 <script setup lang="ts">
+import { dynamicDialogProps } from '@/Config/modal'
 import { SubmissionAction } from '@/types/submission'
-import { router, useForm } from '@inertiajs/vue3'
+import { useForm } from '@inertiajs/vue3'
 import { DynamicDialogInstance } from 'primevue/dynamicdialogoptions'
 import { useConfirm } from 'primevue/useconfirm'
 import { useDialog } from 'primevue/usedialog'
-import { ComputedRef, markRaw } from 'vue'
-import { inject } from 'vue'
+import { ComputedRef, inject, markRaw } from 'vue'
 import RejectReasonModal from '../RejectReasonModal.vue'
-import { dynamicDialogProps } from '@/Config/modal'
 import RejectReasonModalFooter from './RejectReasonModalFooter.vue'
 
 const confirm = useConfirm()
@@ -61,7 +60,7 @@ const showConfirm = (action: SubmissionAction) => {
                 action: action,
             })).patch(
                 route(
-                    'admin.invest.submissions.update',
+                    'system.invest.submissions.update',
                     dialogRef.value.data.submission.id
                 )
             )

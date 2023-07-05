@@ -1,43 +1,42 @@
 <script setup lang="ts">
 import Title from '@/Components/Investments/Title.vue'
 import LazyDataTable from '@/Components/LazyDataTable.vue'
+import LazyDataTableColumn from '@/Components/LazyDataTableColumn.vue'
 import { useDataTable } from '@/Composables/datatable'
 import { LazyTableProps } from '@/types'
+import type { User } from '@/types/user'
+import _ from 'lodash'
 import Column from 'primevue/column'
 import { ref } from 'vue'
-import _ from 'lodash'
-import LazyDataTableColumn from '@/Components/LazyDataTableColumn.vue'
 
 const props = defineProps<{
-    withdrawals: LazyTableProps<any>
+    users: LazyTableProps<User>
 }>()
 
 const dt = ref()
-const datatable = useDataTable('admin.invest.withdrawals.index')
+const datatable = useDataTable('system.invest.users.index')
 
 const columns = [
     { field: 'id', header: 'ID' },
-    { field: 'investor', header: 'Investor' },
-    { field: 'amount', header: 'Amount' },
-    { field: 'status', header: 'Status' },
-    { field: 'paymentMethod', header: 'Payment Method' },
-    { field: 'accountNumber', header: 'Account No.' },
-    { field: 'createdAt', header: 'Created At' },
+    { field: 'fullName', header: 'Full Name' },
+    { field: 'contactNo', header: 'Contact No.' },
+    { field: 'email', header: 'Email' },
+    { field: 'role', header: 'Role' },
 ]
 </script>
 
 <template>
     <div>
-        <Head title="Withdrawals" />
+        <Head title="Users" />
 
         <section>
-            <Title icon="pi pi-credit-card" class="mb-5">Withdrawals</Title>
+            <Title icon="pi pi-user" class="mb-5">Users</Title>
 
             <LazyDataTable
                 class="mx-auto my-2"
                 ref="dt"
-                :value="props.withdrawals.items"
-                :totalRecords="props.withdrawals.total"
+                :value="props.users.items"
+                :totalRecords="props.users.total"
                 :isLoading="datatable.loading"
                 :rows="10"
                 :rowsPerPageOptions="[10, 25, 50, 100]"

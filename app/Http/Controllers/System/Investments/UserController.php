@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Investments;
+namespace App\Http\Controllers\System\Investments;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Users\UserResource;
@@ -18,7 +18,7 @@ class UserController extends Controller
                 ->paginate($request->input('perPage', 15))
         )->response()->getData(true);
 
-        return inertia('Admin/Investments/Users/Index', [
+        return inertia('System/Investments/Users/Index', [
             'users' => getPaginatedResourceData($resource),
         ]);
     }

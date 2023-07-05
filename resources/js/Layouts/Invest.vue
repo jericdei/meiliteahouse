@@ -1,13 +1,14 @@
 <script setup lang="ts">
-import DynamicDialog from 'primevue/dynamicdialog'
-import ConfirmDialog from 'primevue/confirmdialog'
-import Sidebar from './Partials/Sidebar.vue'
 import { usePage } from '@inertiajs/vue3'
-import { useToast } from 'primevue/usetoast'
-import { watch } from 'vue'
+import ConfirmDialog from 'primevue/confirmdialog'
+import DynamicDialog from 'primevue/dynamicdialog'
 import Toast from 'primevue/toast'
+import { useToast } from 'primevue/usetoast'
+import { computed, watch } from 'vue'
+import Sidebar from './Partials/Sidebar.vue'
 
 const toast = useToast()
+const page = usePage()
 
 watch(
     () => usePage().props.flash,
@@ -45,41 +46,55 @@ watch(
 const links = [
     {
         label: 'Dashboard',
-        route: route('admin.invest.dashboard'),
+        investor: true,
+        route: route('system.invest.dashboard'),
         icon: 'pi pi-chart-bar',
-        component: 'Admin/Investments/Dashboard',
+        component:
+            page.props.user.role === 'admin'
+                ? 'System/Investments/Dashboard'
+                : 'System/Investments/InvestorDashboard',
     },
     {
         label: 'Submissions',
-        route: route('admin.invest.submissions.index'),
+        route: route('system.invest.submissions.index'),
         icon: 'pi pi-list',
-        component: 'Admin/Investments/Submissions/Index',
+        component: 'System/Investments/Submissions/Index',
     },
     {
         label: 'Users',
-        route: route('admin.invest.users.index'),
+        route: route('system.invest.users.index'),
         icon: 'pi pi-users',
-        component: 'Admin/Investments/Users/Index',
+        component: 'System/Investments/Users/Index',
     },
     {
         label: 'Investors',
-        route: route('admin.invest.investors.index'),
+        route: route('system.invest.investors.index'),
         icon: 'pi pi-id-card',
-        component: 'Admin/Investments/Investors/Index',
+        component: 'System/Investments/Investors/Index',
     },
     {
-        label: 'Investments',
-        route: route('admin.invest.investments.index'),
+        label:
+            page.props.user.role === 'admin' ? 'Investments' : 'My Investments',
+        investor: true,
+        route: route('system.invest.investments.index'),
         icon: 'pi pi-money-bill',
-        component: 'Admin/Investments/Investments/Index',
+        component: 'System/Investments/Investments/Index',
     },
     {
-        label: 'Withdrawals',
-        route: route('admin.invest.withdrawals.index'),
+        label:
+            page.props.user.role === 'admin' ? 'Withdrawals' : 'My Withdrawals',
+        investor: true,
+        route: route('system.invest.withdrawals.index'),
         icon: 'pi pi-credit-card',
-        component: 'Admin/Investments/Withdrawals/Index',
+        component: 'System/Investments/Withdrawals/Index',
     },
 ]
+
+const sidebarLinks = computed(() =>
+    page.props.user.role === 'admin'
+        ? links
+        : links.filter((item: any) => item.investor)
+)
 </script>
 
 <template>
@@ -88,7 +103,7 @@ const links = [
     <ConfirmDialog />
 
     <div class="flex">
-        <Sidebar :links="links" />
+        <Sidebar :links="sidebarLinks" />
 
         <main class="flex-1 p-10">
             <slot />
