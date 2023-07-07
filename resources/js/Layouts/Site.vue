@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { router, usePage } from '@inertiajs/vue3'
-import { useWindowScroll } from '@vueuse/core'
+import { useClipboard, useWindowScroll } from '@vueuse/core'
 import ConfirmDialog from 'primevue/confirmdialog'
+import Divider from 'primevue/divider'
 import DynamicDialog from 'primevue/dynamicdialog'
 import Image from 'primevue/image'
 import Menu from 'primevue/menu'
@@ -12,6 +13,7 @@ import { computed, ref, watch } from 'vue'
 const { y } = useWindowScroll()
 const toast = useToast()
 const page = usePage()
+const { copy } = useClipboard()
 
 const activeBorderColor = computed(() => {
     return y.value > 0 ? 'var(--tw-slate-50)' : 'var(--primary-color)'
@@ -124,6 +126,18 @@ const handleMenuToggle = (event: Event) => {
     } else {
         menu.value.toggle(event)
     }
+}
+
+const copyContact = (type: string) => {
+    copy(type === 'Email Address' ? 'meiliteahouse@gmail.com' : '0286404767')
+
+    toast.add({
+        severity: 'success',
+        summary: 'Success',
+        detail: `${type} copied successfully!`,
+        group: 'br',
+        life: 3000,
+    })
 }
 </script>
 
@@ -252,15 +266,83 @@ const handleMenuToggle = (event: Event) => {
             <slot />
         </section>
 
-        <footer class="p-2 mt-auto mb-0 bg-slate-300">
-            <p class="text-center">
-                Mei Li Tea House &copy; {{ new Date().getFullYear() }}
-            </p>
+        <footer
+            class="bg-slate-300 flex flex-col items-center lg:flex-row justify-around gap-32 lg:gap-8 px-8 lg:px-16 py-12"
+        >
+            <div>
+                <h5 class="text-3xl">Social Media</h5>
+
+                <div class="flex justify-center items-center gap-4 mt-4">
+                    <a
+                        href="https://www.facebook.com/meiliteahouseph"
+                        target="_blank"
+                    >
+                        <Button
+                            icon="ri-facebook-fill text-slate-50 text-4xl"
+                            rounded
+                        />
+                    </a>
+
+                    <a
+                        href="https://www.instagram.com/meiliteahouseph"
+                        target="_blank"
+                    >
+                        <Button
+                            icon="ri-instagram-line text-slate-50 text-4xl"
+                            rounded
+                        />
+                    </a>
+
+                    <a href="#">
+                        <Button
+                            icon="ri-tiktok-fill text-slate-50 text-4xl"
+                            rounded
+                        />
+                    </a>
+                </div>
+            </div>
+
+            <Divider class="hidden lg:block" layout="vertical" />
+
+            <div class="text-center">
+                <h5 class="text-3xl">Office Address</h5>
+
+                <p class="mt-4 text-xl">
+                    1559 Pasaje de Rosario Unit 5 Paco Manila, Manila,
+                    Philippines
+                </p>
+            </div>
+
+            <Divider class="hidden lg:block" layout="vertical" />
+
+            <div>
+                <h5 class="text-3xl">Contact</h5>
+
+                <div class="flex justify-center items-center gap-4 mt-4">
+                    <Button
+                        v-tooltip.top="'Click to copy email address'"
+                        icon="ri-mail-fill text-slate-50 text-4xl"
+                        rounded
+                        @click="copyContact('Email Address')"
+                    />
+
+                    <Button
+                        v-tooltip.top="'Click to copy contact number'"
+                        icon="ri-phone-fill text-slate-50 text-4xl"
+                        rounded
+                        @click="copyContact('Contact Number')"
+                    />
+                </div>
+            </div>
         </footer>
     </main>
 </template>
 
 <style scoped>
+.p-divider.p-divider-vertical::before {
+    @apply border-2 border-slate-900;
+}
+
 .p-icon {
     @apply text-white;
 }

@@ -83,8 +83,13 @@ h4,
 h5,
 h6 {
     font-family: 'Poppins', sans-serif;
+    @apply font-bold;
 }
 
 #app {
     @apply h-screen;
+}
+
+.p-tooltip-text {
+    @apply text-center;
 }

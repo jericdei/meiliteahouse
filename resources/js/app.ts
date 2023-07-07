@@ -1,8 +1,9 @@
-import 'primeicons/primeicons.css'
-import 'primevue/resources/primevue.min.css'
-import '../css/app.css'
 import './bootstrap'
+import '../css/app.css'
+import 'remixicon/fonts/remixicon.css'
+import 'primeicons/primeicons.css'
 import '/public/css/themes/light.css'
+import 'primevue/resources/primevue.min.css'
 
 import { Head, Link, createInertiaApp } from '@inertiajs/vue3'
 import { createSSRApp, h } from 'vue'
