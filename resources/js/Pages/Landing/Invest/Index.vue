@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { useForm } from '@inertiajs/vue3'
-import InputText from 'primevue/inputtext'
-import InputNumber from 'primevue/inputnumber'
-import InputMask from 'primevue/inputmask'
-import Dialog from 'primevue/dialog'
-import { ref } from 'vue'
-import { router } from '@inertiajs/vue3'
 import { FranchisingFormProps } from '@/types/franchising'
+import { router, useForm } from '@inertiajs/vue3'
+import Dialog from 'primevue/dialog'
+import InputMask from 'primevue/inputmask'
+import InputNumber from 'primevue/inputnumber'
+import InputText from 'primevue/inputtext'
+import { ref } from 'vue'
 import { useReCaptcha } from 'vue-recaptcha-v3'
+import BackButton from '../Components/BackButton.vue'
 import ClassificationCard from './Components/ClassificationCard.vue'
 import PaymentChannelCard from './Components/PaymentChannelCard.vue'
 
@@ -91,6 +91,8 @@ const paymentChannels = [
                 />
             </template>
         </Dialog>
+
+        <BackButton />
 
         <div
             class="relative flex flex-col justify-center px-4 py-8 bg-slate-200 lg:px-24 lg:py-16"

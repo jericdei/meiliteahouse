@@ -150,21 +150,3 @@ const props = defineProps<{
         </div>
     </section>
 </template>
-
-<style>
-.mapouter {
-    position: relative;
-    text-align: right;
-    width: 100%;
-    height: 400px;
-}
-.gmap_canvas {
-    overflow: hidden;
-    background: none !important;
-    width: 100%;
-    height: 400px;
-}
-.gmap_iframe {
-    height: 400px !important;
-}
-</style>

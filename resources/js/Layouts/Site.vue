@@ -32,6 +32,7 @@ const items = ref([
         label: 'Products',
         icon: 'pi pi-shopping-cart',
         class: 'mlth-menu-item',
+        visible: false,
         command: () => router.get(route('site.products')),
     },
     {
@@ -50,13 +51,13 @@ const items = ref([
         label: 'Franchise',
         icon: 'pi pi-money-bill',
         class: 'mlth-menu-item',
-        command: () => window.open(route('site.franchise'), '_blank'),
+        command: () => router.get(route('site.franchise')),
     },
     {
         label: 'Invest',
         icon: 'pi pi-dollar',
         class: 'mlth-menu-item',
-        command: () => window.open(route('site.investments.index'), '_blank'),
+        command: () => router.get(route('site.investments.index')),
     },
     {
         label: page.props.user ? 'Dashboard' : 'Login',
@@ -229,33 +230,35 @@ const copyContact = (type: string) => {
                     <li :class="{ active: $page.url === '/' }">
                         <Link :href="route('site.home')">Home</Link>
                     </li>
+
                     <li :class="{ active: $page.url.startsWith('/about') }">
                         <Link :href="route('site.about')">About</Link>
                     </li>
+
                     <li
+                        class="hidden"
                         :class="{
                             active: $page.url.startsWith('/products'),
                         }"
                     >
                         <Link :href="route('site.products')">Products</Link>
                     </li>
+
                     <li :class="{ active: $page.url.startsWith('/stores') }">
                         <Link :href="route('site.stores')">Stores</Link>
                     </li>
+
                     <li
                         :class="{
                             active: $page.url.startsWith('/franchise'),
                         }"
                     >
-                        <a :href="route('site.franchise')" target="_blank"
-                            >Franchise</a
-                        >
+                        <Link :href="route('site.franchise')">Franchise</Link>
                     </li>
+
                     <li :class="{ active: $page.url.startsWith('/invest') }">
-                        <a
-                            :href="route('site.investments.index')"
-                            target="_blank"
-                            >Invest</a
+                        <Link :href="route('site.investments.index')"
+                            >Invest</Link
                         >
                     </li>
                 </ul>

@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { useForm } from '@inertiajs/vue3'
-import InputText from 'primevue/inputtext'
-import InputNumber from 'primevue/inputnumber'
-import InputMask from 'primevue/inputmask'
-import Dialog from 'primevue/dialog'
-import { ref } from 'vue'
-import { router } from '@inertiajs/vue3'
 import { FranchisingFormProps } from '@/types/franchising'
+import { router, useForm } from '@inertiajs/vue3'
+import Dialog from 'primevue/dialog'
+import InputMask from 'primevue/inputmask'
+import InputNumber from 'primevue/inputnumber'
+import InputText from 'primevue/inputtext'
+import { ref } from 'vue'
 import { useReCaptcha } from 'vue-recaptcha-v3'
+import BackButton from './Components/BackButton.vue'
 
 const form = useForm<FranchisingFormProps>({
     fullName: '',
@@ -71,6 +71,8 @@ const scrollToForm = () => (location.hash = '#franchising_form')
             class="flex flex-col justify-center h-screen bg-[url('/images/backgrounds/chicken.png')] bg-cover bg-no-repeat bg-opacity-50 bg-primary bg-blend-overlay px-4 py-8 lg:px-24 lg:py-16"
         >
             <div>
+                <BackButton />
+
                 <Image
                     class="rounded-full shadow-2xl shadow-neutral-900"
                     imageClass="rounded-full w-16 lg:w-32 mx-auto lg:mx-0"
