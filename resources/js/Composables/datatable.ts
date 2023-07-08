@@ -1,7 +1,7 @@
-import { DataTableSortEvent } from 'primevue/datatable'
-import _ from 'lodash'
-import { ref } from 'vue'
 import { router } from '@inertiajs/vue3'
+import _ from 'lodash'
+import { DataTableSortEvent } from 'primevue/datatable'
+import { ref } from 'vue'
 
 export interface Params {
     page: number

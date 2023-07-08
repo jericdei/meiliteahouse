@@ -11,7 +11,7 @@ import { Submission } from '@/types/submission'
 import _ from 'lodash'
 import Column from 'primevue/column'
 import { useDialog } from 'primevue/usedialog'
-import { markRaw, onMounted, ref } from 'vue'
+import { markRaw, ref } from 'vue'
 import ShowModal from './Modals/ShowModal.vue'
 import ShowModalFooter from './Modals/Templates/ShowModalFooter.vue'
 
@@ -34,8 +34,6 @@ const columns = [
     { field: 'initialInvestment.amount', header: 'Investment Amount' },
     { field: 'status', header: 'Status' },
 ]
-
-onMounted(() => datatable.getData())
 
 const showSubmissionModal = (submission: Submission) => {
     dialog.open(ShowModal, {
@@ -122,22 +120,6 @@ const showSubmissionModal = (submission: Submission) => {
                                 v-tooltip.top="'View'"
                                 @click="showSubmissionModal(data)"
                             />
-
-                            <!-- <Button
-                            severity="info"
-                            icon="pi pi-pencil"
-                            text
-                            rounded
-                            v-tooltip.top="'Edit'"
-                        />
-
-                        <Button
-                            severiry="danger"
-                            icon="pi pi-trash"
-                            text
-                            rounded
-                            v-tooltip.top="'Delete'"
-                        /> -->
                         </div>
                     </template>
                 </Column>

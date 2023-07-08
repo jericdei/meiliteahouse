@@ -5,12 +5,12 @@
         <Head title="About" />
 
         <div
-            class="grid lg:grid-cols-6 gap-8 lg:py-32 px-8 py-16 text-center lg:px-40"
+            class="grid xl:grid-cols-6 gap-8 l lg:px-16 xl:py-24 px-8 py-16 text-center"
         >
-            <div class="text-slate-50 col-span-2">
-                <h1 class="text-5xl lg:text-7xl">About Us</h1>
+            <div class="text-slate-50 xl:col-span-2 xl:py-32">
+                <h1 class="text-5xl xl:text-7xl">About Us</h1>
 
-                <p class="text-justify text-xl lg:text-2xl mt-8">
+                <p class="text-justify text-xl xl:text-2xl mt-8">
                     Mei Li Tea House is the newest “tea house” established in
                     the year 2019, that will offer the market with topnotch
                     service, food, and overall quality experience, one customer
@@ -24,7 +24,7 @@
             </div>
 
             <div
-                class="justify-center gap-8 col-span-4 lg:px-32 hidden lg:flex"
+                class="justify-center lg:gap-4 xl:gap-16 lg:col-span-4 lg:px-8 xl:px-16 2xl:px-32 hidden xl:flex"
             >
                 <Image
                     src="/images/products/fish-tofu-tausi-rice.png"
@@ -44,10 +44,10 @@
         </div>
 
         <div
-            class="flex flex-col lg:flex-row flex-wrap justify-around lg:gap-32 lg:px-64 px-4 gap-4 py-16"
+            class="flex flex-col xl:flex-row flex-wrap justify-around xl:gap-32 xl:px-64 px-4 gap-4 py-16"
         >
             <div
-                class="bg-slate-50/70 p-8 lg:p-16 flex-1 flex flex-col justify-center rounded-xl"
+                class="bg-slate-50/70 p-8 xl:p-16 flex-1 flex flex-col justify-center rounded-xl"
             >
                 <h3 class="text-4xl text-center">Our Mission</h3>
 
@@ -64,7 +64,7 @@
             </div>
 
             <div
-                class="bg-slate-50/70 p-8 lg:p-16 flex-1 flex flex-col justify-center rounded-xl"
+                class="bg-slate-50/70 p-8 xl:p-16 flex-1 flex flex-col justify-center rounded-xl"
             >
                 <h3 class="text-4xl text-center">Our Vision</h3>
 
