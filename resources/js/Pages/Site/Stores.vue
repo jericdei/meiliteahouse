@@ -8,14 +8,15 @@ const storeData = computed(() => {
         case 'smBataan':
             return {
                 imageSrc: '/images/stores/sm-bataan.jpg',
-                address: 'SM City Bataan Food Court, Balanga, Bataan',
+                address:
+                    'SM City Bataan, 2nd Floor, Food Court, Balanga, Bataan',
                 locationLink:
                     'https://www.google.com/maps/embed/v1/place?q=SM+City+Bataan+Food+Court,+City+of+Balanga,+Bataan,+Philippines&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8',
             }
         case 'luckyChinatownMall':
             return {
                 imageSrc: '/images/stores/lucky-chinatown-2.png',
-                address: 'Lucky Chinatown Mall, Binondo, Manila',
+                address: 'Lucky Chinatown Mall, 4th Floor, Binondo, Manila',
                 locationLink:
                     'https://www.google.com/maps/embed/v1/place?q=Lucky+Chinatown+Mall,+Lachambre+Street,+Binondo,+Manila,+Metro+Manila,+Philippines&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8',
             }
@@ -30,7 +31,7 @@ const storeData = computed(() => {
         <div class="grid xl:grid-cols-8 gap-16 p-4 xl:p-24">
             <div class="rounded-3xl bg-slate-100 py-8 xl:py-16 xl:col-span-3">
                 <ul
-                    class="text-center text-xl xl:text-3xl text-slate-700 px-12 xl:px-28 flex flex-col justify-center items-center gap-8"
+                    class="text-center text-xl lg:text-2xl xl:text-3xl text-slate-700 px-12 xl:px-28 flex flex-col justify-center items-center gap-8"
                 >
                     <li
                         class="cursor-pointer"
@@ -53,16 +54,15 @@ const storeData = computed(() => {
             </div>
 
             <div class="xl:col-span-5 bg-slate-50/50 rounded-3xl p-8">
-                <div class="grid xl:grid-cols-6 gap-4">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
                     <Image
                         :src="storeData.imageSrc"
-                        class="col-span-2 hidden xl:block"
-                        imageClass="h-full object-cover object-center rounded-3xl"
+                        imageClass="h-full object-cover object-center rounded-3xl w-full"
                     />
 
-                    <div class="flex flex-col gap-4 col-span-4">
+                    <div class="flex flex-col gap-4">
                         <div class="mapouter">
-                            <div class="gmap_canvas">
+                            <div class="gmap_canvas rounded-3xl">
                                 <iframe
                                     class="gmap_iframe"
                                     width="100%"
