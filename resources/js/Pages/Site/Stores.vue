@@ -27,10 +27,10 @@ const storeData = computed(() => {
     <section class="gradient-bg">
         <Head title="Stores" />
 
-        <div class="grid lg:grid-cols-8 gap-16 p-4 lg:p-32">
-            <div class="rounded-3xl bg-slate-100 py-8 lg:py-16 lg:col-span-3">
+        <div class="grid xl:grid-cols-8 gap-16 p-4 xl:p-24">
+            <div class="rounded-3xl bg-slate-100 py-8 xl:py-16 xl:col-span-3">
                 <ul
-                    class="text-center text-xl lg:text-3xl text-slate-700 px-12 lg:px-28 flex flex-col justify-center items-center gap-8"
+                    class="text-center text-xl xl:text-3xl text-slate-700 px-12 xl:px-28 flex flex-col justify-center items-center gap-8"
                 >
                     <li
                         class="cursor-pointer"
@@ -52,11 +52,11 @@ const storeData = computed(() => {
                 </ul>
             </div>
 
-            <div class="lg:col-span-5 bg-slate-50/50 rounded-3xl p-8">
-                <div class="grid lg:grid-cols-6 gap-4">
+            <div class="xl:col-span-5 bg-slate-50/50 rounded-3xl p-8">
+                <div class="grid xl:grid-cols-6 gap-4">
                     <Image
                         :src="storeData.imageSrc"
-                        class="col-span-2 hidden lg:block"
+                        class="col-span-2 hidden xl:block"
                         imageClass="h-full object-cover object-center rounded-3xl"
                     />
 
@@ -75,7 +75,7 @@ const storeData = computed(() => {
                             </div>
                         </div>
 
-                        <p class="text-xl font-bold text-center lg:text-left">
+                        <p class="text-xl font-bold text-center xl:text-left">
                             {{ storeData.address }}
                         </p>
                     </div>
