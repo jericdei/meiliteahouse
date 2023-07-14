@@ -5,9 +5,9 @@ config:
     php: '8.2'
 proxy:
     appserver:
-        - meiliteahouse-website.localhost
+        - meiliteahouse.localhost
     mailhog:
-        - mail.meiliteahouse-website.localhost
+        - mail.meiliteahouse.localhost
 services:
     appserver:
         scanner: false

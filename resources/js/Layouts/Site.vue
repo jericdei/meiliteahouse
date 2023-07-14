@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import UserMenu from '@/Components/UserMenu.vue'
 import { router, usePage } from '@inertiajs/vue3'
 import { useClipboard, useWindowScroll } from '@vueuse/core'
 import ConfirmDialog from 'primevue/confirmdialog'
@@ -58,31 +59,6 @@ const items = ref([
         icon: 'pi pi-dollar',
         class: 'mlth-menu-item',
         command: () => router.get(route('site.investments.index')),
-    },
-    {
-        label: page.props.user ? 'Dashboard' : 'Login',
-        icon: page.props.user ? 'pi pi-chart-bar' : 'pi pi-sign-in',
-        class: 'mlth-menu-item',
-        command: () =>
-            router.get(
-                route(
-                    page.props.user ? 'system.invest.dashboard' : 'auth.login'
-                )
-            ),
-    },
-])
-
-const dashboardMenu = ref()
-const dashboardMenuItems = ref([
-    {
-        label: 'Investments',
-        icon: 'pi pi-money-bill',
-        command: () => router.get(route('system.invest.dashboard')),
-    },
-    {
-        label: 'Franchise',
-        icon: 'pi pi-building',
-        command: () => router.get(route('system.franchise.submissions.index')),
     },
 ])
 
@@ -151,7 +127,7 @@ const copyContact = (type: string) => {
         <header
             class="sticky top-0 z-10 flex flex-col items-center justify-between p-3 transition-all bg-slate-100"
         >
-            <div class="relative flex w-full">
+            <div class="relative flex justify-center items-center w-full">
                 <Link
                     v-if="!$page.props.user"
                     class="absolute left-0 hidden lg:block"
@@ -172,26 +148,16 @@ const copyContact = (type: string) => {
                     />
                 </Link>
 
-                <div v-else class="absolute left-0 hidden lg:block">
-                    <Button
-                        size="small"
-                        label="Dashboard"
-                        icon="pi pi-chart-bar"
-                        @click="dashboardMenu.toggle($event)"
-                    />
-
-                    <Menu
-                        :model="dashboardMenuItems"
-                        popup
-                        ref="dashboardMenu"
-                    />
-                </div>
+                <UserMenu
+                    class="absolute left-0"
+                    v-else-if="$page.props.user.role === 'admin'"
+                />
 
                 <div
                     class="flex items-center gap-3 lg:mx-auto lg:justify-center"
                 >
                     <p
-                        class="hidden text-2xl lg:block lg:text-3xl text-secondary font-chinese"
+                        class="hidden text-2xl sm:block lg:text-3xl text-secondary font-chinese"
                     >
                         梅丽茶馆
                     </p>
@@ -204,7 +170,7 @@ const copyContact = (type: string) => {
                         width="50"
                     />
 
-                    <h2 class="hidden text-lg font-bold lg:block lg:text-2xl">
+                    <h2 class="hidden text-lg font-bold sm:block lg:text-2xl">
                         MEI LI TEA HOUSE
                     </h2>
                 </div>

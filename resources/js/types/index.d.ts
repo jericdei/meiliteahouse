@@ -10,3 +10,7 @@ export interface LazyTableProps<T> {
     items: Array<T>
     total: number
 }
+
+export type UnionOmit<T, K extends PropertyKey> = T extends unknown
+    ? Omit<T, K>
+    : never

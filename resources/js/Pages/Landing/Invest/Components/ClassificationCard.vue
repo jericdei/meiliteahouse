@@ -39,12 +39,12 @@ const cardColor = computed(() => {
         <div>
             <CardLogo class="w-1/2 py-4 mx-auto" :color="cardColor" />
 
-            <p class="font-bold text-center uppercase lg:text-3xl">
+            <p class="font-bold text-center uppercase text-xl lg:text-3xl">
                 {{ props.classification }}
             </p>
         </div>
 
-        <ul class="px-16 mt-4 text-lg list-disc">
+        <ul class="px-4 lg:px-8 xl:px-16 mt-4 lg:text-lg list-disc">
             <li v-for="item in props.list">{{ item }}</li>
         </ul>
     </div>

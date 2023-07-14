@@ -1,14 +1,18 @@
 <script setup lang="ts">
-import { usePage } from '@inertiajs/vue3'
+import UserMenu from '@/Components/UserMenu.vue'
+import { router, usePage } from '@inertiajs/vue3'
 import ConfirmDialog from 'primevue/confirmdialog'
 import DynamicDialog from 'primevue/dynamicdialog'
+import Menu from 'primevue/menu'
 import Toast from 'primevue/toast'
 import { useToast } from 'primevue/usetoast'
-import { computed, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import Sidebar from './Partials/Sidebar.vue'
 
 const toast = useToast()
 const page = usePage()
+
+const menu = ref()
 
 watch(
     () => usePage().props.flash,
@@ -98,16 +102,54 @@ const sidebarLinks = computed(() =>
 </script>
 
 <template>
-    <Toast position="bottom-right" group="br" />
-    <DynamicDialog />
-    <ConfirmDialog />
+    <div>
+        <Toast position="bottom-right" group="br" />
+        <DynamicDialog />
+        <ConfirmDialog />
 
-    <div class="flex">
-        <Sidebar :links="sidebarLinks" />
+        <header
+            class="bg-primary lg:hidden flex justify-between items-center p-4"
+        >
+            <div>
+                <Button
+                    class="text-slate-50"
+                    text
+                    rounded
+                    icon="pi pi-bars text-2xl"
+                    @click="menu.toggle($event)"
+                />
 
-        <main class="flex-1 p-10">
-            <slot />
-        </main>
+                <Menu
+                    ref="menu"
+                    popup
+                    :model="
+                        sidebarLinks.map(link => ({
+                            label: link.label,
+                            icon: link.icon,
+                            command: () => router.get(link.route),
+                        }))
+                    "
+                />
+            </div>
+
+            <Image
+                class="rounded-full shadow-2xl shadow-neutral-900"
+                imageClass="rounded-full"
+                src="/images/logos/logo-2023.jpg"
+                alt="Mei Li Tea House Logo"
+                width="50"
+            />
+
+            <UserMenu onlyLogout />
+        </header>
+
+        <div class="flex">
+            <Sidebar class="hidden lg:block" :links="sidebarLinks" />
+
+            <main class="flex-1 p-10">
+                <slot />
+            </main>
+        </div>
     </div>
 </template>
 

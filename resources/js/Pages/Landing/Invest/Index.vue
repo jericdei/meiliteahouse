@@ -1,34 +1,72 @@
 <script setup lang="ts">
-import { FranchisingFormProps } from '@/types/franchising'
+import PrimeDropdown from '@/Components/Form/PrimeDropdown.vue'
+import PrimeInputMask from '@/Components/Form/PrimeInputMask.vue'
+import PrimeInputNumber from '@/Components/Form/PrimeInputNumber.vue'
+import PrimeInputText from '@/Components/Form/PrimeInputText.vue'
 import { router, useForm } from '@inertiajs/vue3'
 import Dialog from 'primevue/dialog'
-import InputMask from 'primevue/inputmask'
-import InputNumber from 'primevue/inputnumber'
-import InputText from 'primevue/inputtext'
 import { ref } from 'vue'
+import { useBreakpointTailwindCSS } from 'vue-composable'
 import { useReCaptcha } from 'vue-recaptcha-v3'
 import BackButton from '../Components/BackButton.vue'
 import ClassificationCard from './Components/ClassificationCard.vue'
 import PaymentChannelCard from './Components/PaymentChannelCard.vue'
 
-const form = useForm<FranchisingFormProps>({
-    fullName: '',
+const captcha = useReCaptcha()
+const tw = useBreakpointTailwindCSS()
+
+const form = useForm<{
+    full_name: string
+    address: string
+    age?: number
+    contact_no: string
+    email: string
+    referral_code: string
+    captcha_token?: string
+    occupation:
+        | {
+              type?: 'student'
+              school_name: string
+              school_address: string
+              school_contact_no: string
+              course_year: string
+          }
+        | {
+              type?: 'working'
+              company_name: string
+              company_address: string
+              company_contact_no: string
+              position: string
+              years_employed?: number
+          }
+}>({
+    full_name: '',
     address: '',
     age: undefined,
-    contactNo: '',
+    contact_no: '',
     email: '',
-    targetLocation: '',
-    captchaToken: undefined,
+    referral_code: '',
+    occupation: {
+        type: undefined,
+        school_name: '',
+        school_address: '',
+        school_contact_no: '',
+        course_year: '',
+        company_name: '',
+        company_address: '',
+        company_contact_no: '',
+        position: '',
+        years_employed: undefined,
+    },
 })
 
-const captcha = useReCaptcha()
 const isDialogVisible = ref(false)
 const dialogMessage = ref('')
 
 const recaptcha = async () => {
     await captcha?.recaptchaLoaded()
 
-    form.captchaToken = await captcha?.executeRecaptcha('login')
+    form.captcha_token = await captcha?.executeRecaptcha('login')
 
     handleSubmit()
 }
@@ -45,7 +83,7 @@ const handleSubmit = () => {
     })
 }
 
-const scrollToForm = () => (location.hash = '#franchising_form')
+const scrollToForm = () => (location.hash = '#investment_form')
 
 const paymentChannels = [
     {
@@ -139,7 +177,7 @@ const paymentChannels = [
         <div class="relative">
             <div class="grid text-center lg:grid-cols-2">
                 <div
-                    class="flex flex-col justify-center py-12 bg-secondary text-slate-50"
+                    class="flex flex-col justify-center pt-24 pb-16 px-4 bg-secondary text-slate-50"
                 >
                     <p class="max-w-lg mx-auto font-bold uppercase lg:text-3xl">
                         Mei Li Tea House is looking for investors!
@@ -151,7 +189,7 @@ const paymentChannels = [
                     </p>
                 </div>
 
-                <div class="py-12 bg-slate-50 text-slate-900">
+                <div class="py-12 px-4 bg-slate-50 text-slate-900">
                     <p class="max-w-lg mx-auto lg:text-3xl">
                         Get to invest a minimum of P1,000. Get an 8% annual
                         return and freebies as per post, upon registering.
@@ -180,12 +218,12 @@ const paymentChannels = [
         <div
             class="py-16 bg-center bg-no-repeat bg-cover gradient-bg text-slate-50"
         >
-            <h2 class="font-bold text-center uppercase lg:text-5xl">
+            <h2 class="font-bold text-center uppercase text-2xl lg:text-5xl">
                 Investor Classifications
             </h2>
 
             <div
-                class="grid gap-4 px-48 mt-8 justify-items-center lg:grid-cols-3"
+                class="grid grid-cols-1 md:grid-cols-2 gap-4 px-4 lg:px-16 xl:px-32 mt-8 lg:grid-cols-3"
             >
                 <ClassificationCard
                     classification="investor"
@@ -221,7 +259,7 @@ const paymentChannels = [
                 />
 
                 <ClassificationCard
-                    class="col-span-2"
+                    class="col-span-1 lg:col-span-2"
                     classification="diamond"
                     :list="[
                         'P25,000',
@@ -232,16 +270,16 @@ const paymentChannels = [
                         'Certificate with Contract',
                         'Gather 1,500,000 (worth of investors) then open your own food court branch!',
                     ]"
-                    isTwoSpan
+                    :isTwoSpan="tw.lg.value"
                 />
             </div>
         </div>
 
         <div
-            class="flex items-center justify-center gap-16 py-16 bg-primary/60 text-slate-50"
+            class="flex flex-col lg:flex-row items-center justify-center gap-16 py-16 bg-primary/60 text-slate-50"
         >
             <div
-                class="grid grid-flow-row grid-cols-2 col-span-4 gap-4 auto-rows-fr"
+                class="grid grid-flow-row grid-cols-1 xl:grid-cols-2 px-4 col-span-4 gap-4 auto-rows-fr order-2 lg:order-1"
             >
                 <PaymentChannelCard
                     v-for="(item, index) in paymentChannels"
@@ -252,9 +290,9 @@ const paymentChannels = [
                 />
             </div>
 
-            <div class="flex justify-start col-span-2">
+            <div class="flex justify-start xl:col-span-2 order-1 lg:order-2">
                 <h2
-                    class="font-bold text-center uppercase lg:text-7xl max-w-[8ch] mx-auto"
+                    class="font-bold text-center uppercase text-3xl md:text-5xl lg:text-7xl max-w-[8ch] mx-auto"
                 >
                     Payment Channels
                 </h2>
@@ -264,156 +302,118 @@ const paymentChannels = [
         <div
             class="grid items-center grid-cols-1 lg:grid-cols-3 bg-primary-dark"
         >
-            <div class="order-2 h-full col-span-2 py-16 lg:order-1">
-                <div
-                    class="relative w-5/6 h-full p-6 mx-auto bg-slate-100 rounded-3xl"
-                >
-                    <Image
-                        imageClass="w-full h-full object-cover"
-                        src="/images/stores/render-1.webp"
-                    />
-
-                    <p
-                        class="absolute font-bold lg:text-xl bottom-5 lg:bottom-10 left-8 lg:left-10"
-                    >
-                        Sample Store Front View
-                    </p>
-                </div>
-            </div>
-
-            <div id="investment_form" class="order-1 col-span-1 p-8 lg:order-2">
+            <div id="investment_form" class="col-span-2 p-8">
                 <form @submit.prevent="recaptcha()">
                     <div
                         class="p-4 mt-4 rounded-3xl bg-slate-100 text-slate-900"
                     >
-                        <p class="text-lg font-bold text-center lg:text-left">
-                            Interested? Fill up the form below.
-                        </p>
-
-                        <div class="flex flex-col gap-8 mt-8">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
                             <div>
-                                <div class="p-float-label">
-                                    <InputText
-                                        class="w-full"
-                                        :class="{
-                                            'p-invalid': form.errors.fullName,
-                                        }"
-                                        v-model="form.fullName"
-                                    />
-                                    <label for="fullName">Full Name</label>
-                                </div>
-
-                                <small
-                                    v-if="form.errors.fullName"
-                                    class="text-red-700"
-                                    >{{ form.errors.fullName }}</small
+                                <p
+                                    class="lg:text-lg font-bold text-center lg:text-left"
                                 >
-                            </div>
+                                    Interested? Fill up the form below.
+                                </p>
 
-                            <div>
-                                <div class="p-float-label">
-                                    <InputText
-                                        class="w-full"
-                                        :class="{
-                                            'p-invalid': form.errors.address,
-                                        }"
+                                <div class="flex flex-col gap-8 py-8">
+                                    <PrimeInputText
+                                        v-model="form.full_name"
+                                        label="Full Name"
+                                        :isInvalid="form.errors.full_name"
+                                        :invalidText="form.errors.full_name"
+                                    />
+
+                                    <PrimeInputText
                                         v-model="form.address"
+                                        label="Address"
+                                        :isInvalid="form.errors.address"
+                                        :invalidText="form.errors.address"
                                     />
-                                    <label for="address">Address</label>
-                                </div>
 
-                                <small
-                                    v-if="form.errors.address"
-                                    class="text-red-700"
-                                    >{{ form.errors.address }}</small
-                                >
-                            </div>
-
-                            <div>
-                                <div class="p-float-label">
-                                    <InputNumber
-                                        class="w-full"
-                                        :class="{
-                                            'p-invalid': form.errors.age,
-                                        }"
+                                    <PrimeInputNumber
                                         v-model="form.age"
+                                        label="Age"
+                                        :isInvalid="form.errors.age"
+                                        :invalidText="form.errors.age"
                                     />
-                                    <label for="age">Age</label>
-                                </div>
 
-                                <small
-                                    v-if="form.errors.age"
-                                    class="text-red-700"
-                                    >{{ form.errors.age }}</small
-                                >
-                            </div>
-
-                            <div>
-                                <div class="p-float-label">
-                                    <InputMask
-                                        class="w-full"
-                                        :class="{
-                                            'p-invalid': form.errors.contactNo,
-                                        }"
-                                        v-model="form.contactNo"
+                                    <PrimeInputMask
+                                        v-model="form.contact_no"
+                                        label="Contact No."
+                                        :isInvalid="form.errors.contact_no"
+                                        :invalidText="form.errors.contact_no"
                                         mask="9999-999-9999"
                                     />
-                                    <label for="contactNo">Contact No.</label>
+
+                                    <PrimeInputText
+                                        v-model="form.referral_code"
+                                        label="Referral Code (if any)"
+                                        :isInvalid="form.errors.referral_code"
+                                        :invalidText="form.errors.referral_code"
+                                    />
                                 </div>
 
-                                <small
-                                    v-if="form.errors.contactNo"
-                                    class="text-red-700"
-                                    >{{ form.errors.contactNo }}</small
-                                >
-                            </div>
-
-                            <div>
-                                <div class="p-float-label">
-                                    <InputText
-                                        class="w-full"
-                                        :class="{
-                                            'p-invalid': form.errors.email,
-                                        }"
-                                        v-model="form.email"
+                                <div class="flex flex-col gap-8 py-8">
+                                    <PrimeDropdown
+                                        v-model="form.occupation.type"
+                                        label="Occupation"
+                                        :isInvalid="form.errors.occupation"
+                                        :invalidText="form.errors.occupation"
+                                        :options="[
+                                            {
+                                                label: 'Student',
+                                                value: 'student',
+                                            },
+                                            {
+                                                label: 'Employed / Business',
+                                                value: 'working',
+                                            },
+                                        ]"
+                                        optionLabel="label"
+                                        optionValue="value"
                                     />
-                                    <label for="email">Email Address</label>
-                                </div>
 
-                                <small
-                                    v-if="form.errors.email"
-                                    class="text-red-700"
-                                    >{{ form.errors.email }}</small
-                                >
-                            </div>
-
-                            <div>
-                                <div class="p-float-label">
-                                    <InputText
-                                        class="w-full"
-                                        :class="{
-                                            'p-invalid':
-                                                form.errors.targetLocation,
-                                        }"
-                                        v-model="form.targetLocation"
-                                    />
-                                    <label for="targetLocation"
-                                        >Target Location</label
+                                    <div
+                                        v-if="
+                                            form.occupation.type === 'student'
+                                        "
+                                        class="flex flex-col gap-8"
                                     >
-                                </div>
+                                        <PrimeInputText
+                                            v-model="
+                                                form.occupation.school_name
+                                            "
+                                            label="School Name"
+                                            :isInvalid="form.errors.occupation"
+                                            :invalidText="
+                                                form.errors.occupation
+                                            "
+                                        />
+                                    </div>
 
-                                <small
-                                    v-if="form.errors.targetLocation"
-                                    class="text-red-700"
-                                    >{{ form.errors.targetLocation }}</small
-                                >
+                                    <div
+                                        v-if="
+                                            form.occupation.type === 'working'
+                                        "
+                                        class="flex flex-col gap-8"
+                                    >
+                                        <PrimeInputText
+                                            v-model="
+                                                form.occupation.company_name
+                                            "
+                                            label="Company Name"
+                                        />
+                                    </div>
+                                </div>
                             </div>
+
+                            <div class=""></div>
                         </div>
 
                         <small
-                            v-if="form.errors.captchaToken"
+                            v-if="form.errors.captcha_token"
                             class="mt-2 text-center text-red-700"
-                            >{{ form.errors.captchaToken }}</small
+                            >{{ form.errors.captcha_token }}</small
                         >
                     </div>
 
@@ -429,6 +429,23 @@ const paymentChannels = [
                         />
                     </div>
                 </form>
+            </div>
+
+            <div class="h-full col-span-1 py-16">
+                <div
+                    class="relative w-5/6 h-full p-6 mx-auto bg-slate-100 rounded-3xl"
+                >
+                    <Image
+                        imageClass="w-full h-full object-cover"
+                        src="/images/stores/render-1.webp"
+                    />
+
+                    <p
+                        class="absolute font-bold lg:text-xl bottom-5 lg:bottom-10 left-8 lg:left-10"
+                    >
+                        Sample Store Front View
+                    </p>
+                </div>
             </div>
         </div>
     </section>
