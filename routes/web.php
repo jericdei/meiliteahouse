@@ -29,8 +29,6 @@ Route::name('site.')->group(function () {
     Route::post('franchise/submit', [FranchiseController::class, 'store'])->name('franchise.store');
 
     // Investment
-    Route::get('investments/form', [InvestController::class, 'form'])->name('investments.form');
-    Route::post('investments/{submission}', [InvestController::class, 'update'])->name('investments.update');
     Route::resource('investments', InvestController::class)->except(['create', 'edit', 'update', 'show', 'destroy']);
 });
 

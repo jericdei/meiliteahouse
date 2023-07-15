@@ -3,8 +3,11 @@ import PrimeDropdown from '@/Components/Form/PrimeDropdown.vue'
 import PrimeInputMask from '@/Components/Form/PrimeInputMask.vue'
 import PrimeInputNumber from '@/Components/Form/PrimeInputNumber.vue'
 import PrimeInputText from '@/Components/Form/PrimeInputText.vue'
+import type { SubmissionFormProps } from '@/types/submission'
 import { router, useForm } from '@inertiajs/vue3'
+import _ from 'lodash'
 import Dialog from 'primevue/dialog'
+import FileUpload from 'primevue/fileupload'
 import { ref } from 'vue'
 import { useBreakpointTailwindCSS } from 'vue-composable'
 import { useReCaptcha } from 'vue-recaptcha-v3'
@@ -12,52 +15,37 @@ import BackButton from '../Components/BackButton.vue'
 import ClassificationCard from './Components/ClassificationCard.vue'
 import PaymentChannelCard from './Components/PaymentChannelCard.vue'
 
+const props = defineProps<{
+    paymentMethods: any[]
+}>()
+
 const captcha = useReCaptcha()
 const tw = useBreakpointTailwindCSS()
 
-const form = useForm<{
-    full_name: string
-    address: string
-    age?: number
-    contact_no: string
-    email: string
-    referral_code: string
-    captcha_token?: string
-    occupation:
-        | {
-              type?: 'student'
-              school_name: string
-              school_address: string
-              school_contact_no: string
-              course_year: string
-          }
-        | {
-              type?: 'working'
-              company_name: string
-              company_address: string
-              company_contact_no: string
-              position: string
-              years_employed?: number
-          }
-}>({
-    full_name: '',
-    address: '',
-    age: undefined,
-    contact_no: '',
+const form = useForm<SubmissionFormProps>({
+    fullName: '',
+    contactNo: '',
     email: '',
-    referral_code: '',
+    age: undefined,
+    referralCode: '',
     occupation: {
-        type: undefined,
-        school_name: '',
-        school_address: '',
-        school_contact_no: '',
-        course_year: '',
-        company_name: '',
-        company_address: '',
-        company_contact_no: '',
-        position: '',
-        years_employed: undefined,
+        type: '',
+        data: {
+            name: '',
+            address: '',
+            contactNo: '',
+            courseYear: '',
+            position: '',
+            workYears: undefined,
+        },
     },
+    initialInvestment: {
+        amount: undefined,
+        paymentMethod: '',
+        referenceNumber: '',
+    },
+    validId: undefined,
+    proofOfPayment: undefined,
 })
 
 const isDialogVisible = ref(false)
@@ -72,7 +60,7 @@ const recaptcha = async () => {
 }
 
 const handleSubmit = () => {
-    form.post(route('site.franchise.store'), {
+    form.post(route('site.investments.store'), {
         preserveScroll: true,
         onSuccess: (page: any) => {
             form.reset()
@@ -107,6 +95,23 @@ const paymentChannels = [
         accountName: 'Elenita Co',
     },
 ]
+
+const getPaymentMethodLabel = (method: string) => {
+    switch (method) {
+        case 'bpi':
+        case 'bdo':
+            return method.toUpperCase()
+        case 'maya':
+            return _.startCase(method)
+        case 'gcash':
+            return 'GCash'
+    }
+}
+
+const paymentMethodsDropdown = props.paymentMethods.map((method: string) => ({
+    label: getPaymentMethodLabel(method),
+    value: method,
+}))
 </script>
 
 <template>
@@ -223,7 +228,7 @@ const paymentChannels = [
             </h2>
 
             <div
-                class="grid grid-cols-1 md:grid-cols-2 gap-4 px-4 lg:px-16 xl:px-32 mt-8 lg:grid-cols-3"
+                class="grid grid-cols-1 md:grid-cols-2 gap-8 px-4 lg:px-16 xl:px-32 mt-8 lg:grid-cols-3"
             >
                 <ClassificationCard
                     classification="investor"
@@ -307,20 +312,20 @@ const paymentChannels = [
                     <div
                         class="p-4 mt-4 rounded-3xl bg-slate-100 text-slate-900"
                     >
-                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
-                            <div>
-                                <p
-                                    class="lg:text-lg font-bold text-center lg:text-left"
-                                >
-                                    Interested? Fill up the form below.
-                                </p>
+                        <p
+                            class="lg:text-lg font-bold text-center lg:text-left"
+                        >
+                            Interested? Fill up the form below.
+                        </p>
 
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                            <div>
                                 <div class="flex flex-col gap-8 py-8">
                                     <PrimeInputText
-                                        v-model="form.full_name"
+                                        v-model="form.fullName"
                                         label="Full Name"
-                                        :isInvalid="form.errors.full_name"
-                                        :invalidText="form.errors.full_name"
+                                        :isInvalid="form.errors.fullName"
+                                        :invalidText="form.errors.fullName"
                                     />
 
                                     <PrimeInputText
@@ -338,27 +343,27 @@ const paymentChannels = [
                                     />
 
                                     <PrimeInputMask
-                                        v-model="form.contact_no"
+                                        v-model="form.contactNo"
                                         label="Contact No."
-                                        :isInvalid="form.errors.contact_no"
-                                        :invalidText="form.errors.contact_no"
+                                        :isInvalid="form.errors.contactNo"
+                                        :invalidText="form.errors.contactNo"
                                         mask="9999-999-9999"
                                     />
 
                                     <PrimeInputText
-                                        v-model="form.referral_code"
+                                        v-model="form.referralCode"
                                         label="Referral Code (if any)"
-                                        :isInvalid="form.errors.referral_code"
-                                        :invalidText="form.errors.referral_code"
+                                        :isInvalid="form.errors.referralCode"
+                                        :invalidText="form.errors.referralCode"
                                     />
                                 </div>
+                            </div>
 
-                                <div class="flex flex-col gap-8 py-8">
+                            <div class="flex flex-col gap-4">
+                                <div class="flex flex-col gap-8 py-4">
                                     <PrimeDropdown
                                         v-model="form.occupation.type"
                                         label="Occupation"
-                                        :isInvalid="form.errors.occupation"
-                                        :invalidText="form.errors.occupation"
                                         :options="[
                                             {
                                                 label: 'Student',
@@ -373,41 +378,162 @@ const paymentChannels = [
                                         optionValue="value"
                                     />
 
-                                    <div
-                                        v-if="
-                                            form.occupation.type === 'student'
-                                        "
-                                        class="flex flex-col gap-8"
-                                    >
-                                        <PrimeInputText
-                                            v-model="
-                                                form.occupation.school_name
+                                    <div v-if="form.occupation.type">
+                                        <div
+                                            v-if="
+                                                form.occupation.type ===
+                                                'student'
                                             "
-                                            label="School Name"
-                                            :isInvalid="form.errors.occupation"
-                                            :invalidText="
-                                                form.errors.occupation
-                                            "
-                                        />
-                                    </div>
+                                            class="flex flex-col gap-8"
+                                        >
+                                            <PrimeInputText
+                                                v-model="
+                                                    form.occupation.data.name
+                                                "
+                                                label="School Name"
+                                            />
 
-                                    <div
-                                        v-if="
-                                            form.occupation.type === 'working'
-                                        "
-                                        class="flex flex-col gap-8"
-                                    >
-                                        <PrimeInputText
-                                            v-model="
-                                                form.occupation.company_name
+                                            <PrimeInputText
+                                                v-model="
+                                                    form.occupation.data.address
+                                                "
+                                                label="School Address"
+                                            />
+
+                                            <PrimeInputText
+                                                v-model="
+                                                    form.occupation.data
+                                                        .contactNo
+                                                "
+                                                label="School Contact No."
+                                            />
+
+                                            <PrimeInputText
+                                                v-model="
+                                                    form.occupation.data
+                                                        .courseYear
+                                                "
+                                                label="Course and Year"
+                                            />
+                                        </div>
+
+                                        <div
+                                            v-if="
+                                                form.occupation.type ===
+                                                'working'
                                             "
-                                            label="Company Name"
-                                        />
+                                            class="flex flex-col gap-8"
+                                        >
+                                            <PrimeInputText
+                                                v-model="
+                                                    form.occupation.data.name
+                                                "
+                                                label="Company Name"
+                                            />
+
+                                            <PrimeInputText
+                                                v-model="
+                                                    form.occupation.data.address
+                                                "
+                                                label="Company Address"
+                                            />
+
+                                            <PrimeInputText
+                                                v-model="
+                                                    form.occupation.data
+                                                        .contactNo
+                                                "
+                                                label="Company Contact No."
+                                            />
+
+                                            <div
+                                                class="flex flex-col lg:flex-row gap-8"
+                                            >
+                                                <PrimeInputText
+                                                    v-model="
+                                                        form.occupation.data
+                                                            .position
+                                                    "
+                                                    label="Position"
+                                                />
+
+                                                <PrimeInputNumber
+                                                    v-model="
+                                                        form.occupation.data
+                                                            .workYears
+                                                    "
+                                                    label="Years Employed"
+                                                />
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class=""></div>
+                                <div class="flex flex-col gap-8">
+                                    <PrimeDropdown
+                                        v-model="
+                                            form.initialInvestment.paymentMethod
+                                        "
+                                        label="Payment Method"
+                                        :options="paymentMethodsDropdown"
+                                        optionValue="value"
+                                        optionLabel="label"
+                                    />
+
+                                    <PrimeInputNumber
+                                        v-model="form.initialInvestment.amount"
+                                        label="Initial Investment Amount"
+                                    />
+
+                                    <PrimeInputText
+                                        v-model="
+                                            form.initialInvestment
+                                                .referenceNumber
+                                        "
+                                        label="Reference No."
+                                    />
+
+                                    <span class="w-full px-1">
+                                        <label class="w-full" for="validId"
+                                            >Valid ID</label
+                                        >
+
+                                        <FileUpload
+                                            class="w-full"
+                                            id="validId"
+                                            mode="basic"
+                                            name="validId"
+                                            accept="image/*"
+                                            chooseLabel="Upload"
+                                            v-model="form.validId"
+                                            @input="
+                                                form.validId =
+                                                    $event.target.files[0]
+                                            "
+                                        />
+                                    </span>
+
+                                    <span class="w-full px-1">
+                                        <label class="w-full" for="validId"
+                                            >Proof of Payment</label
+                                        >
+
+                                        <FileUpload
+                                            class="w-full"
+                                            id="proofOfPayment"
+                                            mode="basic"
+                                            name="validId"
+                                            accept="image/*"
+                                            chooseLabel="Upload"
+                                            v-model="form.proofOfPayment"
+                                            @input="
+                                                form.proofOfPayment =
+                                                    $event.target.files[0]
+                                            "
+                                        />
+                                    </span>
+                                </div>
+                            </div>
                         </div>
 
                         <small

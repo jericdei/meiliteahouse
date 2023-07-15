@@ -25,9 +25,8 @@ class SubmissionStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'firstName' => ['required', 'max:30'],
-            'middleName' => ['max:30'],
-            'lastName' => ['required', 'max:30'],
+            'fullName' => ['required', 'max:30'],
+            'address' => ['required'],
             'contactNo' => ['required', 'unique:users,contact_no'],
             'email' => ['required', 'email', 'unique:users,email'],
             'age' => ['required', 'integer', 'min:18', 'max:65'],

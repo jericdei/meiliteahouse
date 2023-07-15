@@ -1,15 +1,13 @@
-<script setup lang="ts">
+<!-- <script setup lang="ts">
 import type { Dropdown as DropdownObj } from '@/types/common'
 import { Submission, SubmissionFormProps } from '@/types/submission'
+import { Method } from '@inertiajs/core'
 import { useForm } from '@inertiajs/vue3'
 import Dropdown from 'primevue/dropdown'
 import FileUpload from 'primevue/fileupload'
 import InputNumber from 'primevue/inputnumber'
 import InputText from 'primevue/inputtext'
-import { ref } from 'vue'
-import { onMounted } from 'vue'
-import { computed } from 'vue'
-import { Method } from '@inertiajs/core'
+import { computed, onMounted, ref } from 'vue'
 
 const props = defineProps<{
     submission?: Submission
@@ -471,4 +469,4 @@ const submit = () => {
 .form-grid-3 {
     @apply grid grid-cols-1 md:grid-cols-3 place-items-center gap-10 md:gap-5 mt-10;
 }
-</style>
+</style> -->

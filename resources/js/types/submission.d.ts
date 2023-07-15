@@ -2,19 +2,16 @@ import type { Investor } from './investor'
 
 export interface SubmissionFormProps {
     [key: string]: unknown
-    firstName: string
-    middleName: string
-    lastName: string
+    fullName: string
     contactNo: string
     email: string
-    age: number
+    age?: number
     referralCode?: string
     occupation: {
         type: Occupation['type'] | ''
         data: Occupation['data']
     }
     initialInvestment: InitialInvestment
-    profilePicture?: File
     validId?: File
     proofOfPayment?: File
 }
@@ -30,7 +27,7 @@ export type SubmissionAction = 'approve' | 'reject'
 
 export interface InitialInvestment {
     paymentMethod: string
-    amount: number
+    amount?: number
     referenceNumber: string
 }
 
@@ -51,5 +48,5 @@ export interface CompanyDetails {
     address: string
     contactNo: string
     position: string
-    workYears: number
+    workYears?: number
 }
