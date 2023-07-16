@@ -64,6 +64,7 @@ class RolesAndPermissionsSeeder extends Seeder
             'last_name' => 'Logan',
             'contact_no' => '09760763828',
             'email' => 'jeric@meiliteahouse.com',
+            'address' => 'Manila',
             'password' => 'loganmlth',
         ])->assignRole('admin');
 
@@ -73,6 +74,7 @@ class RolesAndPermissionsSeeder extends Seeder
             'last_name' => 'Co',
             'contact_no' => '09554580219',
             'email' => 'cyruss@meiliteahouse.com',
+            'address' => 'Manila',
             'password' => 'cyrussmlth',
         ])->assignRole('admin');
     }

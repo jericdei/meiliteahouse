@@ -2,7 +2,10 @@ import type { Investor } from './investor'
 
 export interface SubmissionFormProps {
     [key: string]: unknown
-    fullName: string
+    firstName: string
+    middleName: string
+    lastName: string
+    address: string
     contactNo: string
     email: string
     age?: number

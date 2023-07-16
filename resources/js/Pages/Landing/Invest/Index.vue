@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import PrimeDropdown from '@/Components/Form/PrimeDropdown.vue'
+import PrimeFileUpload from '@/Components/Form/PrimeFileUpload.vue'
 import PrimeInputMask from '@/Components/Form/PrimeInputMask.vue'
 import PrimeInputNumber from '@/Components/Form/PrimeInputNumber.vue'
 import PrimeInputText from '@/Components/Form/PrimeInputText.vue'
@@ -7,7 +8,6 @@ import type { SubmissionFormProps } from '@/types/submission'
 import { router, useForm } from '@inertiajs/vue3'
 import _ from 'lodash'
 import Dialog from 'primevue/dialog'
-import FileUpload from 'primevue/fileupload'
 import { ref } from 'vue'
 import { useBreakpointTailwindCSS } from 'vue-composable'
 import { useReCaptcha } from 'vue-recaptcha-v3'
@@ -23,7 +23,10 @@ const captcha = useReCaptcha()
 const tw = useBreakpointTailwindCSS()
 
 const form = useForm<SubmissionFormProps>({
-    fullName: '',
+    firstName: '',
+    middleName: '',
+    lastName: '',
+    address: '',
     contactNo: '',
     email: '',
     age: undefined,
@@ -138,10 +141,10 @@ const paymentMethodsDropdown = props.paymentMethods.map((method: string) => ({
         <BackButton />
 
         <div
-            class="relative flex flex-col justify-center px-4 py-8 bg-slate-200 lg:px-24 lg:py-16"
+            class="relative flex flex-col justify-center bg-slate-200 px-4 py-8 lg:px-24 lg:py-16"
         >
             <div
-                class="grid items-center grid-cols-1 mt-16 lg:grid-cols-2 lg:mt-0"
+                class="mt-16 grid grid-cols-1 items-center lg:mt-0 lg:grid-cols-2"
             >
                 <div>
                     <Image
@@ -152,12 +155,12 @@ const paymentMethodsDropdown = props.paymentMethods.map((method: string) => ({
                     />
 
                     <h1
-                        class="mt-16 text-4xl font-bold leading-relaxed text-center uppercase text-primary lg:text-left lg:text-7xl"
+                        class="mt-16 text-center text-4xl font-bold uppercase leading-relaxed text-primary lg:text-left lg:text-7xl"
                     >
                         Invest in your Pandasy.
                     </h1>
 
-                    <div class="flex justify-center mt-4 lg:justify-start">
+                    <div class="mt-4 flex justify-center lg:justify-start">
                         <p class="lg:text-2xl">
                             Invest now and refer to your friends to increase
                             your investment!
@@ -165,7 +168,7 @@ const paymentMethodsDropdown = props.paymentMethods.map((method: string) => ({
                     </div>
                 </div>
 
-                <div class="justify-center hidden lg:flex">
+                <div class="hidden justify-center lg:flex">
                     <Image
                         class="absolute bottom-0 mx-auto"
                         src="/images/invest/flower-money.png"
@@ -175,16 +178,16 @@ const paymentMethodsDropdown = props.paymentMethods.map((method: string) => ({
             </div>
         </div>
 
-        <div class="flex items-center justify-center py-4 bg-primary">
+        <div class="flex items-center justify-center bg-primary py-4">
             <Image src="/images/invest/panda.png" width="50" />
         </div>
 
         <div class="relative">
             <div class="grid text-center lg:grid-cols-2">
                 <div
-                    class="flex flex-col justify-center pt-24 pb-16 px-4 bg-secondary text-slate-50"
+                    class="flex flex-col justify-center bg-secondary px-4 pb-16 pt-24 text-slate-50"
                 >
-                    <p class="max-w-lg mx-auto font-bold uppercase lg:text-3xl">
+                    <p class="mx-auto max-w-lg font-bold uppercase lg:text-3xl">
                         Mei Li Tea House is looking for investors!
                     </p>
 
@@ -194,8 +197,8 @@ const paymentMethodsDropdown = props.paymentMethods.map((method: string) => ({
                     </p>
                 </div>
 
-                <div class="py-12 px-4 bg-slate-50 text-slate-900">
-                    <p class="max-w-lg mx-auto lg:text-3xl">
+                <div class="bg-slate-50 px-4 py-12 text-slate-900">
+                    <p class="mx-auto max-w-lg lg:text-3xl">
                         Get to invest a minimum of P1,000. Get an 8% annual
                         return and freebies as per post, upon registering.
                     </p>
@@ -204,7 +207,7 @@ const paymentMethodsDropdown = props.paymentMethods.map((method: string) => ({
 
             <div class="flex justify-center">
                 <div
-                    class="absolute top-0 p-5 rounded-b-[3rem] text-slate-50 bg-primary"
+                    class="absolute top-0 rounded-b-[3rem] bg-primary p-5 text-slate-50"
                 >
                     <p class="font-bold uppercase lg:text-xl">
                         Start Investing
@@ -213,22 +216,22 @@ const paymentMethodsDropdown = props.paymentMethods.map((method: string) => ({
             </div>
         </div>
 
-        <div class="py-8 bg-zinc-800 text-slate-50">
-            <p class="max-w-5xl mx-auto text-center uppercase lg:text-3xl">
+        <div class="bg-zinc-800 py-8 text-slate-50">
+            <p class="mx-auto max-w-5xl text-center uppercase lg:text-3xl">
                 Proceeds will be used for franchise a loan system and expansion
                 of Mei Li Tea House.
             </p>
         </div>
 
         <div
-            class="py-16 bg-center bg-no-repeat bg-cover gradient-bg text-slate-50"
+            class="gradient-bg bg-cover bg-center bg-no-repeat py-16 text-slate-50"
         >
-            <h2 class="font-bold text-center uppercase text-2xl lg:text-5xl">
+            <h2 class="text-center text-2xl font-bold uppercase lg:text-5xl">
                 Investor Classifications
             </h2>
 
             <div
-                class="grid grid-cols-1 md:grid-cols-2 gap-8 px-4 lg:px-16 xl:px-32 mt-8 lg:grid-cols-3"
+                class="mt-8 grid grid-cols-1 gap-8 px-4 md:grid-cols-2 lg:grid-cols-3 lg:px-16 xl:px-32"
             >
                 <ClassificationCard
                     classification="investor"
@@ -281,10 +284,10 @@ const paymentMethodsDropdown = props.paymentMethods.map((method: string) => ({
         </div>
 
         <div
-            class="flex flex-col lg:flex-row items-center justify-center gap-16 py-16 bg-primary/60 text-slate-50"
+            class="flex flex-col items-center justify-center gap-16 bg-primary/60 py-16 text-slate-50 lg:flex-row"
         >
             <div
-                class="grid grid-flow-row grid-cols-1 xl:grid-cols-2 px-4 col-span-4 gap-4 auto-rows-fr order-2 lg:order-1"
+                class="order-2 col-span-4 grid grid-flow-row auto-rows-fr grid-cols-1 gap-4 px-4 lg:order-1 xl:grid-cols-2"
             >
                 <PaymentChannelCard
                     v-for="(item, index) in paymentChannels"
@@ -295,9 +298,9 @@ const paymentMethodsDropdown = props.paymentMethods.map((method: string) => ({
                 />
             </div>
 
-            <div class="flex justify-start xl:col-span-2 order-1 lg:order-2">
+            <div class="order-1 flex justify-start lg:order-2 xl:col-span-2">
                 <h2
-                    class="font-bold text-center uppercase text-3xl md:text-5xl lg:text-7xl max-w-[8ch] mx-auto"
+                    class="mx-auto max-w-[8ch] text-center text-3xl font-bold uppercase md:text-5xl lg:text-7xl"
                 >
                     Payment Channels
                 </h2>
@@ -305,27 +308,41 @@ const paymentMethodsDropdown = props.paymentMethods.map((method: string) => ({
         </div>
 
         <div
-            class="grid items-center grid-cols-1 lg:grid-cols-3 bg-primary-dark"
+            class="grid grid-cols-1 items-center bg-primary-dark lg:grid-cols-3"
         >
             <div id="investment_form" class="col-span-2 p-8">
                 <form @submit.prevent="recaptcha()">
                     <div
-                        class="p-4 mt-4 rounded-3xl bg-slate-100 text-slate-900"
+                        class="mt-4 rounded-3xl bg-slate-100 p-4 text-slate-900"
                     >
                         <p
-                            class="lg:text-lg font-bold text-center lg:text-left"
+                            class="text-center font-bold lg:text-left lg:text-lg"
                         >
                             Interested? Fill up the form below.
                         </p>
 
-                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
                             <div>
                                 <div class="flex flex-col gap-8 py-8">
                                     <PrimeInputText
-                                        v-model="form.fullName"
-                                        label="Full Name"
-                                        :isInvalid="form.errors.fullName"
-                                        :invalidText="form.errors.fullName"
+                                        v-model="form.firstName"
+                                        label="First Name"
+                                        :isInvalid="form.errors.firstName"
+                                        :invalidText="form.errors.firstName"
+                                    />
+
+                                    <PrimeInputText
+                                        v-model="form.middleName"
+                                        label="Middle Name"
+                                        :isInvalid="form.errors.middleName"
+                                        :invalidText="form.errors.middleName"
+                                    />
+
+                                    <PrimeInputText
+                                        v-model="form.lastName"
+                                        label="Last Name"
+                                        :isInvalid="form.errors.lastName"
+                                        :invalidText="form.errors.lastName"
                                     />
 
                                     <PrimeInputText
@@ -351,6 +368,13 @@ const paymentMethodsDropdown = props.paymentMethods.map((method: string) => ({
                                     />
 
                                     <PrimeInputText
+                                        v-model="form.email"
+                                        label="Email Address"
+                                        :isInvalid="form.errors.email"
+                                        :invalidText="form.errors.email"
+                                    />
+
+                                    <PrimeInputText
                                         v-model="form.referralCode"
                                         label="Referral Code (if any)"
                                         :isInvalid="form.errors.referralCode"
@@ -364,6 +388,12 @@ const paymentMethodsDropdown = props.paymentMethods.map((method: string) => ({
                                     <PrimeDropdown
                                         v-model="form.occupation.type"
                                         label="Occupation"
+                                        :isInvalid="
+                                            form.errors['occupation.type']
+                                        "
+                                        :invalidText="
+                                            form.errors['occupation.type']
+                                        "
                                         :options="[
                                             {
                                                 label: 'Student',
@@ -378,7 +408,79 @@ const paymentMethodsDropdown = props.paymentMethods.map((method: string) => ({
                                         optionValue="value"
                                     />
 
-                                    <div v-if="form.occupation.type">
+                                    <div
+                                        class="flex flex-col gap-8"
+                                        v-if="form.occupation.type"
+                                    >
+                                        <div class="flex flex-col gap-8">
+                                            <PrimeInputText
+                                                v-model="
+                                                    form.occupation.data.name
+                                                "
+                                                :label="
+                                                    form.occupation.type ===
+                                                    'student'
+                                                        ? 'School Name'
+                                                        : 'Company Name'
+                                                "
+                                                :isInvalid="
+                                                    form.errors[
+                                                        'occupation.data.name'
+                                                    ]
+                                                "
+                                                :invalidText="
+                                                    form.errors[
+                                                        'occupation.data.name'
+                                                    ]
+                                                "
+                                            />
+
+                                            <PrimeInputText
+                                                v-model="
+                                                    form.occupation.data.address
+                                                "
+                                                :label="
+                                                    form.occupation.type ===
+                                                    'student'
+                                                        ? 'School Address'
+                                                        : 'Company Address'
+                                                "
+                                                :isInvalid="
+                                                    form.errors[
+                                                        'occupation.data.address'
+                                                    ]
+                                                "
+                                                :invalidText="
+                                                    form.errors[
+                                                        'occupation.data.address'
+                                                    ]
+                                                "
+                                            />
+
+                                            <PrimeInputText
+                                                v-model="
+                                                    form.occupation.data
+                                                        .contactNo
+                                                "
+                                                :label="
+                                                    form.occupation.type ===
+                                                    'student'
+                                                        ? 'School Contact No.'
+                                                        : 'Company Contact No.'
+                                                "
+                                                :isInvalid="
+                                                    form.errors[
+                                                        'occupation.data.contactNo'
+                                                    ]
+                                                "
+                                                :invalidText="
+                                                    form.errors[
+                                                        'occupation.data.contactNo'
+                                                    ]
+                                                "
+                                            />
+                                        </div>
+
                                         <div
                                             v-if="
                                                 form.occupation.type ===
@@ -388,32 +490,20 @@ const paymentMethodsDropdown = props.paymentMethods.map((method: string) => ({
                                         >
                                             <PrimeInputText
                                                 v-model="
-                                                    form.occupation.data.name
-                                                "
-                                                label="School Name"
-                                            />
-
-                                            <PrimeInputText
-                                                v-model="
-                                                    form.occupation.data.address
-                                                "
-                                                label="School Address"
-                                            />
-
-                                            <PrimeInputText
-                                                v-model="
-                                                    form.occupation.data
-                                                        .contactNo
-                                                "
-                                                label="School Contact No."
-                                            />
-
-                                            <PrimeInputText
-                                                v-model="
                                                     form.occupation.data
                                                         .courseYear
                                                 "
                                                 label="Course and Year"
+                                                :isInvalid="
+                                                    form.errors[
+                                                        'occupation.data.courseYear'
+                                                    ]
+                                                "
+                                                :invalidText="
+                                                    form.errors[
+                                                        'occupation.data.courseYear'
+                                                    ]
+                                                "
                                             />
                                         </div>
 
@@ -424,30 +514,8 @@ const paymentMethodsDropdown = props.paymentMethods.map((method: string) => ({
                                             "
                                             class="flex flex-col gap-8"
                                         >
-                                            <PrimeInputText
-                                                v-model="
-                                                    form.occupation.data.name
-                                                "
-                                                label="Company Name"
-                                            />
-
-                                            <PrimeInputText
-                                                v-model="
-                                                    form.occupation.data.address
-                                                "
-                                                label="Company Address"
-                                            />
-
-                                            <PrimeInputText
-                                                v-model="
-                                                    form.occupation.data
-                                                        .contactNo
-                                                "
-                                                label="Company Contact No."
-                                            />
-
                                             <div
-                                                class="flex flex-col lg:flex-row gap-8"
+                                                class="flex flex-col gap-8 lg:flex-row"
                                             >
                                                 <PrimeInputText
                                                     v-model="
@@ -455,6 +523,16 @@ const paymentMethodsDropdown = props.paymentMethods.map((method: string) => ({
                                                             .position
                                                     "
                                                     label="Position"
+                                                    :isInvalid="
+                                                        form.errors[
+                                                            'occupation.data.position'
+                                                        ]
+                                                    "
+                                                    :invalidText="
+                                                        form.errors[
+                                                            'occupation.data.position'
+                                                        ]
+                                                    "
                                                 />
 
                                                 <PrimeInputNumber
@@ -463,6 +541,16 @@ const paymentMethodsDropdown = props.paymentMethods.map((method: string) => ({
                                                             .workYears
                                                     "
                                                     label="Years Employed"
+                                                    :isInvalid="
+                                                        form.errors[
+                                                            'occupation.data.workYears'
+                                                        ]
+                                                    "
+                                                    :invalidText="
+                                                        form.errors[
+                                                            'occupation.data.workYears'
+                                                        ]
+                                                    "
                                                 />
                                             </div>
                                         </div>
@@ -478,11 +566,31 @@ const paymentMethodsDropdown = props.paymentMethods.map((method: string) => ({
                                         :options="paymentMethodsDropdown"
                                         optionValue="value"
                                         optionLabel="label"
+                                        :isInvalid="
+                                            form.errors[
+                                                'initialInvestment.paymentMethod'
+                                            ]
+                                        "
+                                        :invalidText="
+                                            form.errors[
+                                                'initialInvestment.paymentMethod'
+                                            ]
+                                        "
                                     />
 
                                     <PrimeInputNumber
                                         v-model="form.initialInvestment.amount"
                                         label="Initial Investment Amount"
+                                        :isInvalid="
+                                            form.errors[
+                                                'initialInvestment.amount'
+                                            ]
+                                        "
+                                        :invalidText="
+                                            form.errors[
+                                                'initialInvestment.amount'
+                                            ]
+                                        "
                                     />
 
                                     <PrimeInputText
@@ -491,47 +599,43 @@ const paymentMethodsDropdown = props.paymentMethods.map((method: string) => ({
                                                 .referenceNumber
                                         "
                                         label="Reference No."
+                                        :isInvalid="
+                                            form.errors[
+                                                'initialInvestment.referenceNumber'
+                                            ]
+                                        "
+                                        :invalidText="
+                                            form.errors[
+                                                'initialInvestment.referenceNumber'
+                                            ]
+                                        "
                                     />
 
-                                    <span class="w-full px-1">
-                                        <label class="w-full" for="validId"
-                                            >Valid ID</label
-                                        >
+                                    <PrimeFileUpload
+                                        v-model="form.validId"
+                                        label="Valid ID"
+                                        accept="image/*"
+                                        :isInvalid="form.errors.validId"
+                                        :invalidText="form.errors.validId"
+                                        @input="
+                                            form.validId =
+                                                $event.target.files[0]
+                                        "
+                                    />
 
-                                        <FileUpload
-                                            class="w-full"
-                                            id="validId"
-                                            mode="basic"
-                                            name="validId"
-                                            accept="image/*"
-                                            chooseLabel="Upload"
-                                            v-model="form.validId"
-                                            @input="
-                                                form.validId =
-                                                    $event.target.files[0]
-                                            "
-                                        />
-                                    </span>
-
-                                    <span class="w-full px-1">
-                                        <label class="w-full" for="validId"
-                                            >Proof of Payment</label
-                                        >
-
-                                        <FileUpload
-                                            class="w-full"
-                                            id="proofOfPayment"
-                                            mode="basic"
-                                            name="validId"
-                                            accept="image/*"
-                                            chooseLabel="Upload"
-                                            v-model="form.proofOfPayment"
-                                            @input="
-                                                form.proofOfPayment =
-                                                    $event.target.files[0]
-                                            "
-                                        />
-                                    </span>
+                                    <PrimeFileUpload
+                                        v-model="form.proofOfPayment"
+                                        label="Proof of Payment"
+                                        accept="image/*"
+                                        :isInvalid="form.errors.proofOfPayment"
+                                        :invalidText="
+                                            form.errors.proofOfPayment
+                                        "
+                                        @input="
+                                            form.proofOfPayment =
+                                                $event.target.files[0]
+                                        "
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -546,7 +650,7 @@ const paymentMethodsDropdown = props.paymentMethods.map((method: string) => ({
                     <div class="flex justify-center">
                         <Button
                             type="submit"
-                            class="w-3/4 mt-4"
+                            class="mt-4 w-3/4"
                             label="SUBMIT"
                             severity="secondary"
                             rounded
@@ -557,9 +661,9 @@ const paymentMethodsDropdown = props.paymentMethods.map((method: string) => ({
                 </form>
             </div>
 
-            <div class="h-full col-span-1 py-16">
+            <div class="col-span-1 h-full py-16">
                 <div
-                    class="relative w-5/6 h-full p-6 mx-auto bg-slate-100 rounded-3xl"
+                    class="relative mx-auto h-full w-5/6 rounded-3xl bg-slate-100 p-6"
                 >
                     <Image
                         imageClass="w-full h-full object-cover"
@@ -567,7 +671,7 @@ const paymentMethodsDropdown = props.paymentMethods.map((method: string) => ({
                     />
 
                     <p
-                        class="absolute font-bold lg:text-xl bottom-5 lg:bottom-10 left-8 lg:left-10"
+                        class="absolute bottom-5 left-8 font-bold lg:bottom-10 lg:left-10 lg:text-xl"
                     >
                         Sample Store Front View
                     </p>

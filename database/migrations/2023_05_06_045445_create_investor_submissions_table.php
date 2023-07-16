@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('middle_name');
             $table->string('last_name');
+            $table->string('address');
             $table->string('contact_no');
             $table->string('email');
             $table->unsignedInteger('age');

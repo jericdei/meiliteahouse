@@ -29,6 +29,7 @@ class InvestorSubmissionFactory extends Factory
             'first_name' => fake()->firstName(),
             'middle_name' => fake()->lastName(),
             'last_name' => fake()->lastName(),
+            'address' => fake()->address(),
             'contact_no' => fake()->phoneNumber(),
             'email' => fake()->email(),
             'age' => random_int(18, 65),

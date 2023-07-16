@@ -28,6 +28,7 @@ class UserStoreRequest extends FormRequest
             'last_name' => ['required', 'string'],
             'contact_no' => ['required'],
             'email' => ['required', 'email'],
+            'address' => ['required'],
             'password' => [
                 'required',
                 Password::min(8)

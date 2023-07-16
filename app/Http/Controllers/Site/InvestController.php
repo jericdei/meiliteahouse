@@ -20,7 +20,6 @@ class InvestController extends Controller
 
     public function store(SubmissionStoreRequest $request, SubmissionService $service): RedirectResponse
     {
-        dd($request->validated());
         $service->store($request->validated());
 
         return to_route('site.home')
