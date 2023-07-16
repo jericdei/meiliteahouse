@@ -678,6 +678,65 @@ const paymentMethodsDropdown = props.paymentMethods.map((method: string) => ({
                 </div>
             </div>
         </div>
+
+        <div
+            class="gradient-bg-chicken bg-cover bg-center bg-no-repeat py-32 text-slate-50"
+        >
+            <div class="grid lg:grid-cols-2 lg:px-32">
+                <div class="relative hidden gap-8 lg:flex">
+                    <Image width="250" src="/images/phone/fb.png" />
+
+                    <Image
+                        width="250"
+                        class="absolute -bottom-20 right-40"
+                        src="/images/phone/ig.png"
+                    />
+                </div>
+
+                <div class="px-4 text-center lg:px-16 lg:text-left">
+                    <h3 class="text-4xl lg:text-6xl">Contact Us</h3>
+
+                    <div
+                        class="mt-16 flex flex-col items-center gap-4 lg:items-start"
+                        role="list"
+                    >
+                        <span class="flex items-center gap-4">
+                            <i
+                                class="ri-facebook-circle-fill text-4xl lg:text-6xl"
+                            ></i>
+
+                            <p class="text-lg lg:text-2xl">@meiliteahouseph</p>
+                        </span>
+
+                        <span class="flex items-center gap-4">
+                            <i
+                                class="ri-instagram-fill text-4xl lg:text-6xl"
+                            ></i>
+
+                            <p class="text-lg lg:text-2xl">
+                                @officialmeiliteahouse
+                            </p>
+                        </span>
+
+                        <span class="flex items-center gap-4">
+                            <i class="ri-mail-fill text-4xl lg:text-6xl"></i>
+
+                            <p class="text-lg lg:text-2xl">
+                                meiliteahouse@gmail.com
+                            </p>
+                        </span>
+
+                        <span class="flex items-center gap-4">
+                            <i class="ri-phone-fill text-4xl lg:text-6xl"></i>
+
+                            <p class="text-lg lg:text-2xl">
+                                (+639) 67 - 297 - 4246
+                            </p>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 </template>
 
@@ -690,5 +749,15 @@ const paymentMethodsDropdown = props.paymentMethods.map((method: string) => ({
             rgba(137, 2, 2, 0.25)
         ),
         url('/images/invest/noodles.jpg');
+}
+
+.gradient-bg-chicken {
+    background-image: linear-gradient(
+            to right,
+            rgba(137, 2, 2, 1),
+            rgba(137, 2, 2, 0.75),
+            rgba(137, 2, 2, 0.25)
+        ),
+        url('/images/backgrounds/chicken.png');
 }
 </style>
