@@ -108,7 +108,7 @@ const sidebarLinks = computed(() =>
         <ConfirmDialog />
 
         <header
-            class="bg-primary lg:hidden flex justify-between items-center p-4"
+            class="flex items-center justify-between bg-primary p-4 lg:hidden"
         >
             <div>
                 <Button

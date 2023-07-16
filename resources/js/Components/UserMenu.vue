@@ -44,7 +44,7 @@ const items = ref([
 <template>
     <div class="flex items-center">
         <UserAvatar
-            class="cursor-pointer text-xl p-5"
+            class="cursor-pointer p-5 text-xl"
             @click="menu.toggle($event)"
         />
 

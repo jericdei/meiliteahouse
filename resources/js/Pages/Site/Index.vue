@@ -28,13 +28,13 @@ const props = defineProps<{
     <section>
         <!-- Hero -->
         <div
-            class="grid grid-cols-1 lg:grid-cols-2 bg-[url('/images/backgrounds/bg-pattern-sm.png')] bg-contain"
+            class="grid grid-cols-1 bg-[url('/images/backgrounds/bg-pattern-sm.png')] bg-contain lg:grid-cols-2"
         >
             <div
-                class="flex flex-col items-center gap-8 py-16 lg:items-end text-slate-100"
+                class="flex flex-col items-center gap-8 py-16 text-slate-100 lg:items-end"
             >
                 <h1
-                    class="text-4xl font-bold text-center lg:text-8xl lg:text-right"
+                    class="text-center text-4xl font-bold lg:text-right lg:text-8xl"
                 >
                     WHERE <br />
                     <span class="text-5xl text-secondary lg:text-8xl"
@@ -63,12 +63,12 @@ const props = defineProps<{
         </div>
 
         <!-- About -->
-        <div class="py-16 text-center lg:px-8 bg-slate-100">
-            <h2 class="text-xl italic font-bold lg:text-4xl">
+        <div class="bg-slate-100 py-16 text-center lg:px-8">
+            <h2 class="text-xl font-bold italic lg:text-4xl">
                 "THE FIRST SIZZLING ASIAN-CHINESE CUISINE IN THE WORLD."
             </h2>
 
-            <p class="mx-4 mt-5 lg:text-2xl lg:mx-16">
+            <p class="mx-4 mt-5 lg:mx-16 lg:text-2xl">
                 Ignite your palate with the scintillating essence of Asia as we
                 present the world's first sizzling Asian-Chinese cuisine. A
                 fusion of tradition and innovation that will leave you craving
@@ -78,10 +78,10 @@ const props = defineProps<{
 
         <!-- Featured Products -->
         <div
-            class="grid items-center grid-cols-1 px-4 py-16 lg:grid-cols-2 text-slate-50 bg-secondary lg:px-8"
+            class="grid grid-cols-1 items-center bg-secondary px-4 py-16 text-slate-50 lg:grid-cols-2 lg:px-8"
         >
             <div>
-                <h2 class="text-3xl font-bold text-center lg:text-6xl">
+                <h2 class="text-center text-3xl font-bold lg:text-6xl">
                     Our Products
                 </h2>
 
@@ -113,7 +113,7 @@ const props = defineProps<{
                                 :src="`/images/products/${data.photo}`"
                             />
 
-                            <p class="mt-2 text-xl font-bold font-heading">
+                            <p class="mt-2 font-heading text-xl font-bold">
                                 {{ data.name }}
                             </p>
 
@@ -125,7 +125,7 @@ const props = defineProps<{
         </div>
 
         <!-- Location -->
-        <div class="px-4 py-16 text-center lg:px-8 bg-slate-100 test">
+        <div class="test bg-slate-100 px-4 py-16 text-center lg:px-8">
             <h2 class="text-2xl font-bold lg:text-6xl">
                 WHERE ARE WE LOCATED?
             </h2>
@@ -134,7 +134,7 @@ const props = defineProps<{
                 You can visit us on SM, Robinson's, or Ayala Malls Food Court.
             </p>
 
-            <div class="mt-5 mapouter">
+            <div class="mapouter mt-5">
                 <div class="gmap_canvas">
                     <iframe
                         class="gmap_iframe"

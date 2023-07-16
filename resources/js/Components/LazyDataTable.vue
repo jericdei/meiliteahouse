@@ -28,7 +28,7 @@ defineExpose<{
         </template>
 
         <template #empty>
-            <p class="p-2 mt-3 text-center">No data available.</p>
+            <p class="mt-3 p-2 text-center">No data available.</p>
         </template>
     </DataTable>
 </template>

@@ -14,7 +14,7 @@ const initials = computed(() => {
     <Avatar
         v-if="$page.props.user.photo"
         :image="$page.props.user.photo"
-        class="bg-white aspect-square"
+        class="aspect-square bg-white"
         shape="circle"
     />
 

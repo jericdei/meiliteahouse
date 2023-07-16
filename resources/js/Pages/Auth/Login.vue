@@ -17,10 +17,10 @@ const submit = () => {
 </script>
 
 <template>
-    <section class="grid place-items-center h-screen">
+    <section class="grid h-screen place-items-center">
         <Head title="Log in" />
 
-        <div class="border border-slate-200 p-5 rounded-xl bg-white">
+        <div class="rounded-xl border border-slate-200 bg-white p-5">
             <Image
                 image-class="mx-auto mb-5"
                 src="/images/logos/logo-2023.jpg"
@@ -44,7 +44,7 @@ const submit = () => {
                     />
 
                     <small
-                        class="block text-danger mt-2"
+                        class="mt-2 block text-danger"
                         v-text="form.errors.email"
                     />
                 </div>
@@ -64,12 +64,12 @@ const submit = () => {
                     />
 
                     <small
-                        class="block text-danger mt-2"
+                        class="mt-2 block text-danger"
                         v-text="form.errors.password"
                     />
                 </div>
 
-                <div class="flex items-center justify-end mt-4">
+                <div class="mt-4 flex items-center justify-end">
                     <Button
                         type="submit"
                         label="Log in"

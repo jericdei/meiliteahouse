@@ -125,9 +125,9 @@ const copyContact = (type: string) => {
         <ConfirmDialog />
 
         <header
-            class="sticky top-0 z-10 flex flex-col items-center justify-between p-3 transition-all bg-slate-100"
+            class="sticky top-0 z-10 flex flex-col items-center justify-between bg-slate-100 p-3 transition-all"
         >
-            <div class="relative flex justify-center items-center w-full">
+            <div class="relative flex w-full items-center justify-center">
                 <Link
                     v-if="!$page.props.user"
                     class="absolute left-0 hidden lg:block"
@@ -157,7 +157,7 @@ const copyContact = (type: string) => {
                     class="flex items-center gap-3 lg:mx-auto lg:justify-center"
                 >
                     <p
-                        class="hidden text-2xl sm:block lg:text-3xl text-secondary font-chinese"
+                        class="hidden font-chinese text-2xl text-secondary sm:block lg:text-3xl"
                     >
                         梅丽茶馆
                     </p>
@@ -190,7 +190,7 @@ const copyContact = (type: string) => {
 
             <nav
                 :class="{ hidden: !isMenuShown }"
-                class="items-center gap-10 pt-8 transition-all text-primary font-heading"
+                class="items-center gap-10 pt-8 font-heading text-primary transition-all"
             >
                 <ul class="flex gap-8 font-bold">
                     <li :class="{ active: $page.url === '/' }">
@@ -236,12 +236,12 @@ const copyContact = (type: string) => {
         </section>
 
         <footer
-            class="bg-slate-300 flex flex-col items-center lg:flex-row justify-around gap-32 lg:gap-8 px-8 lg:px-16 py-12"
+            class="flex flex-col items-center justify-around gap-32 bg-slate-300 px-8 py-12 lg:flex-row lg:gap-8 lg:px-16"
         >
             <div>
                 <h5 class="text-3xl">Social Media</h5>
 
-                <div class="flex justify-center items-center gap-4 mt-4">
+                <div class="mt-4 flex items-center justify-center gap-4">
                     <a
                         href="https://www.facebook.com/meiliteahouseph"
                         target="_blank"
@@ -287,7 +287,7 @@ const copyContact = (type: string) => {
             <div>
                 <h5 class="text-3xl">Contact</h5>
 
-                <div class="flex justify-center items-center gap-4 mt-4">
+                <div class="mt-4 flex items-center justify-center gap-4">
                     <Button
                         v-tooltip.top="'Click to copy email address'"
                         icon="ri-mail-fill text-slate-50 text-4xl"
@@ -321,7 +321,7 @@ nav ul li {
 }
 
 .active {
-    @apply pb-2 border-b-4 border-spacing-y-10;
+    @apply border-spacing-y-10 border-b-4 pb-2;
     border-color: v-bind('activeBorderColor');
 }
 

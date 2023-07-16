@@ -10,9 +10,9 @@ const props = defineProps<{
 
 <template>
     <Link
-        class="w-full px-8 py-5 transition-all cursor-pointer font-heading"
+        class="w-full cursor-pointer px-8 py-5 font-heading transition-all"
         :class="{
-            'bg-slate-50/[0.1] border-l-4 border-l-secondary justify-center':
+            'justify-center border-l-4 border-l-secondary bg-slate-50/[0.1]':
                 props.isActiveLink,
         }"
         :href="props.href"

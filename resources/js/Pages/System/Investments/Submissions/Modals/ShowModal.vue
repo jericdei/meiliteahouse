@@ -23,14 +23,14 @@ const submission: Submission = dialogRef.value.data.submission
 
         <div class="w-full">
             <div class="flex items-center justify-between">
-                <h1 class="text-4xl font-bold text-center">
+                <h1 class="text-center text-4xl font-bold">
                     {{ submission.fullName }}
                 </h1>
 
                 <StatusTag :status="submission.status" />
             </div>
 
-            <p class="italic font-bold">
+            <p class="font-bold italic">
                 {{
                     submission.occupation.data[
                         submission.occupation.type === 'student'
@@ -42,7 +42,7 @@ const submission: Submission = dialogRef.value.data.submission
                 {{ submission.occupation.data.name }}
             </p>
 
-            <div class="grid grid-cols-2 mt-5">
+            <div class="mt-5 grid grid-cols-2">
                 <div>
                     <h2 class="mb-5 text-2xl font-bold">Personal Details</h2>
 
@@ -95,7 +95,7 @@ const submission: Submission = dialogRef.value.data.submission
     </div>
 
     <div class="my-5">
-        <div class="grid w-3/4 grid-cols-2 mx-auto mt-5">
+        <div class="mx-auto mt-5 grid w-3/4 grid-cols-2">
             <div>
                 <p class="font-bold">Valid ID</p>
 

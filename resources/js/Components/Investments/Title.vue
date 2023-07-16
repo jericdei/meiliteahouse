@@ -9,10 +9,10 @@ const props = defineProps<{
         <i
             v-if="props.icon"
             :class="props.icon"
-            class="font-bold text-2xl mr-2"
+            class="mr-2 text-2xl font-bold"
         />
 
-        <h1 class="font-bold text-2xl">
+        <h1 class="text-2xl font-bold">
             <slot />
         </h1>
     </div>

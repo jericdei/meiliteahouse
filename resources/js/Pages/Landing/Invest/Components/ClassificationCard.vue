@@ -31,20 +31,20 @@ const cardColor = computed(() => {
 
 <template>
     <div
-        class="grid p-8 rounded-xl bg-slate-50 text-slate-900"
+        class="grid rounded-xl bg-slate-50 p-8 text-slate-900"
         :class="
             isTwoSpan ? 'grid-cols-2 items-center' : 'grid-cols-1 items-start'
         "
     >
         <div>
-            <CardLogo class="w-1/2 py-4 mx-auto" :color="cardColor" />
+            <CardLogo class="mx-auto w-1/2 py-4" :color="cardColor" />
 
-            <p class="font-bold text-center uppercase text-xl lg:text-3xl">
+            <p class="text-center text-xl font-bold uppercase lg:text-3xl">
                 {{ props.classification }}
             </p>
         </div>
 
-        <ul class="px-4 lg:px-8 xl:px-16 mt-4 lg:text-lg list-disc">
+        <ul class="mt-4 list-disc px-4 lg:px-8 lg:text-lg xl:px-16">
             <li v-for="item in props.list">{{ item }}</li>
         </ul>
     </div>

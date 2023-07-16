@@ -5,7 +5,7 @@ const showLabel = ref(false)
 </script>
 
 <template>
-    <Link :href="route('site.home')" class="fixed z-50 bottom-5 left-5">
+    <Link :href="route('site.home')" class="fixed bottom-5 left-5 z-50">
         <Button
             severity="secondary"
             :label="showLabel ? 'Back to site' : ''"

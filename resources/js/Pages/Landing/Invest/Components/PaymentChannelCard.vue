@@ -8,7 +8,7 @@ const props = defineProps<{
 
 <template>
     <div
-        class="flex items-center justify-between px-6 py-4 rounded-full bg-slate-50 text-slate-900"
+        class="flex items-center justify-between rounded-full bg-slate-50 px-6 py-4 text-slate-900"
     >
         <Image :src="props.imageLink" width="100" />
 

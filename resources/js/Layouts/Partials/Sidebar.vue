@@ -30,11 +30,11 @@ const handleLogout = () => {
 
 <template>
     <aside
-        class="sticky top-0 w-24 h-screen transition-all bg-primary"
+        class="sticky top-0 h-screen w-24 bg-primary transition-all"
         :class="{ 'w-64': isSidebarActive }"
     >
-        <div class="relative flex flex-col justify-between h-full">
-            <nav class="flex flex-col items-center w-full p-0 text-slate-50">
+        <div class="relative flex h-full flex-col justify-between">
+            <nav class="flex w-full flex-col items-center p-0 text-slate-50">
                 <SidebarLink
                     v-for="link in props.links"
                     :isActiveLink="$page.component === link.component"
@@ -46,7 +46,7 @@ const handleLogout = () => {
             </nav>
 
             <Button
-                class="transition-all sidebar-btn"
+                class="sidebar-btn transition-all"
                 severity="secondary"
                 :icon="
                     isSidebarActive
@@ -71,18 +71,18 @@ const handleLogout = () => {
 
                 <Link
                     :href="route('site.home')"
-                    class="flex px-8 gap-5 mt-8 py-3 w-full cursor-pointer font-heading transition-all hover:bg-slate-50/[0.1]"
+                    class="mt-8 flex w-full cursor-pointer gap-5 px-8 py-3 font-heading transition-all hover:bg-slate-50/[0.1]"
                 >
-                    <i class="text-3xl pi pi-replay"></i>
+                    <i class="pi pi-replay text-3xl"></i>
 
                     <span v-if="isSidebarActive">Back to Site Home</span>
                 </Link>
 
                 <div
-                    class="flex px-8 gap-5 mt-8 py-3 w-full cursor-pointer font-heading transition-all hover:bg-slate-50/[0.1]"
+                    class="mt-8 flex w-full cursor-pointer gap-5 px-8 py-3 font-heading transition-all hover:bg-slate-50/[0.1]"
                     @click="handleLogout()"
                 >
-                    <i class="text-3xl pi pi-sign-out"></i>
+                    <i class="pi pi-sign-out text-3xl"></i>
 
                     <span v-if="isSidebarActive">Logout</span>
                 </div>

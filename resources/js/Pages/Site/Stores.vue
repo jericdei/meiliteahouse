@@ -28,10 +28,10 @@ const storeData = computed(() => {
     <section class="gradient-bg">
         <Head title="Stores" />
 
-        <div class="grid xl:grid-cols-8 gap-16 p-4 xl:p-24">
-            <div class="rounded-3xl bg-slate-100 py-8 xl:py-16 xl:col-span-3">
+        <div class="grid gap-16 p-4 xl:grid-cols-8 xl:p-24">
+            <div class="rounded-3xl bg-slate-100 py-8 xl:col-span-3 xl:py-16">
                 <ul
-                    class="text-center text-xl lg:text-2xl xl:text-3xl text-slate-700 px-12 xl:px-28 flex flex-col justify-center items-center gap-8"
+                    class="flex flex-col items-center justify-center gap-8 px-12 text-center text-xl text-slate-700 lg:text-2xl xl:px-28 xl:text-3xl"
                 >
                     <li
                         class="cursor-pointer"
@@ -53,8 +53,8 @@ const storeData = computed(() => {
                 </ul>
             </div>
 
-            <div class="xl:col-span-5 bg-slate-50/50 rounded-3xl p-8">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <div class="rounded-3xl bg-slate-50/50 p-8 xl:col-span-5">
+                <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
                     <Image
                         :src="storeData.imageSrc"
                         imageClass="h-full object-cover object-center rounded-3xl w-full"
@@ -75,7 +75,7 @@ const storeData = computed(() => {
                             </div>
                         </div>
 
-                        <p class="text-xl font-bold text-center xl:text-left">
+                        <p class="text-center text-xl font-bold xl:text-left">
                             {{ storeData.address }}
                         </p>
                     </div>
@@ -97,6 +97,6 @@ const storeData = computed(() => {
 }
 
 .active {
-    @apply pb-2 border-b-4 border-spacing-y-10 border-primary;
+    @apply border-spacing-y-10 border-b-4 border-primary pb-2;
 }
 </style>
