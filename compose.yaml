@@ -1,0 +1,66 @@
+name: meiliteahouse
+
+services:
+    web:
+        build:
+            context: .
+            args:
+                uid: ${UID:-1000}
+        container_name: meiliteahouse-web
+        ports:
+            - 80
+            - 5181:5173
+        environment:
+            - APACHE_RUN_USER=#1000
+            - APACHE_RUN_GROUP=#1000
+        labels:
+            - 'traefik.docker.network=dei'
+            - 'traefik.http.routers.meiliteahouse-web.rule=Host(`meiliteahouse.localhost`)'
+        volumes:
+            - ./:/var/www/html
+        networks:
+            - meiliteahouse
+            - dei
+        depends_on:
+            - database
+
+    database:
+        image: postgres:16-alpine
+        container_name: meiliteahouse-database
+        ports:
+            - 54321:5432
+        environment:
+            POSTGRES_USER: user
+            POSTGRES_PASSWORD: password
+            POSTGRES_DB: meiliteahouse
+
+        volumes:
+            - meiliteahouse_db_data:/var/lib/postgresql/data
+        networks:
+            - meiliteahouse
+            - dei
+
+    mail:
+        image: mailhog/mailhog
+        container_name: meiliteahouse-mail
+        logging:
+            driver: none
+        labels:
+            - 'traefik.docker.network=dei'
+            - 'traefik.http.services.meiliteahouse-mail.loadbalancer.server.port=8025'
+            - 'traefik.http.routers.meiliteahouse-mail.rule=Host(`mail.meiliteahouse.localhost`)'
+        ports:
+            - 8025
+        networks:
+            - meiliteahouse
+            - dei
+
+networks:
+    meiliteahouse:
+        driver: bridge
+    dei:
+        external: true
+
+volumes:
+    meiliteahouse_db_data:
+        driver: local

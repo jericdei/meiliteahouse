@@ -22,16 +22,10 @@ export default defineConfig({
         devSourcemap: true,
     },
     server: {
-        https: false,
-        host: true,
-        strictPort: true,
-        port: 5181,
+        host: '0.0.0.0',
         hmr: {
             host: 'localhost',
-            protocol: 'ws',
-        },
-        watch: {
-            usePolling: true,
+            clientPort: 5181,
         },
     },
 })
